@@ -18,6 +18,10 @@
       --text-dark: #12263a;
       --text-soft: #4a5a6a;
       --panel: #ffffff;
+      --faculty-primary: #0b2742;
+      --faculty-secondary: #0f4b72;
+      --faculty-soft: #eef4fb;
+      --faculty-primary-rgb: 11, 39, 66;
     }
 
     * { box-sizing: border-box; }
@@ -52,6 +56,107 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     }
 
+    .menu-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      font-size: 22px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .menu-toggle:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 39, 66, 0.36);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      z-index: 45;
+    }
+
+    .drawer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: min(360px, 88vw);
+      height: 100vh;
+      padding: 22px;
+      background: #ffffff;
+      border-right: 1px solid #dbe5ef;
+      box-shadow: 0 20px 50px rgba(11, 39, 66, 0.18);
+      transform: translateX(-102%);
+      transition: transform 0.28s ease;
+      z-index: 50;
+      overflow-y: auto;
+    }
+
+    body.drawer-open .drawer {
+      transform: translateX(0);
+    }
+
+    body.drawer-open .drawer-overlay {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    body.drawer-open {
+      overflow: hidden;
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .drawer-close {
+      border: 1px solid #d9e4ee;
+      background: #f5f9ff;
+      color: #29445d;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    .nav-column {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .sidebar-block-title {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #5b6b7b;
+      margin-bottom: 2px;
+    }
+
+    .content-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
     .tab-scroll {
       overflow-x: auto;
       white-space: nowrap;
@@ -63,6 +168,18 @@
       color: rgba(255, 255, 255, 0.85);
       background: rgba(255, 255, 255, 0.06);
       transition: 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tab-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      display: inline-block;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.24);
+      flex: 0 0 auto;
     }
 
     .main-tab:hover {
@@ -72,9 +189,37 @@
 
     .main-tab.active {
       color: #052130;
-      background: linear-gradient(120deg, #fbbf24, #f59e0b);
+      background: linear-gradient(120deg, var(--faculty-secondary), var(--faculty-primary));
+      color: #ffffff;
       border-color: transparent;
       font-weight: 700;
+      box-shadow: 0 10px 18px rgba(var(--faculty-primary-rgb), 0.25);
+    }
+
+    .drawer .main-tab,
+    .drawer .sub-tab {
+      width: 100%;
+      text-align: left;
+      white-space: normal;
+      border-radius: 14px;
+      padding: 12px 14px;
+    }
+
+    .drawer .main-tab {
+      color: #29445d;
+      background: #f5f9ff;
+      border: 1px solid #d9e4ee;
+    }
+
+    .drawer .main-tab:hover {
+      background: #ebf2fa;
+    }
+
+    .drawer .main-tab.active {
+      color: #fff;
+      background: linear-gradient(120deg, var(--faculty-secondary), var(--faculty-primary));
+      border-color: transparent;
+      box-shadow: 0 10px 18px rgba(var(--faculty-primary-rgb), 0.28);
     }
 
     .panel {
@@ -82,6 +227,19 @@
       border: 1px solid #dde6ef;
       border-radius: 18px;
       box-shadow: 0 12px 30px rgba(11, 39, 66, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--faculty-primary), var(--faculty-secondary));
+      opacity: 0.75;
     }
 
     .sub-tab {
@@ -94,8 +252,14 @@
     .sub-tab.active {
       color: #fff;
       border-color: transparent;
-      background: linear-gradient(120deg, #0b2742, #0f4b72);
-      box-shadow: 0 10px 18px rgba(15, 75, 114, 0.25);
+      background: linear-gradient(120deg, var(--faculty-secondary), var(--faculty-primary));
+      box-shadow: 0 10px 18px rgba(var(--faculty-primary-rgb), 0.25);
+    }
+
+    @media (max-width: 1024px) {
+      .content-header {
+        flex-direction: column;
+      }
     }
 
     .program-card {
@@ -143,7 +307,7 @@
     .kpi {
       border-radius: 14px;
       border: 1px solid #dfe9f2;
-      background: linear-gradient(160deg, #ffffff, #f8fbff);
+      background: linear-gradient(160deg, #ffffff, var(--faculty-soft));
     }
 
     .fade-in {
@@ -183,6 +347,76 @@
       background: #f7fbff;
     }
 
+    details > summary {
+      list-style: none;
+    }
+
+    details > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .accordion-summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+      border: 1px solid rgba(var(--faculty-primary-rgb), 0.2);
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: linear-gradient(120deg, rgba(var(--faculty-primary-rgb), 0.1), rgba(var(--faculty-primary-rgb), 0.03));
+      transition: all 0.25s ease;
+    }
+
+    .accordion-summary strong {
+      color: var(--faculty-primary);
+    }
+
+    .accordion-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #5b6b7b;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .accordion-badge {
+      border-radius: 999px;
+      border: 1px solid rgba(var(--faculty-primary-rgb), 0.22);
+      background: #ffffff;
+      padding: 2px 8px;
+      font-size: 11px;
+      color: #3f5368;
+    }
+
+    .panel details {
+      border: 1px solid #dbe7f2;
+      border-radius: 14px;
+      padding: 8px;
+      background: linear-gradient(180deg, #ffffff, var(--faculty-soft));
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+    }
+
+    .panel details[open] {
+      border-color: rgba(var(--faculty-primary-rgb), 0.32);
+      box-shadow: 0 14px 26px rgba(var(--faculty-primary-rgb), 0.12);
+      transform: translateY(-1px);
+    }
+
+    .panel details > div {
+      animation: fadeIn 0.35s ease both;
+    }
+
+    .accordion-chevron {
+      display: inline-block;
+      transition: transform 0.2s ease;
+    }
+
+    details[open] .accordion-chevron {
+      transform: rotate(180deg);
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(4px); }
       to { opacity: 1; transform: translateY(0); }
@@ -197,30 +431,40 @@
 <body>
   <header class="header">
     <div class="shell py-4">
-      <div class="flex flex-col gap-4">
-        <div class="flex flex-wrap items-center justify-between gap-3 w-full">
+      <div class="flex flex-wrap items-center justify-between gap-3 w-full">
+        <div class="flex items-center gap-3">
+          <button class="menu-toggle" type="button" onclick="toggleDrawer()" aria-label="Abrir menú">⌂</button>
           <img src="https://images.unlayer.com/projects%2F237%2F1632321034452-Logo_Salle_blanco.png" alt="Logo Universidad de La Salle" class="h-10 md:h-12 w-auto object-contain">
-          <div class="flex flex-col items-center flex-1">
-            <h1 class="text-white text-2xl md:text-3xl font-extrabold text-center">Dashboard Consolidado</h1>
-            <p class="text-cyan-100 text-sm mt-1 text-center">Índice de Oportunidad + Empleabilidad por facultad</p>
-          </div>
-          <div class="text-xs text-cyan-50 bg-white/10 rounded-full px-4 py-2 border border-white/20">Actualizado: agosto 2026</div>
         </div>
-        <nav id="mainTabs" class="tab-scroll flex gap-2 pb-1"></nav>
+        <div class="flex flex-col items-center flex-1">
+          <h1 class="text-white text-2xl md:text-3xl font-extrabold text-center">Dashboard Consolidado</h1>
+          <p class="text-cyan-100 text-sm mt-1 text-center">Índice de Oportunidad + Empleabilidad por facultad</p>
+        </div>
+        <div class="text-xs text-cyan-50 bg-white/10 rounded-full px-4 py-2 border border-white/20">Actualizado: agosto 2026</div>
       </div>
     </div>
   </header>
 
+  <div class="drawer-overlay" onclick="closeDrawer()"></div>
+  <aside class="drawer" id="drawerMenu">
+    <div class="drawer-header">
+      <div>
+        <h2 class="text-xl font-extrabold text-slate-800">Navegación</h2>
+      </div>
+      <button class="drawer-close" type="button" onclick="closeDrawer()" aria-label="Cerrar menú">x</button>
+    </div>
+    <nav id="mainTabs" class="nav-column"></nav>
+  </aside>
+
   <main class="shell py-6 md:py-8">
     <section class="panel p-4 md:p-6 fade-in">
-      <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+      <div class="content-header">
         <div>
           <h2 id="facultyTitle" class="text-xl md:text-2xl font-extrabold text-slate-800"></h2>
-          <p id="facultySubtitle" class="text-sm text-slate-500 mt-1"></p>
+          <p id="facultySubtitle" class="text-sm text-slate-500 mt-2"></p>
         </div>
-        <div class="flex gap-2" id="subTabs"></div>
+        <div class="flex gap-2 flex-wrap" id="subTabs"></div>
       </div>
-
       <div id="contentIndice" class="fade-in"></div>
       <div id="contentEmpleabilidad" class="fade-in hidden"></div>
     </section>
@@ -233,77 +477,27 @@
       { id: "salud", name: "Facultad de Ciencias de La Salud" },
       { id: "basicas", name: "Escuela de Ciencias Básicas y Aplicadas" },
       { id: "humanidades", name: "Escuela de Humanidades y Estudios Sociales" },
+      { id: "arq1", name: "Facultad de Arquitectura Diseño y Urbanismo" },
+      { id: "educacion", name: "Facultad de Ciencias de la Educación" },
       { id: "agro", name: "Facultad de Ciencias Agropecuarias" },
       { id: "ingenieria", name: "Facultad de Ingeniería" },
-      { id: "educacion", name: "Facultad de Ciencias de la Educación" },
-      { id: "arq1", name: "Facultad de Arquitectura Diseño y Urbanismo" },
-      { id: "arq2", name: "Facultad de Arquitectura, Diseño y Urbanismo" },
       { id: "negocios", name: "Escuela de Negocios" },
       { id: "bases_extraidas", name: "Bases Extraidas" }
     ];
 
-    const saludPrograms = [
-      {
-        programa: "Optometría",
-        termino: "Estudiar Optometría",
-        digital: "2,0",
-        absorcion: "15%",
-        normalizacion: "15%",
-        laboral: "7,32",
-        indice: 9.3,
-        clasificacion: "Nicho",
-        clase: "pill-niche",
-        imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT52yhFKZ4US6j4tkdLoqb8oZOpq3LJpQAYAg&s"
-      },
-      {
-        programa: "Psicología",
-        termino: "Estudiar Psicología",
-        digital: "24,0",
-        absorcion: "3%",
-        normalizacion: "3%",
-        laboral: "1,63",
-        indice: 25.6,
-        clasificacion: "Saturación",
-        clase: "pill-saturation",
-        imagen: "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?auto=format&fit=crop&w=900&q=80"
-      },
-      {
-        programa: "Enfermería",
-        termino: "Estudiar Enfermería",
-        digital: "21,5",
-        absorcion: "31%",
-        normalizacion: "31%",
-        laboral: "15,58",
-        indice: 37.1,
-        clasificacion: "Crecimiento",
-        clase: "pill-growth",
-        imagen: "https://images.unsplash.com/photo-1584433144859-1fc3ab64a957?auto=format&fit=crop&w=900&q=80"
-      },
-      {
-        programa: "Tecnología en administración en salud",
-        termino: "Estudiar administración en salud",
-        digital: "1,0",
-        absorcion: "65%",
-        normalizacion: "65%",
-        laboral: "32,66",
-        indice: 33.7,
-        clasificacion: "Crecimiento",
-        clase: "pill-growth",
-        imagen: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80"
-      },
-      {
-        programa: "Salud Pública",
-        termino: "Estudiar salud pública",
-        digital: "1,5",
-        absorcion: "50%",
-        normalizacion: "50%",
-        laboral: "25,10",
-        indice: 26.6,
-        clasificacion: "Nicho",
-        clase: "pill-niche",
-        imagen: "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=900&q=80"
-      }
-    ];
+    const facultyThemes = {
+      contexto: { primary: "#0b2742", secondary: "#0f4b72", soft: "#edf4fb", rgb: "11, 39, 66" },
+      consolidado: { primary: "#334155", secondary: "#475569", soft: "#f1f5f9", rgb: "51, 65, 85" },
+      salud: { primary: "#0f766e", secondary: "#0ea5a5", soft: "#ecfeff", rgb: "15, 118, 110" },
+      basicas: { primary: "#1d4ed8", secondary: "#2563eb", soft: "#eff6ff", rgb: "29, 78, 216" },
+      humanidades: { primary: "#7c2d12", secondary: "#b45309", soft: "#fff7ed", rgb: "124, 45, 18" },
+      arq1: { primary: "#9a3412", secondary: "#c2410c", soft: "#fff7ed", rgb: "154, 52, 18" },
+      educacion: { primary: "#166534", secondary: "#2f7d32", soft: "#f0fdf4", rgb: "22, 101, 52" },
+      agro: { primary: "#3f6212", secondary: "#4d7c0f", soft: "#f7fee7", rgb: "63, 98, 18" },
+      ingenieria: { primary: "#0f4c81", secondary: "#1178b5", soft: "#eff6ff", rgb: "15, 76, 129" },
+      negocios: { primary: "#7f1d1d", secondary: "#b91c1c", soft: "#fef2f2", rgb: "127, 29, 29" },
+      bases_extraidas: { primary: "#4b5563", secondary: "#6b7280", soft: "#f9fafb", rgb: "75, 85, 99" }
+    };
 
     const basicasEmpleabilidadData = {
       kpis: {
@@ -600,11 +794,429 @@
         'Derecho registra el mayor volumen de vacantes en términos absolutos de la facultad (1.306), pero su Tasa de Absorción es baja (6.7%), un patrón típico de profesiones con oferta educativa masiva a nivel nacional, donde el número creciente de nuevos egresados supera el ritmo de creación de plazas formales visibles en portales de empleo.',
         'Trabajo Social presenta una Tasa de Absorción menor (4.8%), con un volumen de vacantes reportado sustancialmente inferior al de Derecho. Esto puede relacionarse con que buena parte de la vinculación de trabajadores/as sociales ocurre en el sector público, ONG y cooperación internacional, canales con menor presencia en los portales de empleo convencionales rastreados por este modelo.',
         'Ambos programas concentran algunas de las bases de egresados más grandes del análisis completo, lo que reduce matemáticamente su Tasa de Absorción incluso cuando el número absoluto de vacantes no es bajo frente a otras facultades: el reto no es la ausencia de mercado laboral, sino la alta oferta histórica de profesionales egresados cada año.'
+      ],
+      recomendaciones: [
+        {
+          tipo: "DIFERENCIAR",
+          color: "#1178b5",
+          titulo: "Derecho - posicionar nichos de alta demanda dentro del ejercicio jurídico",
+          texto: "Comunicar áreas de especialización con menor saturación relativa (derecho corporativo, digital, ambiental) para diferenciarse de la alta competencia general de la profesión."
+        },
+        {
+          tipo: "VISIBILIZAR",
+          color: "#272f6f",
+          titulo: "Trabajo Social - dar a conocer campos de inserción menos visibles",
+          texto: "Difundir salidas laborales con menor visibilidad pública (gestión social empresarial, cooperación internacional, entidades públicas) mediante contenido de egresados."
+        },
+        {
+          tipo: "EDUCAR",
+          color: "#ea580c",
+          titulo: "Ambos programas - convertir el interés digital ya existente",
+          texto: "Dado el alto interés digital de la facultad, priorizar contenido educativo (blogs, webinars, casos reales de empleabilidad) por encima de inversión adicional en captación masiva de tráfico."
+        }
+      ]
+    };
+
+    const arqIndiceData = {
+      resumen: [
+        { programa: "Diseño Visual", digital: 0.00, laboral: 9.62, indice: 9.62, clasificacion: "Nicho", clase: "pill-niche" },
+        { programa: "Diseño Industrial", digital: 0.60, laboral: 11.97, indice: 12.57, clasificacion: "Nicho", clase: "pill-niche" },
+        { programa: "Arquitectura", digital: 5.10, laboral: 5.40, indice: 10.50, clasificacion: "Saturación", clase: "pill-saturation" }
+      ],
+      hallazgos: [
+        "Los tres programas de la facultad se ubican en categorías de índice bajo; el más alto corresponde a Diseño Industrial (12.6, Nicho) y el más bajo a Diseño Visual (9.6, Nicho).",
+        "Arquitectura es el único programa de la facultad clasificado como Saturación: combina el mayor interés digital de las tres con la Tasa de Absorción más baja, revelando una posible desconexión entre búsqueda y empleabilidad.",
+        "FADU es, junto con Humanidades, una de las dos unidades del análisis sin ningún programa en las categorías Alta Oportunidad u Oportunidad de Crecimiento."
+      ],
+      insightsDigital: [
+        "Arquitectura concentra el mayor interés digital de la facultad (17 puntos de tendencia), consistente con ser una carrera profesional tradicional de alto reconocimiento social, mientras que Diseño Visual e Industrial -programas más recientes y con nomenclaturas menos estandarizadas en el mercado colombiano- registran un interés casi nulo (0 y 2 puntos).",
+        "La ausencia total de búsquedas para Diseño Visual bajo el término evaluado puede explicarse por la fragmentación de nomenclaturas en esta disciplina a nivel nacional (diseño gráfico, diseño digital, multimedia, comunicación visual), lo que dispersa el volumen de búsqueda entre múltiples términos en lugar de concentrarse en el nombre formal del programa.",
+        "En conjunto, la facultad tiene uno de los niveles de interés digital más bajos del análisis entre las unidades con oferta creativa, lo que puede reflejar que el público que explora estas carreras suele hacerlo a través de portafolios y redes sociales visuales (Instagram, Behance) o ferias vocacionales, canales que Trends no captura."
+      ],
+      insightsLaboral: [
+        "Diseño Industrial registra la Tasa de Absorción más alta de la facultad (17.1%), seguida de Diseño Visual (13.7%), resultado relacionado con bases de egresados relativamente más pequeñas (807 y 2.582) frente a Arquitectura, lo que favorece una relación vacantes/egresados más alta incluso con volúmenes de vacantes moderados.",
+        "Arquitectura, pese a tener el mayor interés digital, registra la Tasa de Absorción más baja de la facultad (7.7%), un patrón consistente con una alta oferta histórica de egresados (4.255) y con un mercado de la construcción y el diseño arquitectónico que crece a un ritmo más lento que el número de nuevos profesionales que se gradúan cada año.",
+        "Los tres programas se ubican en categorías de índice bajo con valores relativamente cercanos entre sí (9.6 a 12.6 puntos), lo que indica que, a diferencia de otras facultades, en FADU ningún programa logra combinar un desempeño digital y laboral simultáneamente favorable."
+      ],
+      recomendaciones: [
+        {
+          tipo: "VALIDAR",
+          color: "#1178b5",
+          titulo: "Diseño Visual - probar términos de búsqueda antes de invertir",
+          texto: "Confirmar qué término usan realmente los aspirantes para buscar el programa (diseño gráfico, diseño digital, multimedia) y ajustar el SEO institucional hacia el término de mayor tráfico potencial identificado."
+        },
+        {
+          tipo: "COMUNICAR",
+          color: "#272f6f",
+          titulo: "Arquitectura - redirigir el mensaje hacia especialidades con mejor demanda",
+          texto: "Comunicar especialidades con mejor demanda relativa (gerencia de proyectos, sostenibilidad, BIM) en lugar de un mensaje genérico sobre la carrera."
+        },
+        {
+          tipo: "POSICIONAR",
+          color: "#ea580c",
+          titulo: "Diseño Industrial - comunicar sectores emergentes de aplicación",
+          texto: "Posicionar el programa en sectores con crecimiento relativo (producto tecnológico, empaques, economía circular) para capitalizar su mejor Tasa de Absorción."
+        }
+      ]
+    };
+
+    const arqEmpleabilidadData = {
+      kpis: {
+        totalVacantes: 821,
+        programasCubiertos: 3,
+        ciudadesConPresencia: "8+"
+      },
+      vacantesPorPrograma: [
+        { programa: "Diseño Visual", vacantes: 355, color: "#0ea5a5" },
+        { programa: "Arquitectura", vacantes: 328, color: "#0b2742" },
+        { programa: "Diseño Industrial", vacantes: 138, color: "#f59e0b" }
+      ],
+      salarios: {
+        cobertura: "306/821 = 37%",
+        programas: [
+          { programa: "Arquitectura", conSalario: 100, mediana: 3750000, promedio: 4260125, min: 1750000, max: 11250000 },
+          { programa: "Diseño Industrial", conSalario: 79, mediana: 2300000, promedio: 2520913, min: 299400, max: 8000000 },
+          { programa: "Diseño Visual", conSalario: 127, mediana: 2250000, promedio: 2829690, min: 1250000, max: 9000000 }
+        ]
+      },
+      rangosSalariales: [
+        { rango: "< 1.5M", arquitectura: 0, dIndustrial: 1, dVisual: 1 },
+        { rango: "1.5M - 2M", arquitectura: 31, dIndustrial: 8, dVisual: 40 },
+        { rango: "2M - 2.5M", arquitectura: 10, dIndustrial: 24, dVisual: 26 },
+        { rango: "2.5M - 3M", arquitectura: 8, dIndustrial: 18, dVisual: 15 },
+        { rango: "3M - 4M", arquitectura: 33, dIndustrial: 13, dVisual: 25 },
+        { rango: "4M - 6M", arquitectura: 33, dIndustrial: 4, dVisual: 15 },
+        { rango: "> 6M", arquitectura: 13, dIndustrial: 1, dVisual: 5 }
+      ],
+      topCiudades: [
+        { ciudad: "Bogotá", vacantes: 442 },
+        { ciudad: "Medellín", vacantes: 89 },
+        { ciudad: "Cali", vacantes: 43 },
+        { ciudad: "Barranquilla", vacantes: 25 },
+        { ciudad: "Colombia (nacional)", vacantes: 24 },
+        { ciudad: "Bucaramanga", vacantes: 14 },
+        { ciudad: "Remoto", vacantes: 10 },
+        { ciudad: "Rionegro", vacantes: 9 }
+      ],
+      ciudadesPorPrograma: {
+        "Arquitectura": ["Bogotá 144", "Medellín 38", "Cali 19", "Barranquilla 17", "Bucaramanga 8", "Rionegro 6"],
+        "Diseño Industrial": ["Bogotá 70", "Medellín 18", "Cali 6", "Cúcuta 3", "Yumbo 3", "Barranquilla 3"],
+        "Diseño Visual": ["Bogotá 228", "Medellín 33", "Colombia (nacional) 24", "Cali 18", "Remoto 9", "Barranquilla 5"]
+      },
+      topEmpresas: {
+        "Arquitectura": ["ARKOS (8)", "AXA Colpatria (5)", "Agencia de Empleo Comfenalco Antioquia (4)", "Dinpro S.A.S (3)", "Skala 1.1 Ingeniería S.A.S. (3)"],
+        "Diseño Industrial": ["Misión Empresarial S.A (8)", "Jiro S.A. (5)", "Agencia de Empleo Comfama (3)", "Agencia de Empleo Comfenalco Antioquia (3)", "Cemex (3)"],
+        "Diseño Visual": ["Publicis Groupe (13)", "CUN (10)", "Monks (5)", "CAFAM (4)", "Agencia de Empleo Comfama (4)"]
+      },
+      empresasConfidenciales: {
+        "Arquitectura": 57,
+        "Diseño Industrial": 8,
+        "Diseño Visual": 37
+      },
+      topCargos: {
+        "Arquitectura (328)": ["Arquitecto (113)", "Residente de Obra (28)", "Arquitecto Residente (21)", "Arquitecto Diseñador (8)", "Residente de Interventoría (8)", "Director de Obra (6)", "Arquitecto Ingeniero (5)", "Arquitecto Junior (4)", "Dibujante Arquitectónico (4)", "Coordinador de Proyectos (2)"],
+        "Diseño Industrial (138)": ["Diseñador (45)", "Diseñador Industrial (20)", "Dibujante Industrial (5)", "Dibujante Mecánico (4)", "Dibujante Técnico (3)", "Diseñador de Producto (3)", "Industrial Designer (2)"],
+        "Diseño Visual (355)": ["Diseñador (65)", "Diseñador Gráfico (34)", "Graphic Designer (24)", "Practicante de Diseño Gráfico (10)", "Creative Designer (7)", "Aprendiz de Diseño Gráfico (6)", "Aprendiz de Diseño Grafico (6)", "Content Creator (6)", "Presentation Designer (4)", "Practicante de Diseño Grafico (3)"]
+      },
+      topCompetencias: {
+        "Arquitectura": ["Construcción (97)", "Presupuestos (33)", "Interventoría (29)", "Planos (27)", "AutoCAD (20)", "Revit (12)", "Excel (11)", "Liderazgo (11)", "Diseño arquitectónico (8)", "Trabajo en equipo (8)"],
+        "Diseño Industrial": ["AutoCAD (3)", "Rhino (2)", "Diseño de producto (2)", "Materiales (2)", "SolidWorks (1)", "Modelado 3D (1)", "Illustrator (1)", "Photoshop (1)", "Creatividad (1)", "Trabajo en equipo (1)"],
+        "Diseño Visual": ["Diseño gráfico (145)", "Comunicación (85)", "UX (49)", "UI (36)", "Redes sociales (26)", "Creatividad (26)", "Photoshop (17)", "Illustrator (15)", "Animación (12)", "Marketing digital (11)"]
+      },
+      tiposContrato: {
+        cobertura: "154/821 vacantes con dato de contrato",
+        programas: [
+          { programa: "Arquitectura", conDato: 94, indefinido: 34, obraLabor: 33, definido: 23, prestacionServicios: 4, aprendizaje: 0 },
+          { programa: "Diseño Industrial", conDato: 5, indefinido: 1, obraLabor: 0, definido: 3, prestacionServicios: 1, aprendizaje: 0 },
+          { programa: "Diseño Visual", conDato: 55, indefinido: 21, obraLabor: 7, definido: 23, prestacionServicios: 2, aprendizaje: 2 }
+        ]
+      },
+      mapaHabilidades: [
+        {
+          programa: "ARQUITECTURA",
+          vacantes: 328,
+          color: "#0b2742",
+          bloques: [
+            "Técnicas de obra: construcción (97), presupuestos (33), interventoría (29), planos (27), diseño arquitectónico (8)",
+            "Software: AutoCAD (20), Revit (12)",
+            "Herramientas: Excel (11)",
+            "Blandas: liderazgo (11), trabajo en equipo (8)"
+          ]
+        },
+        {
+          programa: "DISEÑO INDUSTRIAL",
+          vacantes: 138,
+          color: "#f59e0b",
+          bloques: [
+            "Software: AutoCAD (3), Rhino (2), SolidWorks (1), Illustrator (1), Photoshop (1)",
+            "Técnicas: diseño de producto (2), materiales (2), modelado 3D (1)",
+            "Blandas: creatividad (1), trabajo en equipo (1)"
+          ]
+        },
+        {
+          programa: "DISEÑO VISUAL",
+          vacantes: 355,
+          color: "#0ea5a5",
+          bloques: [
+            "Disciplinares: diseño gráfico (145), UX (49), UI (36), animación (12)",
+            "Software: Photoshop (17), Illustrator (15)",
+            "Digital: redes sociales (26), marketing digital (11)",
+            "Blandas: comunicación (85), creatividad (26)"
+          ]
+        }
+      ]
+    };
+
+    const educacionIndiceData = {
+      resumen: [
+        { programa: "Lic. Ciencias Naturales y Educ. Ambiental", digital: 0.00, laboral: 70.00, indice: 70.00, clasificacion: "Alta Oportunidad", clase: "pill-high" },
+        { programa: "Lic. Ciencias Sociales (Historia)", digital: 0.60, laboral: 70.00, indice: 70.60, clasificacion: "Alta Oportunidad", clase: "pill-high" },
+        { programa: "Lic. Educación Básica Primaria", digital: 0.60, laboral: 70.00, indice: 70.60, clasificacion: "Alta Oportunidad", clase: "pill-high" },
+        { programa: "Lic. Educación Física, Recr. y Deportes", digital: 0.00, laboral: 70.00, indice: 70.00, clasificacion: "Alta Oportunidad", clase: "pill-high" },
+        { programa: "Lic. Español y Lenguas Extranjeras", digital: 1.50, laboral: 70.00, indice: 71.50, clasificacion: "Alta Oportunidad", clase: "pill-high" },
+        { programa: "Lic. Literatura y Lengua Castellana", digital: 1.50, laboral: 70.00, indice: 71.50, clasificacion: "Alta Oportunidad", clase: "pill-high" },
+        { programa: "Lic. Educación Religiosa", digital: 0.00, laboral: 9.82, indice: 9.82, clasificacion: "Nicho", clase: "pill-niche" }
+      ],
+      notaTabla: "El Puntaje Laboral de seis licenciaturas incorpora la convocatoria docente del MEN (26.741 vacantes nacionales, distribuidas como supuesto direccional). Fuente: mineducacion.gov.co, comunicado 429.606. Ver detalle metodológico en la siguiente diapositiva.",
+      hallazgos: [
+        'Seis (6) de las siete (7) licenciaturas alcanzan "Alta Oportunidad" exclusivamente por la incorporación de la convocatoria docente del MEN; sin este factor coyuntural, su Tasa de Absorción calculada solo con vacantes de portales oscilaría entre 1.6% y 54.3%.',
+        'Licenciatura en Educación Religiosa es la única que se mantiene en "Nicho" (índice 9.8), al no formar parte del perfil de la convocatoria estatal considerada en este modelo.',
+        'El interés digital de toda la facultad es el más bajo de las cinco unidades analizadas (entre 0 y 1.5 puntos en todos los programas), lo que indica que la oportunidad detectada responde a una dinámica de mercado laboral estatal puntual, y no a una demanda social o digital creciente por la docencia como carrera.'
+      ],
+      convocatoria: {
+        vacantes: "26.741",
+        soporte: "Comunicado 429.606 · CNSC - MEN · 17 de julio de 2026",
+        pasos: [
+          {
+            numero: 1,
+            titulo: "Qué anunció el MEN",
+            texto: "La Comisión Nacional del Servicio Civil (CNSC) y el MEN cerraron la etapa de planeación del nuevo proceso de selección del Sistema Especial de Carrera Docente, previo a la apertura formal de la convocatoria."
+          },
+          {
+            numero: 2,
+            titulo: "Qué NO incluye (aún) el anuncio",
+            texto: "A la fecha del comunicado, el proceso está en fase de planeación: no se ha publicado el desglose oficial de vacantes por área disciplinar, cronograma ni requisitos de inscripción."
+          },
+          {
+            numero: 3,
+            titulo: "Supuesto metodológico aplicado",
+            texto: "Ante la ausencia de un desglose oficial por disciplina, el modelo distribuyó el total nacional como referencia direccional entre las seis licenciaturas vigentes de la universidad afines al perfil docente general (~3.280 vacantes por programa). Licenciatura en Educación Religiosa no participa de esta distribución."
+          }
+        ],
+        alerta: "El 100% de Tasa de Absorción de estas seis licenciaturas depende de una convocatoria estatal aún sin cronograma oficial; es una oportunidad real pero coyuntural, por lo que el resultado de estos programas es variable."
+      },
+      insightsDigital: [
+        'Español y Lenguas Extranjeras y Literatura y Lengua Castellana registran el mayor interés digital de la facultad (5 puntos de tendencia cada una). Es probable que este volumen esté impulsado, al menos en parte, por públicos que buscan aprender el idioma o con interés por la literatura, y no exclusivamente por interés en la licenciatura como carrera, dado que ambos términos se solapan con búsquedas de aprendizaje general.',
+        'Educación Física, Recreación y Deportes, y Educación Religiosa no registran ningún volumen de búsqueda bajo el término evaluado. Esto puede indicar que su público busca términos distintos al nombre formal del programa (p. ej. "entrenador deportivo", "teología") o que la decisión de estudiar estas licenciaturas se define por canales distintos a la búsqueda en Google, como la orientación vocacional escolar.',
+        'En conjunto, el interés digital de las licenciaturas es el más bajo entre las cinco facultades del análisis, un resultado coherente con que la docencia suele decidirse por tradición institucional o referencia familiar más que por exploración digital activa de opciones de estudio, a diferencia de carreras con alta competencia por atención en redes.'
+      ],
+      insightsLaboral: [
+        'Seis de las siete licenciaturas alcanzan el tope metodológico del 100% de Tasa de Absorción únicamente por la incorporación de la convocatoria docente del MEN, lo que refleja una oportunidad de empleabilidad estatal puntual y no un crecimiento orgánico sostenido de la demanda laboral privada o regional para estos perfiles.',
+        'Sin la convocatoria MEN, la Tasa de Absorción de estas seis licenciaturas -calculada solo con vacantes de portales de empleo- oscilaría entre 1.6% y 54.3%, un rango considerablemente más bajo que sugiere que la vinculación docente en el sector oficial ocurre mayoritariamente por concursos de mérito y no por publicación de vacantes en bolsas de empleo convencionales, de ahí su baja visibilidad en portales.',
+        'Licenciatura en Educación Religiosa, al no formar parte del perfil de la convocatoria estatal evaluada (no es un área curricular obligatoria en todas las instituciones oficiales), mantiene una Tasa de Absorción baja (14%) calculada solo con vacantes de portales, lo que la deja en una posición estructuralmente distinta al resto de la facultad.'
+      ],
+      recomendaciones: [
+        {
+          tipo: "COMUNICAR",
+          color: "#1178b5",
+          titulo: "Seis licenciaturas - fortalecer el relato vocacional y la trayectoria institucional en formación docente",
+          texto: "Dado que el interés digital es bajo en toda la facultad y la decisión de estudiar una licenciatura suele originarse en la orientación vocacional más que en la búsqueda activa en Google, priorizar contenido que muestre la trayectoria histórica de La Salle en formación de maestros y el impacto real de sus egresados en el aula (testimonios, proyectos pedagógicos, presencia en instituciones educativas del país)."
+        },
+        {
+          tipo: "PRIORIZAR",
+          color: "#272f6f",
+          titulo: "Español y Lenguas Extranjeras y Literatura - fortalecimiento en interés digital",
+          texto: "Estos dos programas ya concentran el mayor volumen de búsqueda de la facultad; ampliar el SEO con términos relacionados (\"clases de inglés\", \"docente de idiomas\") para capturar tráfico afín, y comparar el volumen de tráfico orgánico antes y después."
+        },
+        {
+          tipo: "VALIDAR",
+          color: "#ea580c",
+          titulo: "Educación Física y Educación Religiosa - confirmar cómo busca el público objetivo",
+          texto: "Revisar mediante las herramientas de investigación de palabras clave para identificar los términos reales con los que el público busca estas licenciaturas, para fortalecer el alcance digital de estos programas."
+        },
+        {
+          tipo: "DIFERENCIAR",
+          color: "#2f7d32",
+          titulo: "Educación Religiosa - construir un posicionamiento propio",
+          texto: "Diseñar una propuesta de valor centrada en su campo de aplicación específico (pastoral educativa, formación en valores, colegios confesionales), apoyada en la identidad lasallista de la universidad como diferencial frente a otras licenciaturas del mercado. Medir el resultado a través del número de aspirantes provenientes de colegios confesionales o redes pastorales contactadas directamente por esta línea de comunicación."
+        }
+      ]
+    };
+
+    const educacionEmpleabilidadData = {
+      kpis: {
+        totalVacantes: 641,
+        programasCubiertos: 7,
+        ciudadesConPresencia: "+35"
+      },
+      vacantesPorPrograma: [
+        { programa: "Lic. en Español y Lenguas Extranjeras", vacantes: 237, color: "#0ea5a5" },
+        { programa: "Lic. en Educación Física, Recreación y Deportes", vacantes: 160, color: "#f59e0b" },
+        { programa: "Lic. en Educación Básica Primaria", vacantes: 73, color: "#1178b5" },
+        { programa: "Lic. en Ciencias Naturales y Educación Ambiental", vacantes: 72, color: "#2f7d32" },
+        { programa: "Lic. en Ciencias Sociales con Énfasis en Historia", vacantes: 47, color: "#0b2742" },
+        { programa: "Lic. en Literatura y Lengua Castellana", vacantes: 40, color: "#8b5cf6" },
+        { programa: "Lic. en Educación Religiosa", vacantes: 12, color: "#ef4444" }
+      ],
+      salarios: {
+        cobertura: "333/641 = 52%",
+        programas: [
+          { programa: "Español y Lenguas Extranjeras", conSalario: 118, mediana: 3500000, promedio: 3669030, min: 295000, max: 13750000 },
+          { programa: "Ciencias Sociales (Historia)", conSalario: 25, mediana: 2900000, promedio: 3118417, min: 1250000, max: 5000000 },
+          { programa: "Educación Física, Recreación y Deportes", conSalario: 72, mediana: 2055000, promedio: 2418297, min: 600000, max: 7000000 },
+          { programa: "Educación Básica Primaria", conSalario: 46, mediana: 2237750, promedio: 2816116, min: 960000, max: 13750000 },
+          { programa: "Ciencias Naturales y Educación Ambiental", conSalario: 38, mediana: 3217125, promedio: 3719152, min: 1250000, max: 19500000 },
+          { programa: "Literatura y Lengua Castellana", conSalario: 28, mediana: 3208562, promedio: 3173506, min: 1250000, max: 6000000 },
+          { programa: "Educación Religiosa", conSalario: 6, mediana: 3740000, promedio: 4101667, min: 1900000, max: 7000000 }
+        ]
+      },
+      rangosSalariales: [
+        { rango: "< 1.5M", cSociales: 1, espanolLenguas: 2, edFisica: 9, ePrimaria: 1, cNaturales: 2, literatura: 4, edReligiosa: 0 },
+        { rango: "1.5M - 2M", cSociales: 2, espanolLenguas: 6, edFisica: 20, ePrimaria: 16, cNaturales: 2, literatura: 4, edReligiosa: 1 },
+        { rango: "2M - 2.5M", cSociales: 3, espanolLenguas: 13, edFisica: 22, ePrimaria: 10, cNaturales: 9, literatura: 2, edReligiosa: 0 },
+        { rango: "2.5M - 3M", cSociales: 7, espanolLenguas: 23, edFisica: 4, ePrimaria: 3, cNaturales: 5, literatura: 2, edReligiosa: 0 },
+        { rango: "3M - 4M", cSociales: 6, espanolLenguas: 37, edFisica: 9, ePrimaria: 13, cNaturales: 11, literatura: 9, edReligiosa: 2 },
+        { rango: "4M - 6M", cSociales: 6, espanolLenguas: 29, edFisica: 7, ePrimaria: 1, cNaturales: 6, literatura: 6, edReligiosa: 2 },
+        { rango: "> 6M", cSociales: 0, espanolLenguas: 8, edFisica: 1, ePrimaria: 2, cNaturales: 3, literatura: 1, edReligiosa: 1 }
+      ],
+      topCiudades: [
+        { ciudad: "Bogotá", vacantes: 293 },
+        { ciudad: "Medellín", vacantes: 52 },
+        { ciudad: "Cali", vacantes: 37 },
+        { ciudad: "Bucaramanga", vacantes: 16 },
+        { ciudad: "Barranquilla", vacantes: 13 },
+        { ciudad: "Chía", vacantes: 13 },
+        { ciudad: "Cartagena de Indias", vacantes: 13 },
+        { ciudad: "Villavicencio", vacantes: 12 },
+        { ciudad: "Remoto", vacantes: 10 },
+        { ciudad: "Cajicá", vacantes: 7 }
+      ],
+      ciudadesPorPrograma: {
+        "Español y Lenguas Extranjeras": ["Bogotá 102", "Cali 14", "Barranquilla 12", "Chía 10", "Medellín 9"],
+        "Educación Física, Recreación y Deportes": ["Bogotá 69", "Medellín 25", "Cali 8", "Cartagena de Indias 6", "Yumbo 5"],
+        "Educación Básica Primaria": ["Bogotá 28", "Medellín 8", "Cajicá 5", "Funza 5", "Cali 4"],
+        "Ciencias Naturales y Educación Ambiental": ["Bogotá 38", "Medellín 4", "Cali 3", "Buga 3", "Villavicencio 2"],
+        "Ciencias Sociales (Historia)": ["Bogotá 25", "Medellín 5", "Cali 4", "Bucaramanga 3", "Leticia 1"],
+        "Literatura y Lengua Castellana": ["Bogotá 24", "Bucaramanga 3", "Tunja 2", "Cali 2", "Tenjo 1"],
+        "Educación Religiosa": ["Bogotá 7", "Cali 2", "Teusaquillo 1", "Engativá 1", "Bucaramanga 1"]
+      },
+      topEmpresas: {
+        "Español y Lenguas Extranjeras": ["TP (9)", "CIA Idiomas (8)", "Academia de Idioma Smart (7)", "Innova Schools Colombia (6)"],
+        "Educación Física, Recreación y Deportes": ["Staffing de Colombia (7)", "Compensar (7)", "Universidad Cooperativa de Colombia (5)", "Universidad Santo Tomás (5)"],
+        "Educación Básica Primaria": ["Fe y Alegría de Colombia (7)", "Colsubsidio (5)", "Geisalop SAS (5)", "Compensar (4)", "JM Web Tech (4)"],
+        "Ciencias Naturales y Educación Ambiental": ["Agencia de Empleo Comfenalco Antioquia (3)", "Ambipar (2)", "Colsubsidio (2)", "Universidad Simón Bolívar de Barranquilla (2)"],
+        "Ciencias Sociales (Historia)": ["Agencia de Empleo Cafam (2)", "Agencia de Empleo Comfama (2)", "Corporación Universitaria Minuto de Dios (1)", "Profamilia (1)"],
+        "Literatura y Lengua Castellana": ["UCompensar (4)", "Colsubsidio (3)", "Universidad Católica de Colombia (2)"],
+        "Educación Religiosa": ["Comunidad Franciscana Provincia de la Santa Fe (2)", "Fe y Alegría de Colombia (2)"]
+      },
+      empresasConfidenciales: {
+        "Español/Lenguas": 38,
+        "Ed. Física": 16,
+        "E. Primaria": 4,
+        "C. Naturales": 23,
+        "C. Sociales": 20,
+        "Literatura": 6,
+        "Ed. Religiosa": 2
+      },
+      topCargos: {
+        "Español y Lenguas Extranjeras (237)": ["Docente (66)", "Docente de Inglés (55)", "Profesor (42)", "Docente Bilingüe (9)", "Docente de Francés (4)", "Docente de Inglés y Francés (2)", "Docente Bilingüe de Inglés (2)", "Profesor Ciencias Bilingüe (1)"],
+        "Educación Física, Recreación y Deportes (160)": ["Entrenador (34)", "Docente (27)", "Instructor (19)", "Recreacionista (7)", "Instructor de Academia de Golf (3)", "Docente de Deportes (3)", "Instructor de Deportes (2)", "Docente de Deporte (2)"],
+        "Educación Básica Primaria (73)": ["Docente (19)", "Director de Grupo (6)", "Profesor (6)", "Docente de Primaria (3)", "Docente Primaria (3)", "Agente Educativa (2)", "Director (2)", "Docente Self Contained (1)"],
+        "Ciencias Naturales y Educación Ambiental (72)": ["Docente (22)", "Profesor (9)", "Docente de Ciencias Naturales (7)", "Docente de Química (4)", "Docente de Biología (2)", "Coordinador Ambiental (2)", "Asistente Ambiental (2)", "Docente Bilingüe (2)"],
+        "Ciencias Sociales con Énfasis en Historia (47)": ["Docente (12)", "Docente de Ciencias Sociales (10)", "Profesor (8)", "Docente de Sociales (5)", "Docente Ciencias Sociales Bilingüe (2)", "Auxiliar (1)"],
+        "Literatura y Lengua Castellana (40)": ["Docente (13)", "Docente de Español (6)", "Profesor (5)", "Docente de Lengua Castellana (2)", "Docente Lengua Castellana (2)", "Docente Ciberliteratura (2)", "Profesor Lengua Castellana (1)"],
+        "Educación Religiosa (12)": ["Docente de Ética y Religión (2)", "Docente Educación Religiosa (2)", "Docente (2)", "Profesor (2)", "Profesor Educación Religiosa (1)", "Profesor Universitario (1)", "Educadores (1)"]
+      },
+      topCompetencias: {
+        "Español y Lenguas Extranjeras": ["Inglés (190)", "Bilingüe (63)", "Francés (30)", "Comunicación (26)", "Pedagogía (8)", "Posgrado (7)", "Aulas virtuales (5)", "TIC (5)", "Didáctica (5)", "Certificación internacional (3)"],
+        "Educación Física, Recreación y Deportes": ["Deporte (64)", "Recreación (30)", "Entrenamiento deportivo (11)", "Maestría (6)", "Trabajo en equipo (5)", "Liderazgo (3)", "Comunicación (3)", "Manejo de grupos (2)", "Inglés (2)"],
+        "Educación Básica Primaria": ["Inglés (12)", "Pedagogía (11)", "Comunicación (6)", "Creatividad (3)", "Didáctica (2)", "Estrategias didácticas (1)", "Herramientas digitales (1)", "Trabajo colaborativo (1)"],
+        "Ciencias Naturales y Educación Ambiental": ["Química (31)", "Gestión ambiental (26)", "Biología (17)", "Inglés (9)", "Sostenibilidad (9)", "Normatividad ambiental (6)", "Comunicación (6)", "Laboratorio (5)", "Trabajo en equipo (4)", "Maestría (4)"],
+        "Ciencias Sociales con Énfasis en Historia": ["Ciencias sociales (57)", "Investigación (15)", "Historia (11)", "Geografía (9)", "Comunicación (7)", "Inglés (6)", "Pensamiento crítico (2)", "Pedagogía (2)", "Trabajo en equipo (2)", "Herramientas digitales (1)"],
+        "Literatura y Lengua Castellana": ["Inglés (7)", "Literatura (5)", "Lectura (4)", "Escritura (3)", "Posgrado (3)", "Didáctica (2)", "Comunicación (2)", "Oralidad (1)", "Pedagogía (1)", "Trabajo en equipo (1)"],
+        "Educación Religiosa": ["Ética (8)", "Religión (6)", "Pedagogía (1)", "Acompañamiento (1)", "Comunicación (1)", "Liderazgo (1)"]
+      },
+      mapaHabilidades: [
+        {
+          programa: "ESPAÑOL Y LENGUAS EXTRANJERAS",
+          vacantes: 237,
+          color: "#0ea5a5",
+          bloques: [
+            "Idiomas: inglés (190), bilingüe (63), francés (30), certificación internacional (3)",
+            "Pedagógicas: pedagogía (8), didáctica (5), aulas virtuales (5), TIC (5)",
+            "Blandas: comunicación (26)",
+            "Formación: posgrado (7)"
+          ]
+        },
+        {
+          programa: "EDUCACIÓN FÍSICA, RECREACIÓN Y DEPORTES",
+          vacantes: 160,
+          color: "#f59e0b",
+          bloques: [
+            "Técnico-deportivas: deporte (64), recreación (30), entrenamiento deportivo (11), manejo de grupos (2)",
+            "Formación: maestría (6)",
+            "Blandas: trabajo en equipo (5), liderazgo (3), comunicación (3), inglés (2)"
+          ]
+        },
+        {
+          programa: "EDUCACIÓN BÁSICA PRIMARIA",
+          vacantes: 73,
+          color: "#1178b5",
+          bloques: [
+            "Pedagógicas: pedagogía (11), didáctica (2), estrategias didácticas (1), herramientas digitales (1)",
+            "Blandas: comunicación (6), creatividad (3), trabajo colaborativo (1)",
+            "Idiomas: inglés (12)"
+          ]
+        },
+        {
+          programa: "CIENCIAS NATURALES Y EDUCACIÓN AMBIENTAL",
+          vacantes: 72,
+          color: "#2f7d32",
+          bloques: [
+            "Disciplinares: química (31), biología (17), laboratorio (5)",
+            "Ambientales: gestión ambiental (26), sostenibilidad (9), normatividad ambiental (6)",
+            "Formación: maestría (4)",
+            "Blandas: inglés (9), comunicación (6), trabajo en equipo (4)"
+          ]
+        },
+        {
+          programa: "CIENCIAS SOCIALES CON ÉNFASIS EN HISTORIA",
+          vacantes: 47,
+          color: "#0b2742",
+          bloques: [
+            "Disciplinares: ciencias sociales (57), historia (11), geografía (9)",
+            "Analíticas: investigación (15), pensamiento crítico (2)",
+            "Pedagógicas: pedagogía (2)",
+            "Blandas: comunicación (7), inglés (6), trabajo en equipo (2)"
+          ]
+        },
+        {
+          programa: "LITERATURA Y LENGUA CASTELLANA",
+          vacantes: 40,
+          color: "#8b5cf6",
+          bloques: [
+            "Disciplinares: literatura (5), lectura (4), escritura (3), oralidad (1)",
+            "Pedagógicas: didáctica (2), pedagogía (1)",
+            "Formación: posgrado (3)",
+            "Blandas: inglés (7), comunicación (2), trabajo en equipo (1)"
+          ]
+        },
+        {
+          programa: "EDUCACIÓN RELIGIOSA",
+          vacantes: 12,
+          color: "#ef4444",
+          bloques: [
+            "Disciplinares: ética (8), religión (6)",
+            "Pedagógicas: pedagogía (1), acompañamiento (1)",
+            "Blandas: comunicación (1), liderazgo (1)"
+          ]
+        }
       ]
     };
 
     let currentFaculty = "contexto";
-    let currentSubtab = "indice";
+    let currentSubtab = "contexto-resumen";
+    let drawerOpen = false;
 
     let charts = {};
 
@@ -612,22 +1224,58 @@
       return "$" + Number(value).toLocaleString("es-CO");
     }
 
+    function getFacultyTheme(id) {
+      return facultyThemes[id] || facultyThemes.contexto;
+    }
+
+    function applyFacultyTheme(id) {
+      const t = getFacultyTheme(id);
+      const root = document.documentElement;
+      root.style.setProperty("--faculty-primary", t.primary);
+      root.style.setProperty("--faculty-secondary", t.secondary);
+      root.style.setProperty("--faculty-soft", t.soft);
+      root.style.setProperty("--faculty-primary-rgb", t.rgb);
+    }
+
     function init() {
+      applyFacultyTheme(currentFaculty);
       renderMainTabs();
       renderSubTabs();
       renderFaculty();
     }
 
+    function toggleDrawer() {
+      drawerOpen = !drawerOpen;
+      document.body.classList.toggle("drawer-open", drawerOpen);
+    }
+
+    function closeDrawer() {
+      drawerOpen = false;
+      document.body.classList.remove("drawer-open");
+    }
+
     function renderMainTabs() {
       const tabs = document.getElementById("mainTabs");
       tabs.innerHTML = faculties.map((f) => `
-        <button class="main-tab active:text-slate-900 rounded-full px-4 py-2 text-xs md:text-sm ${f.id === currentFaculty ? "active" : ""}" onclick="switchFaculty('${f.id}')">${f.name}</button>
+        <button class="main-tab active:text-slate-900 rounded-full px-4 py-2 text-xs md:text-sm ${f.id === currentFaculty ? "active" : ""}" onclick="switchFaculty('${f.id}')"><span class="tab-dot" style="background:${getFacultyTheme(f.id).secondary};"></span>${f.name}</button>
       `).join("");
     }
 
     function renderSubTabs() {
       const sub = document.getElementById("subTabs");
-      if (currentFaculty === "contexto" || currentFaculty === "consolidado" || currentFaculty === "bases_extraidas") {
+      if (currentFaculty === "contexto") {
+        sub.classList.remove("hidden");
+        sub.innerHTML = `
+          <button class="sub-tab rounded-lg px-4 py-2 text-sm ${currentSubtab === "contexto-resumen" ? "active" : ""}" onclick="switchSubtab('contexto-resumen')">Resumen</button>
+          <button class="sub-tab rounded-lg px-4 py-2 text-sm ${currentSubtab === "contexto-fase1" ? "active" : ""}" onclick="switchSubtab('contexto-fase1')">Fase 1</button>
+          <button class="sub-tab rounded-lg px-4 py-2 text-sm ${currentSubtab === "contexto-fase2" ? "active" : ""}" onclick="switchSubtab('contexto-fase2')">Fase 2</button>
+          <button class="sub-tab rounded-lg px-4 py-2 text-sm ${currentSubtab === "contexto-fase3" ? "active" : ""}" onclick="switchSubtab('contexto-fase3')">Fase 3</button>
+          <button class="sub-tab rounded-lg px-4 py-2 text-sm ${currentSubtab === "contexto-fase4" ? "active" : ""}" onclick="switchSubtab('contexto-fase4')">Fase 4</button>
+        `;
+        return;
+      }
+
+      if (currentFaculty === "consolidado" || currentFaculty === "bases_extraidas") {
         sub.innerHTML = "";
         sub.classList.add("hidden");
         return;
@@ -641,7 +1289,9 @@
 
     function switchFaculty(id) {
       currentFaculty = id;
-      currentSubtab = "indice";
+      currentSubtab = id === "contexto" ? "contexto-resumen" : "indice";
+      applyFacultyTheme(currentFaculty);
+      closeDrawer();
       renderMainTabs();
       renderSubTabs();
       renderFaculty();
@@ -725,6 +1375,11 @@
           buildBasicasSalariosChart();
           buildBasicasCiudadesChart();
           buildBasicasModalidadChart();
+          buildEmployabilityTopCharts("basicas", basicasEmpleabilidadData, {
+            empresasKey: "empleadoresPorPrograma",
+            cargosKey: "topCargos",
+            competenciasKey: "topCompetencias"
+          });
         }
       } else if (currentFaculty === "humanidades") {
         indice.innerHTML = humanidadesIndiceMarkup();
@@ -735,6 +1390,41 @@
           buildHumanidadesVacantesChart();
           buildHumanidadesSalariosChart();
           buildHumanidadesCiudadesChart();
+          buildEmployabilityTopCharts("humanidades", humanidadesEmpleabilidadData, {
+            empresasKey: "topEmpresas",
+            cargosKey: "topCargos",
+            competenciasKey: "topCompetencias"
+          });
+        }
+      } else if (currentFaculty === "arq1") {
+        indice.innerHTML = arqIndiceMarkup();
+        empleabilidad.innerHTML = arqEmpleabilidadMarkup();
+        if (currentSubtab === "indice") {
+          buildArqIndiceChart();
+        } else {
+          buildArqVacantesChart();
+          buildArqSalariosChart();
+          buildArqCiudadesChart();
+          buildEmployabilityTopCharts("arq", arqEmpleabilidadData, {
+            empresasKey: "topEmpresas",
+            cargosKey: "topCargos",
+            competenciasKey: "topCompetencias"
+          });
+        }
+      } else if (currentFaculty === "educacion") {
+        indice.innerHTML = educacionIndiceMarkup();
+        empleabilidad.innerHTML = educacionEmpleabilidadMarkup();
+        if (currentSubtab === "indice") {
+          buildEducacionIndiceChart();
+        } else {
+          buildEducacionVacantesChart();
+          buildEducacionSalariosChart();
+          buildEducacionCiudadesChart();
+          buildEmployabilityTopCharts("educacion", educacionEmpleabilidadData, {
+            empresasKey: "topEmpresas",
+            cargosKey: "topCargos",
+            competenciasKey: "topCompetencias"
+          });
         }
       } else {
         indice.innerHTML = placeholderMarkup("Índice de Oportunidad", "Aquí se deben cargar los programas, puntajes digital/laboral, índice y clasificación de esta facultad.");
@@ -787,6 +1477,10 @@
 
       const topCargos = Object.entries(d.topCargos).map(([programa, items]) => `
         <p><strong>${programa}:</strong> ${items.join(" · ")}</p>
+      `).join("");
+
+      const topProgramOptions = Object.keys(d.topCompetencias).map((programa) => `
+        <option value="${programa}">${programa}</option>
       `).join("");
 
       const mapa = d.mapaHabilidades.map((m) => `
@@ -853,6 +1547,30 @@
               </thead>
               <tbody>${rangosRows}</tbody>
             </table>
+          </div>
+        </div>
+
+        <div class="panel p-4 mb-6">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
+            <h3 class="text-lg font-extrabold">Top empresas, cargos y competencias</h3>
+            <div class="flex items-center gap-2">
+              <label for="basicasTopProgramFilter" class="text-xs font-bold text-slate-600">Programa:</label>
+              <select id="basicasTopProgramFilter" class="rounded-lg border border-slate-300 px-3 py-2 text-sm bg-white">${topProgramOptions}</select>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+            <div>
+              <h4 class="text-sm font-extrabold mb-2">Top empresas</h4>
+              <div class="h-[280px]"><canvas id="basicasTopEmpresasChart"></canvas></div>
+            </div>
+            <div>
+              <h4 class="text-sm font-extrabold mb-2">Top cargos</h4>
+              <div class="h-[280px]"><canvas id="basicasTopCargosChart"></canvas></div>
+            </div>
+            <div>
+              <h4 class="text-sm font-extrabold mb-2">Top competencias</h4>
+              <div class="h-[280px]"><canvas id="basicasTopCompetenciasChart"></canvas></div>
+            </div>
           </div>
         </div>
 
@@ -956,27 +1674,43 @@
         </div>
 
         <div class="panel p-4 md:p-5 mb-6">
-          <h3 class="text-lg font-extrabold mb-3 text-center">Hallazgos Principales</h3>
-          <div class="space-y-3 text-sm">${hallazgos}</div>
+          <details>
+            <summary class="accordion-summary">
+              <strong>Hallazgos Principales</strong>
+              <span class="accordion-meta"><span class="accordion-badge">${d.hallazgos.length} ítems</span><span class="accordion-chevron">▾</span></span>
+            </summary>
+            <div class="space-y-3 text-sm mt-3">${hallazgos}</div>
+          </details>
         </div>
 
         <div class="panel p-4 md:p-5 mb-6">
           <h3 class="text-lg font-extrabold mb-4">Insights por Variable</h3>
           <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 text-sm">
-            <div class="space-y-3">
-              <div class="rounded-lg px-4 py-2 text-white font-extrabold" style="background:#1178b5;">Interés Digital (Google Trends)</div>
-              ${insightsDigital}
-            </div>
-            <div class="space-y-3">
-              <div class="rounded-lg px-4 py-2 text-white font-extrabold" style="background:#272f6f;">Tasa de Absorción Laboral</div>
-              ${insightsLaboral}
-            </div>
+            <details>
+              <summary class="accordion-summary">
+                <strong>Interés Digital (Google Trends)</strong>
+                <span class="accordion-meta"><span class="accordion-badge">${d.insightsDigital.length} ítems</span><span class="accordion-chevron">▾</span></span>
+              </summary>
+              <div class="space-y-3 mt-3">${insightsDigital}</div>
+            </details>
+            <details>
+              <summary class="accordion-summary">
+                <strong>Tasa de Absorción Laboral</strong>
+                <span class="accordion-meta"><span class="accordion-badge">${d.insightsLaboral.length} ítems</span><span class="accordion-chevron">▾</span></span>
+              </summary>
+              <div class="space-y-3 mt-3">${insightsLaboral}</div>
+            </details>
           </div>
         </div>
 
         <div class="panel p-4 md:p-5 mb-6">
-          <h3 class="text-lg font-extrabold mb-4">Recomendaciones para el Mercadeo</h3>
-          <div class="grid grid-cols-1 xl:grid-cols-3 gap-4 text-sm">${recomendaciones}</div>
+          <details>
+            <summary class="accordion-summary">
+              <strong>Recomendaciones para el Mercadeo</strong>
+              <span class="accordion-meta"><span class="accordion-badge">${d.recomendaciones.length} líneas estratégicas</span><span class="accordion-chevron">▾</span></span>
+            </summary>
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-4 text-sm mt-3">${recomendaciones}</div>
+          </details>
         </div>
 
         <div class="panel p-4 md:p-5 mt-6">
@@ -1017,6 +1751,7 @@
       const empresas = Object.entries(d.topEmpresas).map(([programa, items]) => `
         <p><strong>${programa}:</strong> ${items.join(", ")}.</p>
       `).join("");
+
       const confidencial = Object.entries(d.confidencial).map(([programa, valor]) => `${programa} ${valor}`).join(" · ");
 
       const cargos = Object.entries(d.topCargos).map(([programa, items]) => `
@@ -1025,6 +1760,10 @@
 
       const competencias = Object.entries(d.topCompetencias).map(([programa, items]) => `
         <p><strong>${programa}:</strong> ${items.join(" · ")}</p>
+      `).join("");
+
+      const topProgramOptions = Object.keys(d.topCompetencias).map((programa) => `
+        <option value="${programa}">${programa}</option>
       `).join("");
 
       const mapa = d.mapaHabilidades.map((m) => `
@@ -1088,6 +1827,30 @@
           </div>
         </div>
 
+        <div class="panel p-4 mb-6">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
+            <h3 class="text-lg font-extrabold">Top empresas, cargos y competencias</h3>
+            <div class="flex items-center gap-2">
+              <label for="humanidadesTopProgramFilter" class="text-xs font-bold text-slate-600">Programa:</label>
+              <select id="humanidadesTopProgramFilter" class="rounded-lg border border-slate-300 px-3 py-2 text-sm bg-white">${topProgramOptions}</select>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+            <div>
+              <h4 class="text-sm font-extrabold mb-2">Top empresas</h4>
+              <div class="h-[280px]"><canvas id="humanidadesTopEmpresasChart"></canvas></div>
+            </div>
+            <div>
+              <h4 class="text-sm font-extrabold mb-2">Top cargos</h4>
+              <div class="h-[280px]"><canvas id="humanidadesTopCargosChart"></canvas></div>
+            </div>
+            <div>
+              <h4 class="text-sm font-extrabold mb-2">Top competencias</h4>
+              <div class="h-[280px]"><canvas id="humanidadesTopCompetenciasChart"></canvas></div>
+            </div>
+          </div>
+        </div>
+
         <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-6">
           <div class="panel p-4">
             <h3 class="text-lg font-extrabold mb-3">Top empresas por programa</h3>
@@ -1146,6 +1909,16 @@
         </div>
       `).join("");
 
+      const recomendaciones = d.recomendaciones.map((r) => `
+        <article class="rounded-xl border border-slate-200 overflow-hidden bg-white">
+          <div class="px-4 py-2 text-white font-extrabold tracking-wide" style="background:${r.color};">${r.tipo}</div>
+          <div class="p-4">
+            <h4 class="text-2xl font-extrabold text-slate-800 mb-2">${r.titulo}</h4>
+            <p class="text-slate-700">${r.texto}</p>
+          </div>
+        </article>
+      `).join("");
+
       return `
         <div class="panel p-4 md:p-5 mb-6">
           <h3 class="text-lg font-extrabold mb-3">Resumen Consolidado - Índice de Oportunidad (Humanidades)</h3>
@@ -1166,27 +1939,685 @@
         </div>
 
         <div class="panel p-4 md:p-5 mb-6">
-          <h3 class="text-lg font-extrabold mb-3 text-center">Hallazgos Principales</h3>
-          <div class="space-y-3 text-sm">${hallazgos}</div>
+          <details>
+            <summary class="accordion-summary">
+              <strong>Hallazgos Principales</strong>
+              <span class="accordion-meta"><span class="accordion-badge">${d.hallazgos.length} ítems</span><span class="accordion-chevron">▾</span></span>
+            </summary>
+            <div class="space-y-3 text-sm mt-3">${hallazgos}</div>
+          </details>
         </div>
 
         <div class="panel p-4 md:p-5 mb-6">
           <h3 class="text-lg font-extrabold mb-4">Insights por Variable</h3>
           <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 text-sm">
-            <div class="space-y-3">
-              <div class="rounded-lg px-4 py-2 text-white font-extrabold" style="background:#1178b5;">Interés Digital (Google Trends)</div>
-              ${insightsDigital}
-            </div>
-            <div class="space-y-3">
-              <div class="rounded-lg px-4 py-2 text-white font-extrabold" style="background:#272f6f;">Tasa de Absorción Laboral</div>
-              ${insightsLaboral}
-            </div>
+            <details>
+              <summary class="accordion-summary">
+                <strong>Interés Digital (Google Trends)</strong>
+                <span class="accordion-meta"><span class="accordion-badge">${d.insightsDigital.length} ítems</span><span class="accordion-chevron">▾</span></span>
+              </summary>
+              <div class="space-y-3 mt-3">${insightsDigital}</div>
+            </details>
+            <details>
+              <summary class="accordion-summary">
+                <strong>Tasa de Absorción Laboral</strong>
+                <span class="accordion-meta"><span class="accordion-badge">${d.insightsLaboral.length} ítems</span><span class="accordion-chevron">▾</span></span>
+              </summary>
+              <div class="space-y-3 mt-3">${insightsLaboral}</div>
+            </details>
           </div>
+        </div>
+
+        <div class="panel p-4 md:p-5 mb-6">
+          <details>
+            <summary class="accordion-summary">
+              <strong>Recomendaciones para el Mercadeo</strong>
+              <span class="accordion-meta"><span class="accordion-badge">${d.recomendaciones.length} líneas estratégicas</span><span class="accordion-chevron">▾</span></span>
+            </summary>
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-4 text-sm mt-3">${recomendaciones}</div>
+          </details>
         </div>
 
         <div class="panel p-4 md:p-5 mt-6">
           <h3 class="text-lg font-extrabold mb-3">Comparativo Digital vs Laboral (Humanidades)</h3>
           <div class="h-[350px]"><canvas id="humanidadesIndiceChart"></canvas></div>
+        </div>
+      `;
+    }
+
+    function arqIndiceMarkup() {
+      const d = arqIndiceData;
+
+      const filasResumen = d.resumen.map((r) => `
+        <tr>
+          <td>${r.programa}</td>
+          <td class="text-center">${r.digital.toFixed(2)}</td>
+          <td class="text-center">${r.laboral.toFixed(2)}</td>
+          <td class="text-center"><strong>${r.indice.toFixed(2)}</strong></td>
+          <td><span class="pill ${r.clase}">${r.clasificacion}</span></td>
+        </tr>
+      `).join("");
+
+      const hallazgos = d.hallazgos.map((h) => `
+        <div class="rounded-xl border border-sky-200 bg-sky-50 p-3">
+          <p class="text-slate-700">${h}</p>
+        </div>
+      `).join("");
+
+      const insightsDigital = d.insightsDigital.map((txt, i) => `
+        <div class="rounded-xl border border-slate-200 bg-slate-50 p-3 flex gap-3">
+          <div class="h-9 w-9 rounded-full flex items-center justify-center text-white font-extrabold shrink-0" style="background:#1178b5;">${i + 1}</div>
+          <p class="text-slate-700">${txt}</p>
+        </div>
+      `).join("");
+
+      const insightsLaboral = d.insightsLaboral.map((txt, i) => `
+        <div class="rounded-xl border border-slate-200 bg-slate-50 p-3 flex gap-3">
+          <div class="h-9 w-9 rounded-full flex items-center justify-center text-white font-extrabold shrink-0" style="background:#272f6f;">${i + 1}</div>
+          <p class="text-slate-700">${txt}</p>
+        </div>
+      `).join("");
+
+      const recomendaciones = d.recomendaciones.map((r) => `
+        <article class="rounded-xl border border-slate-200 overflow-hidden bg-white">
+          <div class="px-4 py-2 text-white font-extrabold tracking-wide" style="background:${r.color};">${r.tipo}</div>
+          <div class="p-4">
+            <h4 class="text-2xl font-extrabold text-slate-800 mb-2">${r.titulo}</h4>
+            <p class="text-slate-700">${r.texto}</p>
+          </div>
+        </article>
+      `).join("");
+
+      return `
+        <div class="panel p-4 md:p-5 mb-6">
+          <h3 class="text-lg font-extrabold mb-3">Resumen Consolidado - Índice de Oportunidad (Arquitectura, Diseño y Urbanismo)</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th style="background:#0b2742; color:#ffffff;">Programa</th>
+                  <th class="text-center" style="background:#0b2742; color:#ffffff;">Puntaje Digital (30%)</th>
+                  <th class="text-center" style="background:#0b2742; color:#ffffff;">Puntaje Laboral (70%)</th>
+                  <th class="text-center" style="background:#0b2742; color:#ffffff;">Índice Final</th>
+                  <th style="background:#0b2742; color:#ffffff;">Clasificación</th>
+                </tr>
+              </thead>
+              <tbody>${filasResumen}</tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel p-4 md:p-5 mb-6">
+          <details>
+            <summary class="accordion-summary">
+              <strong>Hallazgos Principales</strong>
+              <span class="accordion-meta"><span class="accordion-badge">${d.hallazgos.length} ítems</span><span class="accordion-chevron">▾</span></span>
+            </summary>
+            <div class="space-y-3 text-sm mt-3">${hallazgos}</div>
+          </details>
+        </div>
+
+        <div class="panel p-4 md:p-5 mb-6">
+          <h3 class="text-lg font-extrabold mb-4">Insights por Variable</h3>
+          <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 text-sm">
+            <details>
+              <summary class="accordion-summary">
+                <strong>Interés Digital (Google Trends)</strong>
+                <span class="accordion-meta"><span class="accordion-badge">${d.insightsDigital.length} ítems</span><span class="accordion-chevron">▾</span></span>
+              </summary>
+              <div class="space-y-3 mt-3">${insightsDigital}</div>
+            </details>
+            <details>
+              <summary class="accordion-summary">
+                <strong>Tasa de Absorción Laboral</strong>
+                <span class="accordion-meta"><span class="accordion-badge">${d.insightsLaboral.length} ítems</span><span class="accordion-chevron">▾</span></span>
+              </summary>
+              <div class="space-y-3 mt-3">${insightsLaboral}</div>
+            </details>
+          </div>
+        </div>
+
+        <div class="panel p-4 md:p-5 mb-6">
+          <details>
+            <summary class="accordion-summary">
+              <strong>Recomendaciones para el Mercadeo</strong>
+              <span class="accordion-meta"><span class="accordion-badge">${d.recomendaciones.length} líneas estratégicas</span><span class="accordion-chevron">▾</span></span>
+            </summary>
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-4 text-sm mt-3">${recomendaciones}</div>
+          </details>
+        </div>
+
+        <div class="panel p-4 md:p-5 mt-6">
+          <h3 class="text-lg font-extrabold mb-3">Comparativo Digital vs Laboral (Arquitectura, Diseño y Urbanismo)</h3>
+          <div class="h-[350px]"><canvas id="arqIndiceChart"></canvas></div>
+        </div>
+      `;
+    }
+
+    function arqEmpleabilidadMarkup() {
+      const d = arqEmpleabilidadData;
+
+      const vacantesRows = d.vacantesPorPrograma.map((v) => `
+        <tr>
+          <td>${v.programa}</td>
+          <td><strong>${v.vacantes}</strong></td>
+        </tr>
+      `).join("");
+
+      const salaryRows = d.salarios.programas.map((s) => `
+        <tr>
+          <td>${s.programa}</td>
+          <td>${s.conSalario}</td>
+          <td>${formatCOP(s.mediana)}</td>
+          <td>${formatCOP(s.promedio)}</td>
+          <td>${formatCOP(s.min)}</td>
+          <td>${formatCOP(s.max)}</td>
+        </tr>
+      `).join("");
+
+      const rangosRows = d.rangosSalariales.map((r) => `
+        <tr>
+          <td>${r.rango}</td>
+          <td>${r.arquitectura}</td>
+          <td>${r.dIndustrial}</td>
+          <td>${r.dVisual}</td>
+        </tr>
+      `).join("");
+
+      const ciudadesGlobal = d.topCiudades.map((c) => `${c.ciudad} ${c.vacantes}`).join(" · ");
+      const ciudadesPorPrograma = Object.entries(d.ciudadesPorPrograma).map(([programa, items]) => `
+        <p><strong>${programa}:</strong> ${items.join(" · ")}</p>
+      `).join("");
+
+      const empresas = Object.entries(d.topEmpresas).map(([programa, items]) => `
+        <p><strong>${programa}:</strong> ${items.join(", ")}.</p>
+      `).join("");
+
+      const confidencial = Object.entries(d.empresasConfidenciales).map(([programa, valor]) => `${programa} ${valor}`).join(" · ");
+
+      const cargos = Object.entries(d.topCargos).map(([programa, items]) => `
+        <p><strong>${programa}:</strong> ${items.join(" · ")}</p>
+      `).join("");
+
+      const competencias = Object.entries(d.topCompetencias).map(([programa, items]) => `
+        <p><strong>${programa}:</strong> ${items.join(" · ")}</p>
+      `).join("");
+
+      const topProgramOptions = Object.keys(d.topCompetencias).map((programa) => `
+        <option value="${programa}">${programa}</option>
+      `).join("");
+
+      const contratoRows = d.tiposContrato.programas.map((t) => `
+        <tr>
+          <td>${t.programa}</td>
+          <td>${t.conDato}</td>
+          <td>${t.indefinido}</td>
+          <td>${t.obraLabor}</td>
+          <td>${t.definido}</td>
+          <td>${t.prestacionServicios}</td>
+          <td>${t.aprendizaje}</td>
+        </tr>
+      `).join("");
+
+      const mapa = d.mapaHabilidades.map((m) => `
+        <article class="rounded-2xl border border-slate-200 bg-white p-4" style="border-top: 5px solid ${m.color};">
+          <h4 class="text-sm font-extrabold" style="color:${m.color}">${m.programa}</h4>
+          <p class="text-xs text-slate-500 mb-2">${m.vacantes} vacantes</p>
+          ${m.bloques.map((b) => `<p class="text-xs mt-1">${b}</p>`).join("")}
+        </article>
+      `).join("");
+
+      return `
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 mb-5">
+          <div class="kpi p-4"><p class="text-xs text-slate-500">Total vacantes analizadas</p><h3 class="text-2xl font-extrabold">${d.kpis.totalVacantes.toLocaleString("es-CO")}</h3></div>
+          <div class="kpi p-4"><p class="text-xs text-slate-500">Programas cubiertos</p><h3 class="text-2xl font-extrabold">${d.kpis.programasCubiertos}</h3></div>
+          <div class="kpi p-4"><p class="text-xs text-slate-500">Ciudades con presencia</p><h3 class="text-2xl font-extrabold">${d.kpis.ciudadesConPresencia}</h3></div>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-6">
+          <div class="panel p-4">
+            <h3 class="text-lg font-extrabold mb-3">Vacantes por Programa</h3>
+            <div class="h-[320px]"><canvas id="arqVacantesChart"></canvas></div>
+          </div>
+          <div class="panel p-4">
+            <h3 class="text-lg font-extrabold mb-3">Salarios: Mediana vs Promedio (COP/mes)</h3>
+            <div class="h-[320px]"><canvas id="arqSalariosChart"></canvas></div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-6">
+          <div class="panel p-4">
+            <h3 class="text-lg font-extrabold mb-2">Vacantes por programa</h3>
+            <p class="text-xs text-slate-500 mb-3">Total: ${d.kpis.totalVacantes.toLocaleString("es-CO")}</p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>Programa</th><th>Vacantes</th></tr>
+                </thead>
+                <tbody>${vacantesRows}</tbody>
+              </table>
+            </div>
+          </div>
+          <div class="panel p-4">
+            <h3 class="text-lg font-extrabold mb-2">Salarios declarados por programa</h3>
+            <p class="text-xs text-slate-500 mb-3">Cobertura: ${d.salarios.cobertura}</p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Programa</th><th>N° con salario</th><th>Mediana</th><th>Promedio</th><th>Mín</th><th>Máx</th>
+                  </tr>
+                </thead>
+                <tbody>${salaryRows}</tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel p-4 mb-6">
+          <h3 class="text-lg font-extrabold mb-3">Rango salarial por programa</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Rango</th><th>Arquitectura</th><th>D. Industrial</th><th>D. Visual</th></tr>
+              </thead>
+              <tbody>${rangosRows}</tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel p-4 mb-6">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
+            <h3 class="text-lg font-extrabold">Top empresas, cargos y competencias</h3>
+            <div class="flex items-center gap-2">
+              <label for="arqTopProgramFilter" class="text-xs font-bold text-slate-600">Programa:</label>
+              <select id="arqTopProgramFilter" class="rounded-lg border border-slate-300 px-3 py-2 text-sm bg-white">${topProgramOptions}</select>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+            <div>
+              <h4 class="text-sm font-extrabold mb-2">Top empresas</h4>
+              <div class="h-[280px]"><canvas id="arqTopEmpresasChart"></canvas></div>
+            </div>
+            <div>
+              <h4 class="text-sm font-extrabold mb-2">Top cargos</h4>
+              <div class="h-[280px]"><canvas id="arqTopCargosChart"></canvas></div>
+            </div>
+            <div>
+              <h4 class="text-sm font-extrabold mb-2">Top competencias</h4>
+              <div class="h-[280px]"><canvas id="arqTopCompetenciasChart"></canvas></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-6">
+          <div class="panel p-4">
+            <h3 class="text-lg font-extrabold mb-3">Top ciudades</h3>
+            <div class="h-[260px]"><canvas id="arqCiudadesChart"></canvas></div>
+            <p class="text-xs text-slate-700 mt-3"><strong>Global:</strong> ${ciudadesGlobal}</p>
+            <div class="text-xs leading-relaxed space-y-1 mt-3">${ciudadesPorPrograma}</div>
+          </div>
+          <div class="panel p-4">
+            <h3 class="text-lg font-extrabold mb-3">Top empresas por programa</h3>
+            <div class="text-xs leading-relaxed space-y-2">${empresas}</div>
+            <p class="text-xs text-slate-600 mt-3"><strong>Empresa confidencial:</strong> ${confidencial}.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-6">
+          <div class="panel p-4">
+            <h3 class="text-lg font-extrabold mb-3">Top cargos por programa</h3>
+            <div class="text-xs leading-relaxed space-y-2">${cargos}</div>
+          </div>
+          <div class="panel p-4">
+            <h3 class="text-lg font-extrabold mb-3">Top 10 competencias por programa</h3>
+            <div class="text-xs leading-relaxed space-y-2">${competencias}</div>
+          </div>
+        </div>
+
+        <div class="panel p-4 mb-6">
+          <h3 class="text-lg font-extrabold mb-2">Tipo de contrato por programa</h3>
+          <p class="text-xs text-slate-500 mb-3">Cobertura: ${d.tiposContrato.cobertura}</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Programa</th><th>Con dato</th><th>Indefinido</th><th>Por obra o labor</th><th>Definido</th><th>Prestación de Servicios</th><th>Aprendizaje</th>
+                </tr>
+              </thead>
+              <tbody>${contratoRows}</tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel p-4">
+          <h3 class="text-lg font-extrabold mb-3">Mapa de habilidades por programa</h3>
+          <div class="grid grid-cols-1 xl:grid-cols-3 gap-3">${mapa}</div>
+        </div>
+      `;
+    }
+
+    function educacionEmpleabilidadMarkup() {
+      const d = educacionEmpleabilidadData;
+
+      const vacantesRows = d.vacantesPorPrograma.map((v) => `
+        <tr>
+          <td>${v.programa}</td>
+          <td><strong>${v.vacantes}</strong></td>
+        </tr>
+      `).join("");
+
+      const salaryRows = d.salarios.programas.map((s) => `
+        <tr>
+          <td>${s.programa}</td>
+          <td>${s.conSalario}</td>
+          <td>${formatCOP(s.mediana)}</td>
+          <td>${formatCOP(s.promedio)}</td>
+          <td>${formatCOP(s.min)}</td>
+          <td>${formatCOP(s.max)}</td>
+        </tr>
+      `).join("");
+
+      const rangosRows = d.rangosSalariales.map((r) => `
+        <tr>
+          <td>${r.rango}</td>
+          <td>${r.cSociales}</td>
+          <td>${r.espanolLenguas}</td>
+          <td>${r.edFisica}</td>
+          <td>${r.ePrimaria}</td>
+          <td>${r.cNaturales}</td>
+          <td>${r.literatura}</td>
+          <td>${r.edReligiosa}</td>
+        </tr>
+      `).join("");
+
+      const ciudadesGlobal = d.topCiudades.map((c) => `${c.ciudad} ${c.vacantes}`).join(" · ");
+      const ciudadesPorPrograma = Object.entries(d.ciudadesPorPrograma).map(([programa, items]) => `
+        <p><strong>${programa}:</strong> ${items.join(" · ")}</p>
+      `).join("");
+
+      const empresas = Object.entries(d.topEmpresas).map(([programa, items]) => `
+        <p><strong>${programa}:</strong> ${items.join(", ")}.</p>
+      `).join("");
+
+      const confidencial = Object.entries(d.empresasConfidenciales)
+        .map(([programa, valor]) => `${programa} ${valor}`)
+        .join(" · ");
+
+      const cargos = Object.entries(d.topCargos).map(([programa, items]) => `
+        <p><strong>${programa}:</strong> ${items.join(" · ")}</p>
+      `).join("");
+
+      const competencias = Object.entries(d.topCompetencias).map(([programa, items]) => `
+        <p><strong>${programa}:</strong> ${items.join(" · ")}</p>
+      `).join("");
+
+      const topProgramOptions = Object.keys(d.topCompetencias).map((programa) => `
+        <option value="${programa}">${programa}</option>
+      `).join("");
+
+      const mapa = d.mapaHabilidades.map((m) => `
+        <article class="rounded-2xl border border-slate-200 bg-white p-4" style="border-top: 5px solid ${m.color};">
+          <h4 class="text-sm font-extrabold" style="color:${m.color}">${m.programa}</h4>
+          <p class="text-xs text-slate-500 mb-2">${m.vacantes} vacantes</p>
+          ${m.bloques.map((b) => `<p class="text-xs mt-1">${b}</p>`).join("")}
+        </article>
+      `).join("");
+
+      return `
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 mb-5">
+          <div class="kpi p-4"><p class="text-xs text-slate-500">Total vacantes analizadas</p><h3 class="text-2xl font-extrabold">${d.kpis.totalVacantes.toLocaleString("es-CO")}</h3></div>
+          <div class="kpi p-4"><p class="text-xs text-slate-500">Programas cubiertos</p><h3 class="text-2xl font-extrabold">${d.kpis.programasCubiertos}</h3></div>
+          <div class="kpi p-4"><p class="text-xs text-slate-500">Ciudades con presencia</p><h3 class="text-2xl font-extrabold">${d.kpis.ciudadesConPresencia}</h3></div>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-6">
+          <div class="panel p-4">
+            <h3 class="text-lg font-extrabold mb-3">Vacantes por Programa</h3>
+            <div class="h-[320px]"><canvas id="educacionVacantesChart"></canvas></div>
+          </div>
+          <div class="panel p-4">
+            <h3 class="text-lg font-extrabold mb-3">Salarios: Mediana vs Promedio (COP/mes)</h3>
+            <div class="h-[320px]"><canvas id="educacionSalariosChart"></canvas></div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-6">
+          <div class="panel p-4">
+            <h3 class="text-lg font-extrabold mb-2">Vacantes por programa</h3>
+            <p class="text-xs text-slate-500 mb-3">Total: ${d.kpis.totalVacantes.toLocaleString("es-CO")}</p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>Programa</th><th>Vacantes</th></tr>
+                </thead>
+                <tbody>${vacantesRows}</tbody>
+              </table>
+            </div>
+          </div>
+          <div class="panel p-4">
+            <h3 class="text-lg font-extrabold mb-2">Salarios declarados por programa</h3>
+            <p class="text-xs text-slate-500 mb-3">Cobertura: ${d.salarios.cobertura}</p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Programa</th><th>N° con salario</th><th>Mediana</th><th>Promedio</th><th>Mín</th><th>Máx</th>
+                  </tr>
+                </thead>
+                <tbody>${salaryRows}</tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel p-4 mb-6">
+          <h3 class="text-lg font-extrabold mb-3">Rango salarial por programa</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Rango</th>
+                  <th>C. Sociales</th>
+                  <th>Español/Lenguas</th>
+                  <th>Ed. Física</th>
+                  <th>E. Primaria</th>
+                  <th>C. Naturales</th>
+                  <th>Literatura</th>
+                  <th>Ed. Religiosa</th>
+                </tr>
+              </thead>
+              <tbody>${rangosRows}</tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel p-4 mb-6">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
+            <h3 class="text-lg font-extrabold">Top empresas, cargos y competencias</h3>
+            <div class="flex items-center gap-2">
+              <label for="educacionTopProgramFilter" class="text-xs font-bold text-slate-600">Programa:</label>
+              <select id="educacionTopProgramFilter" class="rounded-lg border border-slate-300 px-3 py-2 text-sm bg-white">${topProgramOptions}</select>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+            <div>
+              <h4 class="text-sm font-extrabold mb-2">Top empresas</h4>
+              <div class="h-[280px]"><canvas id="educacionTopEmpresasChart"></canvas></div>
+            </div>
+            <div>
+              <h4 class="text-sm font-extrabold mb-2">Top cargos</h4>
+              <div class="h-[280px]"><canvas id="educacionTopCargosChart"></canvas></div>
+            </div>
+            <div>
+              <h4 class="text-sm font-extrabold mb-2">Top competencias</h4>
+              <div class="h-[280px]"><canvas id="educacionTopCompetenciasChart"></canvas></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-6">
+          <div class="panel p-4">
+            <h3 class="text-lg font-extrabold mb-3">Top ciudades</h3>
+            <div class="h-[260px]"><canvas id="educacionCiudadesChart"></canvas></div>
+            <p class="text-xs text-slate-700 mt-3"><strong>Global:</strong> ${ciudadesGlobal}</p>
+            <div class="text-xs leading-relaxed space-y-1 mt-3">${ciudadesPorPrograma}</div>
+          </div>
+          <div class="panel p-4">
+            <h3 class="text-lg font-extrabold mb-3">Top empresas por programa</h3>
+            <div class="text-xs leading-relaxed space-y-2">${empresas}</div>
+            <p class="text-xs text-slate-600 mt-3"><strong>Empresa confidencial / No especificado:</strong> ${confidencial}.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-6">
+          <div class="panel p-4">
+            <h3 class="text-lg font-extrabold mb-3">Top cargos por programa</h3>
+            <div class="text-xs leading-relaxed space-y-2">${cargos}</div>
+          </div>
+          <div class="panel p-4">
+            <h3 class="text-lg font-extrabold mb-3">Top 10 competencias por programa</h3>
+            <div class="text-xs leading-relaxed space-y-2">${competencias}</div>
+          </div>
+        </div>
+
+        <div class="panel p-4">
+          <h3 class="text-lg font-extrabold mb-3">Mapa de habilidades por programa</h3>
+          <div class="grid grid-cols-1 xl:grid-cols-2 gap-3">${mapa}</div>
+        </div>
+      `;
+    }
+
+    function educacionIndiceMarkup() {
+      const d = educacionIndiceData;
+
+      const filasResumen = d.resumen.map((r) => `
+        <tr>
+          <td>${r.programa}</td>
+          <td class="text-center">${r.digital.toFixed(2)}</td>
+          <td class="text-center">${r.laboral.toFixed(2)}</td>
+          <td class="text-center"><strong>${r.indice.toFixed(2)}</strong></td>
+          <td><span class="pill ${r.clase}">${r.clasificacion}</span></td>
+        </tr>
+      `).join("");
+
+      const hallazgos = d.hallazgos.map((h) => `
+        <div class="rounded-xl border border-sky-200 bg-sky-50 p-3">
+          <p class="text-slate-700">${h}</p>
+        </div>
+      `).join("");
+
+      const insightsDigital = d.insightsDigital.map((txt, i) => `
+        <div class="rounded-xl border border-slate-200 bg-slate-50 p-3 flex gap-3">
+          <div class="h-9 w-9 rounded-full flex items-center justify-center text-white font-extrabold shrink-0" style="background:#1178b5;">${i + 1}</div>
+          <p class="text-slate-700">${txt}</p>
+        </div>
+      `).join("");
+
+      const insightsLaboral = d.insightsLaboral.map((txt, i) => `
+        <div class="rounded-xl border border-slate-200 bg-slate-50 p-3 flex gap-3">
+          <div class="h-9 w-9 rounded-full flex items-center justify-center text-white font-extrabold shrink-0" style="background:#272f6f;">${i + 1}</div>
+          <p class="text-slate-700">${txt}</p>
+        </div>
+      `).join("");
+
+      const recomendaciones = d.recomendaciones.map((r) => `
+        <article class="rounded-xl border border-slate-200 overflow-hidden bg-white">
+          <div class="px-4 py-2 text-white font-extrabold tracking-wide" style="background:${r.color};">${r.tipo}</div>
+          <div class="p-4">
+            <h4 class="text-2xl font-extrabold text-slate-800 mb-2">${r.titulo}</h4>
+            <p class="text-slate-700">${r.texto}</p>
+          </div>
+        </article>
+      `).join("");
+
+      const convocatoriaPasos = d.convocatoria.pasos.map((item) => `
+        <div class="flex gap-4 items-start">
+          <div class="h-11 w-11 rounded-full flex items-center justify-center text-white font-extrabold shrink-0" style="background:#272f6f;">${item.numero}</div>
+          <div>
+            <h4 class="text-base font-extrabold text-slate-800 mb-2">${item.titulo}</h4>
+            <p class="text-slate-700">${item.texto}</p>
+          </div>
+        </div>
+      `).join("");
+
+      return `
+        <div class="panel p-4 md:p-5 mb-6">
+          <h3 class="text-lg font-extrabold mb-3">Resumen Consolidado - Índice de Oportunidad (Educación)</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th style="background:#0b2742; color:#ffffff;">Programa</th>
+                  <th class="text-center" style="background:#0b2742; color:#ffffff;">Puntaje Digital (30%)</th>
+                  <th class="text-center" style="background:#0b2742; color:#ffffff;">Puntaje Laboral (70%)</th>
+                  <th class="text-center" style="background:#0b2742; color:#ffffff;">Índice Final</th>
+                  <th style="background:#0b2742; color:#ffffff;">Clasificación</th>
+                </tr>
+              </thead>
+              <tbody>${filasResumen}</tbody>
+            </table>
+          </div>
+          <p class="text-xs italic text-slate-500 mt-4 text-center">${d.notaTabla}</p>
+        </div>
+
+        <div class="panel p-4 md:p-5 mb-6">
+          <details>
+            <summary class="accordion-summary">
+              <strong>Hallazgos Principales</strong>
+              <span class="accordion-meta"><span class="accordion-badge">${d.hallazgos.length} ítems</span><span class="accordion-chevron">▾</span></span>
+            </summary>
+            <div class="space-y-3 text-sm mt-3">${hallazgos}</div>
+          </details>
+        </div>
+
+        <div class="panel p-4 md:p-5 mb-6">
+          <h3 class="text-2xl font-extrabold text-center mb-6">Facultad de Ciencias de la Educación</h3>
+          <h4 class="text-xl font-extrabold italic mb-4" style="color:#22316f;">Convocatoria docente del MEN: cómo se incorporó al modelo</h4>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6 mb-6 flex flex-col xl:flex-row xl:items-center xl:justify-between gap-4">
+            <div>
+              <p class="text-5xl font-extrabold text-emerald-700 leading-none">${d.convocatoria.vacantes}</p>
+              <p class="text-slate-800 text-xl mt-2">vacantes definitivas para docentes y directivos docentes en entidades territoriales certificadas de todo el país.</p>
+            </div>
+            <p class="text-sm italic text-slate-500">${d.convocatoria.soporte}</p>
+          </div>
+          <div class="space-y-6 mb-6">${convocatoriaPasos}</div>
+          <div class="rounded-xl px-5 py-4 text-center italic font-bold" style="background:#feeddc; color:#ea580c;">${d.convocatoria.alerta}</div>
+        </div>
+
+        <div class="panel p-4 md:p-5 mb-6">
+          <h3 class="text-lg font-extrabold mb-4">Insights por Variable</h3>
+          <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 text-sm">
+            <details>
+              <summary class="accordion-summary">
+                <strong>Interés Digital (Google Trends)</strong>
+                <span class="accordion-meta"><span class="accordion-badge">${d.insightsDigital.length} ítems</span><span class="accordion-chevron">▾</span></span>
+              </summary>
+              <div class="space-y-3 mt-3">${insightsDigital}</div>
+            </details>
+            <details>
+              <summary class="accordion-summary">
+                <strong>Tasa de Absorción Laboral</strong>
+                <span class="accordion-meta"><span class="accordion-badge">${d.insightsLaboral.length} ítems</span><span class="accordion-chevron">▾</span></span>
+              </summary>
+              <div class="space-y-3 mt-3">${insightsLaboral}</div>
+            </details>
+          </div>
+        </div>
+
+        <div class="panel p-4 md:p-5 mb-6">
+          <details>
+            <summary class="accordion-summary">
+              <strong>Recomendaciones para el Mercadeo</strong>
+              <span class="accordion-meta"><span class="accordion-badge">${d.recomendaciones.length} líneas estratégicas</span><span class="accordion-chevron">▾</span></span>
+            </summary>
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 text-sm mt-3">${recomendaciones}</div>
+          </details>
+        </div>
+
+        <div class="panel p-4 md:p-5 mt-6">
+          <h3 class="text-lg font-extrabold mb-3">Comparativo Digital vs Laboral (Educación)</h3>
+          <div class="h-[350px]"><canvas id="educacionIndiceChart"></canvas></div>
         </div>
       `;
     }
@@ -1201,6 +2632,14 @@
     }
 
     function contextoIndiceMarkup() {
+      if (currentSubtab === "contexto-fase1") return contextoFase1Markup();
+      if (currentSubtab === "contexto-fase2") return contextoFase2Markup();
+      if (currentSubtab === "contexto-fase3") return contextoFase3Markup();
+      if (currentSubtab === "contexto-fase4") return contextoFase4Markup();
+      return contextoResumenMarkup();
+    }
+
+    function contextoResumenMarkup() {
       return `
         <div class="space-y-4">
           <div class="panel p-4 md:p-6">
@@ -1211,6 +2650,10 @@
               y la necesidad real de la industria (vacantes laborales), se identifican brechas donde la Universidad de La Salle
               puede fortalecer su posicionamiento o innovar con nuevas tematicas academicas.
             </p>
+            <div class="mt-4 rounded-xl border border-sky-200 bg-sky-50 p-4 text-sm text-slate-700">
+              <p class="font-extrabold text-slate-800 mb-1">Nueva navegacion por fases</p>
+              <p>Usa las subpestañas para revisar cada etapa metodologica por separado y evitar saturacion de contenido en una sola vista.</p>
+            </div>
 
             <div class="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
               <h4 class="text-base font-extrabold mb-2">Referencias Bibliograficas Principales</h4>
@@ -1271,31 +2714,39 @@
               </div>
             </div>
           </div>
+        </div>
+      `;
+    }
 
-          <div class="grid grid-cols-1 gap-4">
-            <div class="panel p-4 md:p-5">
-              <div class="flex items-center gap-2 mb-2">
-                <h3 class="text-lg font-extrabold">FASE 1 - Medicion de Interes Digital (Google Trends)</h3>
-              </div>
-              <p class="text-sm text-slate-700 leading-relaxed">
-                <strong>Definicion:</strong> Google Trends analiza la frecuencia de busqueda de un termino en Google para un periodo de 12 meses y una region (Colombia).
-              </p>
-              <p class="text-sm text-slate-700 leading-relaxed mt-2">
-                <strong>Que se mide:</strong> la intencion de busqueda y el interes de la audiencia por programas vigentes y proyectados.
-              </p>
-              <p class="text-sm text-slate-700 leading-relaxed mt-2">
-                <strong>Como se mide:</strong> el pico anual recibe valor 100 y las demas semanas se calculan respecto a ese maximo.
-              </p>
-              <ul class="text-sm text-slate-700 list-disc pl-5 mt-2 space-y-1">
-                <li>100: momento con mayor interes del ano para el programa.</li>
-                <li>0: sin volumen suficiente para registro.</li>
-              </ul>
-              <p class="text-sm text-slate-700 leading-relaxed mt-2">
-                <strong>Calculo:</strong> se suman los 52 valores semanales y se dividen por 52. Se incluyen semanas en 0 para reflejar consistencia real del interes.
-              </p>
-            </div>
+    function contextoFase1Markup() {
+      return `
+        <div class="space-y-4">
+          <div class="panel p-4 md:p-5">
+            <h3 class="text-lg font-extrabold mb-2">FASE 1 - Medicion de Interes Digital (Google Trends)</h3>
+            <p class="text-sm text-slate-700 leading-relaxed">
+              <strong>Definicion:</strong> Google Trends analiza la frecuencia de busqueda de un termino en Google para un periodo de 12 meses y una region (Colombia).
+            </p>
+            <p class="text-sm text-slate-700 leading-relaxed mt-2">
+              <strong>Que se mide:</strong> la intencion de busqueda y el interes de la audiencia por programas vigentes y proyectados.
+            </p>
+            <p class="text-sm text-slate-700 leading-relaxed mt-2">
+              <strong>Como se mide:</strong> el pico anual recibe valor 100 y las demas semanas se calculan respecto a ese maximo.
+            </p>
+            <ul class="text-sm text-slate-700 list-disc pl-5 mt-2 space-y-1">
+              <li>100: momento con mayor interes del ano para el programa.</li>
+              <li>0: sin volumen suficiente para registro.</li>
+            </ul>
+            <p class="text-sm text-slate-700 leading-relaxed mt-2">
+              <strong>Calculo:</strong> se suman los 52 valores semanales y se dividen por 52. Se incluyen semanas en 0 para reflejar consistencia real del interes.
+            </p>
           </div>
+        </div>
+      `;
+    }
 
+    function contextoFase2Markup() {
+      return `
+        <div class="space-y-4">
           <div class="panel p-4 md:p-5">
             <h3 class="text-lg font-extrabold mb-2">FASE 2 - Medicion Aproximada de la Realidad Laboral (Tasa de Absorcion)</h3>
             <p class="text-sm text-slate-700 leading-relaxed"><strong>Fuentes nacionales:</strong> oferta (graduados SNIES, ultimo corte) y demanda (vacantes de LinkedIn, CompuTrabajo y El Empleo).</p>
@@ -1311,7 +2762,13 @@
               </ul>
             </div>
           </div>
+        </div>
+      `;
+    }
 
+    function contextoFase3Markup() {
+      return `
+        <div class="space-y-4">
           <div class="panel p-4 md:p-5">
             <h3 class="text-lg font-extrabold mb-2">FASE 3 - Construccion del Indice de Oportunidad (IO)</h3>
             <p class="text-sm text-slate-700 leading-relaxed"><strong>Esquema:</strong> ponderacion diferenciada 30/70 basada en robustez de la evidencia laboral.</p>
@@ -1383,7 +2840,13 @@
               </p>
             </div>
           </div>
+        </div>
+      `;
+    }
 
+    function contextoFase4Markup() {
+      return `
+        <div class="space-y-4">
           <div class="panel p-4 md:p-5">
             <h3 class="text-lg font-extrabold mb-2">FASE 4 - Identificacion de Brechas y Demandas de Capital Humano</h3>
             <p class="text-sm text-slate-700 leading-relaxed">
@@ -1416,10 +2879,6 @@
       return `
         <div class="space-y-4">
           <div class="panel p-4 md:p-6">
-            <h3 class="text-lg font-extrabold mb-2">Consolidado Datos</h3>
-            <p class="text-sm text-slate-700">Espacio reservado para consolidar métricas globales por facultad, programa y tendencia histórica.</p>
-          </div>
-          <div class="panel p-4 md:p-6">
             <h3 class="text-lg font-extrabold mb-3">Visualización del Libro</h3>
             <div class="w-full overflow-auto rounded-xl border border-slate-200 bg-white p-2">
               <iframe width="100%" height="620" class="w-full h-[70vh] min-h-[420px]" frameborder="0" scrolling="no" src="https://lasalleeduco-my.sharepoint.com/personal/johejimenez_lasalle_edu_co/_layouts/15/Doc.aspx?sourcedoc={ea5cc136-acd9-40bc-a19e-8df04a4f6270}&action=embedview&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True"></iframe>
@@ -1432,42 +2891,36 @@
     function basesExtraidasMarkup() {
       return `
         <div class="space-y-4">
-          <div class="panel p-4 md:p-6">
-            <h3 class="text-lg font-extrabold mb-2">Bases Extraidas</h3>
-            <p class="text-sm text-slate-700">Sección para listar y documentar las bases fuente usadas en el análisis.</p>
-          </div>
           <div class="panel p-6 md:p-8">
-            <h3 class="text-lg font-extrabold mb-2">Acceso a Carpeta de Ciencias de la Salud</h3>
-            <p class="text-sm text-slate-600 mb-4">Consulta aquí los archivos fuente extraídos para el análisis de la Facultad de Ciencias de la Salud.</p>
-            <a href="https://lasalleeduco-my.sharepoint.com/:f:/g/personal/johejimenez_lasalle_edu_co/IgB_Bl1cZbCrQ7MY2nRV5b6GAVLQivrWsng6cLhu2J3Kjxk?e=OL5B3u" target="_blank" rel="noopener noreferrer" class="inline-flex items-center rounded-lg bg-sky-700 px-4 py-2 text-sm font-bold text-white hover:bg-sky-800 transition">
-              Abrir carpeta Ciencias de la Salud
-            </a>
+            <h3 class="text-lg font-extrabold mb-4">Carpetas fuente por facultad</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <a href="https://lasalleeduco-my.sharepoint.com/:f:/g/personal/johejimenez_lasalle_edu_co/IgB_Bl1cZbCrQ7MY2nRV5b6GAVLQivrWsng6cLhu2J3Kjxk?e=OL5B3u" target="_blank" rel="noopener noreferrer" class="rounded-xl border border-slate-200 bg-slate-50 p-4 hover:border-sky-300 hover:bg-sky-50 transition">
+                <h4 class="text-base font-extrabold text-slate-800 mb-1">Facultad de Ciencias de la Salud</h4>
+                <p class="text-sm text-slate-600">Abrir carpeta fuente de Salud</p>
+              </a>
+              <a href="https://lasalleeduco-my.sharepoint.com/:f:/g/personal/johejimenez_lasalle_edu_co/IgDZlxKEp1KcR7PvX0nvJfLsAV1TK9QQNbsIXb09HRCxQKY?e=dYZgJZ" target="_blank" rel="noopener noreferrer" class="rounded-xl border border-slate-200 bg-slate-50 p-4 hover:border-sky-300 hover:bg-sky-50 transition">
+                <h4 class="text-base font-extrabold text-slate-800 mb-1">Arquitectura, Diseño y Urbanismo</h4>
+                <p class="text-sm text-slate-600">Abrir carpeta fuente de Arquitectura</p>
+              </a>
+              <a href="https://lasalleeduco-my.sharepoint.com/:f:/g/personal/johejimenez_lasalle_edu_co/IgBmTU_immGuSIJ3bZB6KNOoAUm7ZbUnTvipu8sivmBN51M?e=EHo2s4" target="_blank" rel="noopener noreferrer" class="rounded-xl border border-slate-200 bg-slate-50 p-4 hover:border-sky-300 hover:bg-sky-50 transition">
+                <h4 class="text-base font-extrabold text-slate-800 mb-1">Escuela de Ciencias Básicas y Aplicadas</h4>
+                <p class="text-sm text-slate-600">Abrir carpeta fuente de ECBA</p>
+              </a>
+              <a href="https://lasalleeduco-my.sharepoint.com/:f:/g/personal/johejimenez_lasalle_edu_co/IgCxe_pxynA1TKL__oIAO0icAb2LhuLLOX_iGK3PEC-AUvw?e=fVxN0p" target="_blank" rel="noopener noreferrer" class="rounded-xl border border-slate-200 bg-slate-50 p-4 hover:border-sky-300 hover:bg-sky-50 transition">
+                <h4 class="text-base font-extrabold text-slate-800 mb-1">Humanidades y Estudios Sociales</h4>
+                <p class="text-sm text-slate-600">Abrir carpeta fuente de Humanidades</p>
+              </a>
+              <a href="https://lasalleeduco-my.sharepoint.com/:f:/g/personal/johejimenez_lasalle_edu_co/IgAy2iVS_OzzTKawbJOm0KbBAUcJbhzS7TI1He1oX8gWNjk?e=kzFn3c" target="_blank" rel="noopener noreferrer" class="rounded-xl border border-slate-200 bg-slate-50 p-4 hover:border-sky-300 hover:bg-sky-50 transition md:col-span-2">
+                <h4 class="text-base font-extrabold text-slate-800 mb-1">Ciencias de la Educación</h4>
+                <p class="text-sm text-slate-600">Abrir carpeta fuente de Educación</p>
+              </a>
+            </div>
           </div>
         </div>
       `;
     }
 
     function saludIndiceMarkup() {
-      const cards = saludPrograms.map((p, idx) => `
-        <article class="program-card" style="animation-delay:${idx * 70}ms">
-          <div class="h-40 bg-cover bg-center" style="background-image:url('${p.imagen}')"></div>
-          <div class="p-4">
-            <div class="flex items-start justify-between gap-3">
-              <h4 class="text-base font-extrabold text-slate-800">${p.programa}</h4>
-              <span class="pill ${p.clase}">${p.clasificacion}</span>
-            </div>
-            <p class="text-xs text-slate-500 mt-2"><strong>Término:</strong> ${p.termino}</p>
-            <div class="grid grid-cols-2 gap-x-4 gap-y-1 mt-3 text-xs text-slate-700">
-              <span>Puntaje Digital</span><strong>${p.digital}</strong>
-              <span>Tasa de Absorción</span><strong>${p.absorcion}</strong>
-              <span>Normalización</span><strong>${p.normalizacion}</strong>
-              <span>Puntaje Laboral</span><strong>${p.laboral}</strong>
-              <span>Índice de Oportunidad</span><strong class="text-teal-700">${p.indice.toFixed(1).replace('.', ',')}</strong>
-            </div>
-          </div>
-        </article>
-      `).join("");
-
       return `
         <div class="panel p-4 md:p-5 mb-6">
           <h3 class="text-lg font-extrabold mb-3">Resumen Consolidado - Índice de Oportunidad</h3>
@@ -1524,66 +2977,87 @@
         </div>
 
         <div class="panel p-4 md:p-5 mb-6">
-          <h3 class="text-lg font-extrabold mb-3 text-center">Hallazgos Principales</h3>
-          <div class="space-y-3 text-sm">
-            <div class="rounded-xl border border-sky-200 bg-sky-50 p-3">
-              <p class="text-slate-700">La facultad presenta el rango más amplio de resultados del análisis: desde Tecnología en Administración en Salud (índice 46,3, el más alto) hasta Optometría (índice 11,4, el más bajo), una diferencia de más de 34 puntos entre programas de la misma unidad.</p>
+          <details>
+            <summary class="accordion-summary">
+              <strong>Hallazgos Principales</strong>
+              <span class="accordion-meta"><span class="accordion-badge">3 ítems</span><span class="accordion-chevron">▾</span></span>
+            </summary>
+            <div class="space-y-3 text-sm mt-3">
+              <div class="rounded-xl border border-sky-200 bg-sky-50 p-3">
+                <p class="text-slate-700">La facultad presenta el rango más amplio de resultados del análisis: desde Tecnología en Administración en Salud (índice 46,3, el más alto) hasta Optometría (índice 11,4, el más bajo), una diferencia de más de 34 puntos entre programas de la misma unidad.</p>
+              </div>
+              <div class="rounded-xl border border-sky-200 bg-sky-50 p-3">
+                <p class="text-slate-700">Tres (3) de los cinco (5) programas (Enfermería, Tec. en Adm. en Salud y Salud Pública) se ubican en "Oportunidad de Crecimiento"; ninguno alcanza "Alta Oportunidad", lo que indica que el mejor desempeño de la facultad se explica por una Tasa de Absorción alta y no por un componente digital fuerte.</p>
+              </div>
+              <div class="rounded-xl border border-sky-200 bg-sky-50 p-3">
+                <p class="text-slate-700">Psicología y Optometría son los dos (2) programas de menor índice, pero por razones opuestas: Psicología por exceso relativo de egresados frente a las vacantes rastreadas, y Optometría por bajo interés digital junto con un volumen de vacantes limitado en los portales consultados.</p>
+              </div>
             </div>
-            <div class="rounded-xl border border-sky-200 bg-sky-50 p-3">
-              <p class="text-slate-700">Tres (3) de los cinco (5) programas (Enfermería, Tec. en Adm. en Salud y Salud Pública) se ubican en "Oportunidad de Crecimiento"; ninguno alcanza "Alta Oportunidad", lo que indica que el mejor desempeño de la facultad se explica por una Tasa de Absorción alta y no por un componente digital fuerte.</p>
-            </div>
-            <div class="rounded-xl border border-sky-200 bg-sky-50 p-3">
-              <p class="text-slate-700">Psicología y Optometría son los dos (2) programas de menor índice, pero por razones opuestas: Psicología por exceso relativo de egresados frente a las vacantes rastreadas, y Optometría por bajo interés digital junto con un volumen de vacantes limitado en los portales consultados.</p>
-            </div>
-          </div>
+          </details>
         </div>
 
         <div class="panel p-4 md:p-5 mb-6">
           <h3 class="text-lg font-extrabold mb-4">Insights por Variable</h3>
           <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 text-sm">
-            <div class="space-y-3">
-              <div class="rounded-lg px-4 py-2 text-white font-extrabold" style="background:#1178b5;">Interés Digital (Google Trends)</div>
+            <details>
+              <summary class="accordion-summary">
+                <strong>Interés Digital (Google Trends)</strong>
+                <span class="accordion-meta"><span class="accordion-badge">3 ítems</span><span class="accordion-chevron">▾</span></span>
+              </summary>
+              <div class="space-y-3 mt-3">
+                <div class="rounded-lg px-4 py-2 text-white font-extrabold" style="background:#1178b5;">Interés Digital (Google Trends)</div>
 
-              <div class="rounded-xl border border-slate-200 bg-slate-50 p-3 flex gap-3">
-                <div class="h-9 w-9 rounded-full flex items-center justify-center text-white font-extrabold shrink-0" style="background:#1178b5;">1</div>
-                <p class="text-slate-700">Psicología y Enfermería concentran casi todo el interés digital de la facultad (43 y 48 puntos de tendencia), un patrón consistente con la alta visibilidad social de ambas profesiones: la psicología está ligada a la creciente conversación pública sobre salud mental y bienestar, y la enfermería tiene reconocimiento histórico reforzado por su rol en la coyuntura sanitaria reciente. Ese volumen de búsqueda responde más a notoriedad social.</p>
+                <div class="rounded-xl border border-slate-200 bg-slate-50 p-3 flex gap-3">
+                  <div class="h-9 w-9 rounded-full flex items-center justify-center text-white font-extrabold shrink-0" style="background:#1178b5;">1</div>
+                  <p class="text-slate-700">Psicología y Enfermería concentran casi todo el interés digital de la facultad (43 y 48 puntos de tendencia), un patrón consistente con la alta visibilidad social de ambas profesiones: la psicología está ligada a la creciente conversación pública sobre salud mental y bienestar, y la enfermería tiene reconocimiento histórico reforzado por su rol en la coyuntura sanitaria reciente. Ese volumen de búsqueda responde más a notoriedad social.</p>
+                </div>
+
+                <div class="rounded-xl border border-slate-200 bg-slate-50 p-3 flex gap-3">
+                  <div class="h-9 w-9 rounded-full flex items-center justify-center text-white font-extrabold shrink-0" style="background:#1178b5;">2</div>
+                  <p class="text-slate-700">Tecnología en Administración en Salud y Salud Pública registran el interés digital más bajo de la facultad (0.6 y 0.9 puntos) pese a tener la mejor demanda laboral. Es probable que el público no busque estos programas por su nombre formal, sino por el cargo o la función asociada (p. ej. "auxiliar administrativo en salud", "salud ocupacional"), términos distintos al evaluado que no fueron capturados por la búsqueda.</p>
+                </div>
+
+                <div class="rounded-xl border border-slate-200 bg-slate-50 p-3 flex gap-3">
+                  <div class="h-9 w-9 rounded-full flex items-center justify-center text-white font-extrabold shrink-0" style="background:#1178b5;">3</div>
+                  <p class="text-slate-700">Ningún programa combina de forma simultánea un interés digital alto y una Tasa de Absorción alta: los picos de cada variable ocurren en programas distintos, lo que sugiere que, en esta facultad, la búsqueda en Google responde a un público de curiosidad general (aspirantes, contenido de salud mental) y no anticipa dónde está realmente la demanda de contratación.</p>
+                </div>
               </div>
+            </details>
 
-              <div class="rounded-xl border border-slate-200 bg-slate-50 p-3 flex gap-3">
-                <div class="h-9 w-9 rounded-full flex items-center justify-center text-white font-extrabold shrink-0" style="background:#1178b5;">2</div>
-                <p class="text-slate-700">Tecnología en Administración en Salud y Salud Pública registran el interés digital más bajo de la facultad (0.6 y 0.9 puntos) pese a tener la mejor demanda laboral. Es probable que el público no busque estos programas por su nombre formal, sino por el cargo o la función asociada (p. ej. "auxiliar administrativo en salud", "salud ocupacional"), términos distintos al evaluado que no fueron capturados por la búsqueda.</p>
+            <details>
+              <summary class="accordion-summary">
+                <strong>Tasa de Absorción Laboral</strong>
+                <span class="accordion-meta"><span class="accordion-badge">3 ítems</span><span class="accordion-chevron">▾</span></span>
+              </summary>
+              <div class="space-y-3 mt-3">
+                <div class="rounded-lg px-4 py-2 text-white font-extrabold" style="background:#272f6f;">Tasa de Absorción Laboral</div>
+
+                <div class="rounded-xl border border-slate-200 bg-slate-50 p-3 flex gap-3">
+                  <div class="h-9 w-9 rounded-full flex items-center justify-center text-white font-extrabold shrink-0" style="background:#272f6f;">1</div>
+                  <p class="text-slate-700">Tecnología en Administración en Salud y Salud Pública registran la Tasa de Absorción más alta de la facultad (65.3% y 50.2%), explicable por partir de bases de egresados más pequeñas frente a Enfermería o Psicología, y por corresponder a perfiles de vinculación ágil dentro del sistema de salud (cargos administrativos y de salud ocupacional que el sector demanda de forma constante).</p>
+                </div>
+
+                <div class="rounded-xl border border-slate-200 bg-slate-50 p-3 flex gap-3">
+                  <div class="h-9 w-9 rounded-full flex items-center justify-center text-white font-extrabold shrink-0" style="background:#272f6f;">2</div>
+                  <p class="text-slate-700">Psicología presenta la Tasa de Absorción más baja de la facultad (3.3%) pese a tener, con diferencia, la mayor base de egresados anuales (16.781). Esto es consistente con la alta oferta histórica del programa a nivel nacional, y con que las vacantes rastreadas (clínica y talento humano) capturan solo una fracción de los campos reales de ejercicio de la disciplina (práctica independiente, docencia, sector organizacional), no visibles en portales convencionales.</p>
+                </div>
+
+                <div class="rounded-xl border border-slate-200 bg-slate-50 p-3 flex gap-3">
+                  <div class="h-9 w-9 rounded-full flex items-center justify-center text-white font-extrabold shrink-0" style="background:#272f6f;">3</div>
+                  <p class="text-slate-700">Enfermería combina una base de egresados considerable (4.658) con una Tasa de Absorción intermedia-alta (27.7%), reflejo de una demanda laboral sostenida y diversificada del sector salud (asistencial, hospitalario, comunitario) capaz de absorber un volumen mayor de egresados sin llegar a saturarse.</p>
+                </div>
               </div>
-
-              <div class="rounded-xl border border-slate-200 bg-slate-50 p-3 flex gap-3">
-                <div class="h-9 w-9 rounded-full flex items-center justify-center text-white font-extrabold shrink-0" style="background:#1178b5;">3</div>
-                <p class="text-slate-700">Ningún programa combina de forma simultánea un interés digital alto y una Tasa de Absorción alta: los picos de cada variable ocurren en programas distintos, lo que sugiere que, en esta facultad, la búsqueda en Google responde a un público de curiosidad general (aspirantes, contenido de salud mental) y no anticipa dónde está realmente la demanda de contratación.</p>
-              </div>
-            </div>
-
-            <div class="space-y-3">
-              <div class="rounded-lg px-4 py-2 text-white font-extrabold" style="background:#272f6f;">Tasa de Absorción Laboral</div>
-
-              <div class="rounded-xl border border-slate-200 bg-slate-50 p-3 flex gap-3">
-                <div class="h-9 w-9 rounded-full flex items-center justify-center text-white font-extrabold shrink-0" style="background:#272f6f;">1</div>
-                <p class="text-slate-700">Tecnología en Administración en Salud y Salud Pública registran la Tasa de Absorción más alta de la facultad (65.3% y 50.2%), explicable por partir de bases de egresados más pequeñas frente a Enfermería o Psicología, y por corresponder a perfiles de vinculación ágil dentro del sistema de salud (cargos administrativos y de salud ocupacional que el sector demanda de forma constante).</p>
-              </div>
-
-              <div class="rounded-xl border border-slate-200 bg-slate-50 p-3 flex gap-3">
-                <div class="h-9 w-9 rounded-full flex items-center justify-center text-white font-extrabold shrink-0" style="background:#272f6f;">2</div>
-                <p class="text-slate-700">Psicología presenta la Tasa de Absorción más baja de la facultad (3.3%) pese a tener, con diferencia, la mayor base de egresados anuales (16.781). Esto es consistente con la alta oferta histórica del programa a nivel nacional, y con que las vacantes rastreadas (clínica y talento humano) capturan solo una fracción de los campos reales de ejercicio de la disciplina (práctica independiente, docencia, sector organizacional), no visibles en portales convencionales.</p>
-              </div>
-
-              <div class="rounded-xl border border-slate-200 bg-slate-50 p-3 flex gap-3">
-                <div class="h-9 w-9 rounded-full flex items-center justify-center text-white font-extrabold shrink-0" style="background:#272f6f;">3</div>
-                <p class="text-slate-700">Enfermería combina una base de egresados considerable (4.658) con una Tasa de Absorción intermedia-alta (27.7%), reflejo de una demanda laboral sostenida y diversificada del sector salud (asistencial, hospitalario, comunitario) capaz de absorber un volumen mayor de egresados sin llegar a saturarse.</p>
-              </div>
-            </div>
+            </details>
           </div>
         </div>
 
         <div class="panel p-4 md:p-5 mb-6">
-          <h3 class="text-lg font-extrabold mb-4">Recomendaciones para el Mercadeo</h3>
-          <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 text-sm">
+          <details>
+            <summary class="accordion-summary">
+              <strong>Recomendaciones para el Mercadeo</strong>
+              <span class="accordion-meta"><span class="accordion-badge">4 líneas estratégicas</span><span class="accordion-chevron">▾</span></span>
+            </summary>
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 text-sm mt-3">
             <article class="rounded-xl border border-slate-200 overflow-hidden bg-white">
               <div class="px-4 py-2 text-white font-extrabold tracking-wide" style="background:#1178b5;">VISIBILIZAR</div>
               <div class="p-4">
@@ -1615,10 +3089,10 @@
                 <p class="text-slate-700">Contrastar con aspirantes y egresados si el programa se busca bajo otros términos ("optómetra", diferenciación frente a "oftalmología"), y explorar alianzas con ópticas y EPS como canal de visibilización adicional a la pauta digital.</p>
               </div>
             </article>
-          </div>
+            </div>
+          </details>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">${cards}</div>
         <div class="panel p-4 md:p-5 mt-6">
           <h3 class="text-lg font-extrabold mb-3">Comparativo Digital vs Laboral (Facultad de Salud)</h3>
           <div class="h-[350px]"><canvas id="healthIndexChart"></canvas></div>
@@ -1824,6 +3298,75 @@
       if (charts[name]) {
         charts[name].destroy();
       }
+    }
+
+    function parseTopMetricItems(items, limit = 10) {
+      return (items || [])
+        .slice(0, limit)
+        .map((item, idx) => {
+          const raw = String(item || "").trim();
+          const match = raw.match(/^(.*)\((\d+)\)\s*$/);
+          if (match) {
+            return {
+              label: match[1].trim(),
+              value: Number(match[2])
+            };
+          }
+          return {
+            label: raw,
+            value: Math.max(1, limit - idx)
+          };
+        })
+        .filter((x) => x.label.length > 0);
+    }
+
+    function buildTopHorizontalChart(chartName, canvasId, items, color) {
+      safeDestroyChart(chartName);
+      const ctx = document.getElementById(canvasId);
+      if (!ctx) return;
+
+      const rows = items.length ? items : [{ label: "Sin datos", value: 0 }];
+      charts[chartName] = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: rows.map((r) => r.label),
+          datasets: [{
+            data: rows.map((r) => r.value),
+            backgroundColor: color,
+            borderRadius: 6,
+            barThickness: 14
+          }]
+        },
+        options: {
+          indexAxis: "y",
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { beginAtZero: true, ticks: { precision: 0 } },
+            y: { ticks: { autoSkip: false } }
+          }
+        }
+      });
+    }
+
+    function buildEmployabilityTopCharts(facultyPrefix, data, keys) {
+      const select = document.getElementById(`${facultyPrefix}TopProgramFilter`);
+      if (!select) return;
+
+      if (!select.dataset.bound) {
+        select.addEventListener("change", () => buildEmployabilityTopCharts(facultyPrefix, data, keys));
+        select.dataset.bound = "1";
+      }
+
+      const selectedProgram = select.value;
+      const empresasItems = parseTopMetricItems((data[keys.empresasKey] || {})[selectedProgram]);
+      const cargosItems = parseTopMetricItems((data[keys.cargosKey] || {})[selectedProgram]);
+      const competenciasItems = parseTopMetricItems((data[keys.competenciasKey] || {})[selectedProgram]);
+
+      buildTopHorizontalChart(`${facultyPrefix}TopEmpresas`, `${facultyPrefix}TopEmpresasChart`, empresasItems, "#0b2742");
+      buildTopHorizontalChart(`${facultyPrefix}TopCargos`, `${facultyPrefix}TopCargosChart`, cargosItems, "#0ea5a5");
+      buildTopHorizontalChart(`${facultyPrefix}TopCompetencias`, `${facultyPrefix}TopCompetenciasChart`, competenciasItems, "#f59e0b");
     }
 
     function buildHealthIndexChart() {
@@ -2135,6 +3678,170 @@
 
       const d = humanidadesIndiceData.resumen;
       charts.humanidadesIndice = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: d.map((r) => r.programa),
+          datasets: [
+            { label: "Puntaje Digital (30%)", data: d.map((r) => r.digital), backgroundColor: "#1178b5" },
+            { label: "Puntaje Laboral (70%)", data: d.map((r) => r.laboral), backgroundColor: "#272f6f" },
+            { label: "Índice Final", data: d.map((r) => r.indice), backgroundColor: "#f59e0b" }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: "top" } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+    }
+
+    function buildArqVacantesChart() {
+      safeDestroyChart("arqVacantes");
+      const ctx = document.getElementById("arqVacantesChart");
+      if (!ctx) return;
+
+      charts.arqVacantes = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+          labels: arqEmpleabilidadData.vacantesPorPrograma.map((p) => p.programa),
+          datasets: [{
+            data: arqEmpleabilidadData.vacantesPorPrograma.map((p) => p.vacantes),
+            backgroundColor: arqEmpleabilidadData.vacantesPorPrograma.map((p) => p.color)
+          }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: "right" } } }
+      });
+    }
+
+    function buildArqSalariosChart() {
+      safeDestroyChart("arqSalarios");
+      const ctx = document.getElementById("arqSalariosChart");
+      if (!ctx) return;
+
+      const p = arqEmpleabilidadData.salarios.programas;
+      charts.arqSalarios = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: p.map((x) => x.programa),
+          datasets: [
+            { label: "Mediana", data: p.map((x) => x.mediana), backgroundColor: "#0f4b72" },
+            { label: "Promedio", data: p.map((x) => x.promedio), backgroundColor: "#f59e0b" }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: "top" } },
+          scales: { y: { beginAtZero: true, ticks: { callback: (value) => "$" + Number(value).toLocaleString("es-CO") } } }
+        }
+      });
+    }
+
+    function buildArqCiudadesChart() {
+      safeDestroyChart("arqCiudades");
+      const ctx = document.getElementById("arqCiudadesChart");
+      if (!ctx) return;
+
+      charts.arqCiudades = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: arqEmpleabilidadData.topCiudades.map((c) => c.ciudad),
+          datasets: [{ label: "Vacantes", data: arqEmpleabilidadData.topCiudades.map((c) => c.vacantes), backgroundColor: "#0ea5a5" }]
+        },
+        options: { indexAxis: "y", responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+      });
+    }
+
+    function buildArqIndiceChart() {
+      safeDestroyChart("arqIndice");
+      const ctx = document.getElementById("arqIndiceChart");
+      if (!ctx) return;
+
+      const d = arqIndiceData.resumen;
+      charts.arqIndice = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: d.map((r) => r.programa),
+          datasets: [
+            { label: "Puntaje Digital (30%)", data: d.map((r) => r.digital), backgroundColor: "#1178b5" },
+            { label: "Puntaje Laboral (70%)", data: d.map((r) => r.laboral), backgroundColor: "#272f6f" },
+            { label: "Índice Final", data: d.map((r) => r.indice), backgroundColor: "#f59e0b" }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: "top" } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+    }
+
+    function buildEducacionVacantesChart() {
+      safeDestroyChart("educacionVacantes");
+      const ctx = document.getElementById("educacionVacantesChart");
+      if (!ctx) return;
+
+      charts.educacionVacantes = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+          labels: educacionEmpleabilidadData.vacantesPorPrograma.map((p) => p.programa),
+          datasets: [{
+            data: educacionEmpleabilidadData.vacantesPorPrograma.map((p) => p.vacantes),
+            backgroundColor: educacionEmpleabilidadData.vacantesPorPrograma.map((p) => p.color)
+          }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: "right" } } }
+      });
+    }
+
+    function buildEducacionSalariosChart() {
+      safeDestroyChart("educacionSalarios");
+      const ctx = document.getElementById("educacionSalariosChart");
+      if (!ctx) return;
+
+      const p = educacionEmpleabilidadData.salarios.programas;
+      charts.educacionSalarios = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: p.map((x) => x.programa),
+          datasets: [
+            { label: "Mediana", data: p.map((x) => x.mediana), backgroundColor: "#0f4b72" },
+            { label: "Promedio", data: p.map((x) => x.promedio), backgroundColor: "#f59e0b" }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: "top" } },
+          scales: { y: { beginAtZero: true, ticks: { callback: (value) => "$" + Number(value).toLocaleString("es-CO") } } }
+        }
+      });
+    }
+
+    function buildEducacionCiudadesChart() {
+      safeDestroyChart("educacionCiudades");
+      const ctx = document.getElementById("educacionCiudadesChart");
+      if (!ctx) return;
+
+      charts.educacionCiudades = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: educacionEmpleabilidadData.topCiudades.map((c) => c.ciudad),
+          datasets: [{ label: "Vacantes", data: educacionEmpleabilidadData.topCiudades.map((c) => c.vacantes), backgroundColor: "#0ea5a5" }]
+        },
+        options: { indexAxis: "y", responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+      });
+    }
+
+    function buildEducacionIndiceChart() {
+      safeDestroyChart("educacionIndice");
+      const ctx = document.getElementById("educacionIndiceChart");
+      if (!ctx) return;
+
+      const d = educacionIndiceData.resumen;
+      charts.educacionIndice = new Chart(ctx, {
         type: "bar",
         data: {
           labels: d.map((r) => r.programa),
