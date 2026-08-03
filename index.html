@@ -6,6 +6,7 @@
   <title>Dashboard Consolidado de Oportunidad y Empleabilidad - Universidad de La Salle</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@3.1.0/dist/chartjs-chart-treemap.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
@@ -1219,6 +1220,7 @@
     let drawerOpen = false;
 
     let charts = {};
+    let skillTreemapGroups = {};
 
     function formatCOP(value) {
       return "$" + Number(value).toLocaleString("es-CO");
@@ -1314,7 +1316,7 @@
         ? "Vista consolidada de datos estratégicos del tablero."
         : currentFaculty === "bases_extraidas"
         ? "Registro de bases y fuentes extraídas para el análisis."
-        : "Estructura lista para cargar información específica por programa.";
+        : "";
       renderFacultyContent();
     }
 
@@ -1364,6 +1366,19 @@
           buildSalariosChart();
           buildCiudadesChart();
           buildModalidadContratoCharts();
+          buildEmployabilityTopCharts("salud", saludTopData, {
+            empresasKey: "topEmpresas",
+            cargosKey: "topCargos",
+            competenciasKey: "topCompetencias"
+          });
+          buildProgramSkillsTreemapsFromTopMap("salud", "saludSkillsTreemapGrid", saludTopData.topCompetencias, [
+            "#2D6A4F",
+            "#1D3557",
+            "#6D28D9",
+            "#DC2626",
+            "#B45309",
+            "#0891B2"
+          ]);
         }
       } else if (currentFaculty === "basicas") {
         indice.innerHTML = basicasIndiceMarkup();
@@ -1380,6 +1395,7 @@
             cargosKey: "topCargos",
             competenciasKey: "topCompetencias"
           });
+          buildProgramSkillsTreemapsFromMapa("basicas", "basicasSkillsTreemapGrid", basicasEmpleabilidadData.mapaHabilidades);
         }
       } else if (currentFaculty === "humanidades") {
         indice.innerHTML = humanidadesIndiceMarkup();
@@ -1395,6 +1411,7 @@
             cargosKey: "topCargos",
             competenciasKey: "topCompetencias"
           });
+          buildProgramSkillsTreemapsFromMapa("humanidades", "humanidadesSkillsTreemapGrid", humanidadesEmpleabilidadData.mapaHabilidades);
         }
       } else if (currentFaculty === "arq1") {
         indice.innerHTML = arqIndiceMarkup();
@@ -1410,6 +1427,7 @@
             cargosKey: "topCargos",
             competenciasKey: "topCompetencias"
           });
+          buildProgramSkillsTreemapsFromMapa("arq", "arqSkillsTreemapGrid", arqEmpleabilidadData.mapaHabilidades);
         }
       } else if (currentFaculty === "educacion") {
         indice.innerHTML = educacionIndiceMarkup();
@@ -1425,6 +1443,7 @@
             cargosKey: "topCargos",
             competenciasKey: "topCompetencias"
           });
+          buildProgramSkillsTreemapsFromMapa("educacion", "educacionSkillsTreemapGrid", educacionEmpleabilidadData.mapaHabilidades);
         }
       } else {
         indice.innerHTML = placeholderMarkup("Índice de Oportunidad", "Aquí se deben cargar los programas, puntajes digital/laboral, índice y clasificación de esta facultad.");
@@ -1461,34 +1480,8 @@
         <p><strong>${programa}:</strong> ${top.join(" · ")}</p>
       `).join("");
 
-      const empleadores = Object.entries(d.empleadoresPorPrograma).map(([programa, empresas]) => `
-        <p><strong>${programa}:</strong> ${empresas.join(", ")}.</p>
-      `).join("");
-
-      const confidenciales = Object.entries(d.empresasConfidenciales).map(([programa, cantidad]) => `${programa}: ${cantidad}`).join(" · ");
-
-      const perfiles = Object.entries(d.perfilesEquivalentes).map(([programa, data]) => `
-        <p><strong>${programa}</strong> (${data.cobertura}): ${data.items.join(", ")}.</p>
-      `).join("");
-
-      const topCompetencias = Object.entries(d.topCompetencias).map(([programa, items]) => `
-        <p><strong>${programa}:</strong> ${items.join(" · ")}</p>
-      `).join("");
-
-      const topCargos = Object.entries(d.topCargos).map(([programa, items]) => `
-        <p><strong>${programa}:</strong> ${items.join(" · ")}</p>
-      `).join("");
-
       const topProgramOptions = Object.keys(d.topCompetencias).map((programa) => `
         <option value="${programa}">${programa}</option>
-      `).join("");
-
-      const mapa = d.mapaHabilidades.map((m) => `
-        <article class="rounded-2xl border border-slate-200 bg-white p-4" style="border-top: 5px solid ${m.color};">
-          <h4 class="text-sm font-extrabold" style="color:${m.color}">${m.programa}</h4>
-          <p class="text-xs text-slate-500 mb-2">${m.vacantes} vacantes</p>
-          ${m.bloques.map((b) => `<p class="text-xs mt-1">${b}</p>`).join("")}
-        </article>
       `).join("");
 
       return `
@@ -1574,29 +1567,6 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-6">
-          <div class="panel p-4">
-            <h3 class="text-lg font-extrabold mb-3">Top empleadores por programa</h3>
-            <div class="text-xs leading-relaxed space-y-2">${empleadores}</div>
-            <p class="text-xs text-slate-600 mt-3"><strong>Empresa confidencial:</strong> ${confidenciales}.</p>
-          </div>
-          <div class="panel p-4">
-            <h3 class="text-lg font-extrabold mb-3">Perfiles equivalentes más frecuentes</h3>
-            <div class="text-xs leading-relaxed space-y-2">${perfiles}</div>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-6">
-          <div class="panel p-4">
-            <h3 class="text-lg font-extrabold mb-3">Top 10 competencias por programa</h3>
-            <div class="text-xs leading-relaxed space-y-2">${topCompetencias}</div>
-          </div>
-          <div class="panel p-4">
-            <h3 class="text-lg font-extrabold mb-3">Top cargos por programa</h3>
-            <div class="text-xs leading-relaxed space-y-2">${topCargos}</div>
-          </div>
-        </div>
-
         <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
           <div class="panel p-4">
             <h3 class="text-lg font-extrabold mb-2">Modalidad de trabajo (dato limitado)</h3>
@@ -1605,7 +1575,7 @@
           </div>
           <div class="panel p-4">
             <h3 class="text-lg font-extrabold mb-3">Mapa de habilidades por programa</h3>
-            <div class="grid grid-cols-1 gap-3">${mapa}</div>
+            <div id="basicasSkillsTreemapGrid" class="grid grid-cols-1 xl:grid-cols-2 gap-3"></div>
           </div>
         </div>
       `;
@@ -1748,30 +1718,8 @@
         <p><strong>${programa}:</strong> ${items.join(" · ")}</p>
       `).join("");
 
-      const empresas = Object.entries(d.topEmpresas).map(([programa, items]) => `
-        <p><strong>${programa}:</strong> ${items.join(", ")}.</p>
-      `).join("");
-
-      const confidencial = Object.entries(d.confidencial).map(([programa, valor]) => `${programa} ${valor}`).join(" · ");
-
-      const cargos = Object.entries(d.topCargos).map(([programa, items]) => `
-        <p><strong>${programa}:</strong> ${items.join(" · ")}</p>
-      `).join("");
-
-      const competencias = Object.entries(d.topCompetencias).map(([programa, items]) => `
-        <p><strong>${programa}:</strong> ${items.join(" · ")}</p>
-      `).join("");
-
       const topProgramOptions = Object.keys(d.topCompetencias).map((programa) => `
         <option value="${programa}">${programa}</option>
-      `).join("");
-
-      const mapa = d.mapaHabilidades.map((m) => `
-        <article class="rounded-2xl border border-slate-200 bg-white p-4" style="border-top: 5px solid ${m.color};">
-          <h4 class="text-sm font-extrabold" style="color:${m.color}">${m.programa}</h4>
-          <p class="text-xs text-slate-500 mb-2">${m.vacantes} vacantes</p>
-          ${m.bloques.map((b) => `<p class="text-xs mt-1">${b}</p>`).join("")}
-        </article>
       `).join("");
 
       return `
@@ -1851,27 +1799,9 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-6">
-          <div class="panel p-4">
-            <h3 class="text-lg font-extrabold mb-3">Top empresas por programa</h3>
-            <div class="text-xs leading-relaxed space-y-2">${empresas}</div>
-            <p class="text-xs text-slate-600 mt-3"><strong>Empresa confidencial:</strong> ${confidencial}.</p>
-          </div>
-          <div class="panel p-4">
-            <h3 class="text-lg font-extrabold mb-3">Top cargos por programa</h3>
-            <div class="text-xs leading-relaxed space-y-2">${cargos}</div>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-6">
-          <div class="panel p-4">
-            <h3 class="text-lg font-extrabold mb-3">Top 10 competencias solicitadas por programa</h3>
-            <div class="text-xs leading-relaxed space-y-2">${competencias}</div>
-          </div>
-          <div class="panel p-4">
-            <h3 class="text-lg font-extrabold mb-3">Mapa de Habilidades por Programa</h3>
-            <div class="grid grid-cols-1 gap-3">${mapa}</div>
-          </div>
+        <div class="panel p-4 mb-6">
+          <h3 class="text-lg font-extrabold mb-3">Mapa de Habilidades por Programa</h3>
+          <div id="humanidadesSkillsTreemapGrid" class="grid grid-cols-1 xl:grid-cols-2 gap-3"></div>
         </div>
       `;
     }
@@ -2129,20 +2059,6 @@
         <p><strong>${programa}:</strong> ${items.join(" · ")}</p>
       `).join("");
 
-      const empresas = Object.entries(d.topEmpresas).map(([programa, items]) => `
-        <p><strong>${programa}:</strong> ${items.join(", ")}.</p>
-      `).join("");
-
-      const confidencial = Object.entries(d.empresasConfidenciales).map(([programa, valor]) => `${programa} ${valor}`).join(" · ");
-
-      const cargos = Object.entries(d.topCargos).map(([programa, items]) => `
-        <p><strong>${programa}:</strong> ${items.join(" · ")}</p>
-      `).join("");
-
-      const competencias = Object.entries(d.topCompetencias).map(([programa, items]) => `
-        <p><strong>${programa}:</strong> ${items.join(" · ")}</p>
-      `).join("");
-
       const topProgramOptions = Object.keys(d.topCompetencias).map((programa) => `
         <option value="${programa}">${programa}</option>
       `).join("");
@@ -2157,14 +2073,6 @@
           <td>${t.prestacionServicios}</td>
           <td>${t.aprendizaje}</td>
         </tr>
-      `).join("");
-
-      const mapa = d.mapaHabilidades.map((m) => `
-        <article class="rounded-2xl border border-slate-200 bg-white p-4" style="border-top: 5px solid ${m.color};">
-          <h4 class="text-sm font-extrabold" style="color:${m.color}">${m.programa}</h4>
-          <p class="text-xs text-slate-500 mb-2">${m.vacantes} vacantes</p>
-          ${m.bloques.map((b) => `<p class="text-xs mt-1">${b}</p>`).join("")}
-        </article>
       `).join("");
 
       return `
@@ -2239,7 +2147,7 @@
               <h4 class="text-sm font-extrabold mb-2">Top empresas</h4>
               <div class="h-[280px]"><canvas id="arqTopEmpresasChart"></canvas></div>
             </div>
-            <div>
+            <div id="arqTopCargosBlock">
               <h4 class="text-sm font-extrabold mb-2">Top cargos</h4>
               <div class="h-[280px]"><canvas id="arqTopCargosChart"></canvas></div>
             </div>
@@ -2250,29 +2158,11 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-6">
-          <div class="panel p-4">
-            <h3 class="text-lg font-extrabold mb-3">Top ciudades</h3>
-            <div class="h-[260px]"><canvas id="arqCiudadesChart"></canvas></div>
-            <p class="text-xs text-slate-700 mt-3"><strong>Global:</strong> ${ciudadesGlobal}</p>
-            <div class="text-xs leading-relaxed space-y-1 mt-3">${ciudadesPorPrograma}</div>
-          </div>
-          <div class="panel p-4">
-            <h3 class="text-lg font-extrabold mb-3">Top empresas por programa</h3>
-            <div class="text-xs leading-relaxed space-y-2">${empresas}</div>
-            <p class="text-xs text-slate-600 mt-3"><strong>Empresa confidencial:</strong> ${confidencial}.</p>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-6">
-          <div class="panel p-4">
-            <h3 class="text-lg font-extrabold mb-3">Top cargos por programa</h3>
-            <div class="text-xs leading-relaxed space-y-2">${cargos}</div>
-          </div>
-          <div class="panel p-4">
-            <h3 class="text-lg font-extrabold mb-3">Top 10 competencias por programa</h3>
-            <div class="text-xs leading-relaxed space-y-2">${competencias}</div>
-          </div>
+        <div class="panel p-4 mb-6">
+          <h3 class="text-lg font-extrabold mb-3">Top ciudades</h3>
+          <div class="h-[260px]"><canvas id="arqCiudadesChart"></canvas></div>
+          <p class="text-xs text-slate-700 mt-3"><strong>Global:</strong> ${ciudadesGlobal}</p>
+          <div class="text-xs leading-relaxed space-y-1 mt-3">${ciudadesPorPrograma}</div>
         </div>
 
         <div class="panel p-4 mb-6">
@@ -2292,7 +2182,7 @@
 
         <div class="panel p-4">
           <h3 class="text-lg font-extrabold mb-3">Mapa de habilidades por programa</h3>
-          <div class="grid grid-cols-1 xl:grid-cols-3 gap-3">${mapa}</div>
+          <div id="arqSkillsTreemapGrid" class="grid grid-cols-1 xl:grid-cols-3 gap-3"></div>
         </div>
       `;
     }
@@ -2336,32 +2226,8 @@
         <p><strong>${programa}:</strong> ${items.join(" · ")}</p>
       `).join("");
 
-      const empresas = Object.entries(d.topEmpresas).map(([programa, items]) => `
-        <p><strong>${programa}:</strong> ${items.join(", ")}.</p>
-      `).join("");
-
-      const confidencial = Object.entries(d.empresasConfidenciales)
-        .map(([programa, valor]) => `${programa} ${valor}`)
-        .join(" · ");
-
-      const cargos = Object.entries(d.topCargos).map(([programa, items]) => `
-        <p><strong>${programa}:</strong> ${items.join(" · ")}</p>
-      `).join("");
-
-      const competencias = Object.entries(d.topCompetencias).map(([programa, items]) => `
-        <p><strong>${programa}:</strong> ${items.join(" · ")}</p>
-      `).join("");
-
       const topProgramOptions = Object.keys(d.topCompetencias).map((programa) => `
         <option value="${programa}">${programa}</option>
-      `).join("");
-
-      const mapa = d.mapaHabilidades.map((m) => `
-        <article class="rounded-2xl border border-slate-200 bg-white p-4" style="border-top: 5px solid ${m.color};">
-          <h4 class="text-sm font-extrabold" style="color:${m.color}">${m.programa}</h4>
-          <p class="text-xs text-slate-500 mb-2">${m.vacantes} vacantes</p>
-          ${m.bloques.map((b) => `<p class="text-xs mt-1">${b}</p>`).join("")}
-        </article>
       `).join("");
 
       return `
@@ -2456,34 +2322,16 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-6">
-          <div class="panel p-4">
-            <h3 class="text-lg font-extrabold mb-3">Top ciudades</h3>
-            <div class="h-[260px]"><canvas id="educacionCiudadesChart"></canvas></div>
-            <p class="text-xs text-slate-700 mt-3"><strong>Global:</strong> ${ciudadesGlobal}</p>
-            <div class="text-xs leading-relaxed space-y-1 mt-3">${ciudadesPorPrograma}</div>
-          </div>
-          <div class="panel p-4">
-            <h3 class="text-lg font-extrabold mb-3">Top empresas por programa</h3>
-            <div class="text-xs leading-relaxed space-y-2">${empresas}</div>
-            <p class="text-xs text-slate-600 mt-3"><strong>Empresa confidencial / No especificado:</strong> ${confidencial}.</p>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-6">
-          <div class="panel p-4">
-            <h3 class="text-lg font-extrabold mb-3">Top cargos por programa</h3>
-            <div class="text-xs leading-relaxed space-y-2">${cargos}</div>
-          </div>
-          <div class="panel p-4">
-            <h3 class="text-lg font-extrabold mb-3">Top 10 competencias por programa</h3>
-            <div class="text-xs leading-relaxed space-y-2">${competencias}</div>
-          </div>
+        <div class="panel p-4 mb-6">
+          <h3 class="text-lg font-extrabold mb-3">Top ciudades</h3>
+          <div class="h-[260px]"><canvas id="educacionCiudadesChart"></canvas></div>
+          <p class="text-xs text-slate-700 mt-3"><strong>Global:</strong> ${ciudadesGlobal}</p>
+          <div class="text-xs leading-relaxed space-y-1 mt-3">${ciudadesPorPrograma}</div>
         </div>
 
         <div class="panel p-4">
           <h3 class="text-lg font-extrabold mb-3">Mapa de habilidades por programa</h3>
-          <div class="grid grid-cols-1 xl:grid-cols-2 gap-3">${mapa}</div>
+          <div id="educacionSkillsTreemapGrid" class="grid grid-cols-1 xl:grid-cols-2 gap-3"></div>
         </div>
       `;
     }
@@ -3100,7 +2948,38 @@
       `;
     }
 
+    const saludTopData = {
+      topEmpresas: {
+        "Enfermería": ["Empresa confidencial (96)", "Cafam (45)", "Sumimedical SAS (36)", "Clínica Medilaser (20)", "Medicall Talento Humano (20)", "Comfama (16)"],
+        "Adm. en Salud": ["Empresa confidencial (91)", "Nueva EPS (75)", "Activos S.A.S (21)", "Ocupar Temporales (15)", "Colsubsidio (12)", "Comfama (10)"],
+        "Psicología": ["Empresa confidencial (165)", "FullStack (33)", "BairesDev (17)", "Nueva EPS (15)", "Colsubsidio (13)", "Colmédica (11)"],
+        "Salud Pública": ["Nueva EPS (97)", "Cruz Verde (38)", "Iron Mountain (18)", "Previsalud (9)", "Grupo OIKOS (9)", "Multiempleos (5)"],
+        "Optometría": ["Servioptica (5)", "Aika Soluciones (4)", "Optisalud (4)", "Contrate S.A.S (3)", "Empresa confidencial (2)"],
+        "Otras Áreas": ["Gente Útil S.A. (31)", "Discolmets SAS (7)", "Cruz Verde (4)", "IT Management ZOMAC (2)", "Punto Empleo (2)"]
+      },
+      topCargos: {
+        "Enfermería": ["Auxiliar de enfermería (27)", "Enfermera/o jefe (22)", "Jefe de enfermería (13)", "Auxiliar de Enfermería (10)"],
+        "Adm. en Salud": ["Auxiliar administrativo/a (18)", "Auxiliar de Facturación (9)", "Auxiliar administrativo en salud (7)", "Auxiliar de odontología (5)"],
+        "Psicología": ["IT Recruiter Specialist Remote (17)", "Talent Inclusion IT Recruiter (16)", "Recruiter (5)", "Psicólogo (4)", "Recruiting Analyst Remote (4)"],
+        "Salud Pública": ["Asesor belleza/Dermoconsejero (9)", "Médico General (3)", "Analista de Impuestos (3)", "Analista información salud (2)"],
+        "Optometría": ["Optómetra / Optometra (15)", "Optómetra SST (3)", "Optómetra Turnos (2)", "Director científico (1)"],
+        "Otras Áreas": ["Regente de farmacia (115)", "Regente hospitalario (2)", "Coordinador servicios farmacéuticos (2)", "Auxiliar de farmacia (2)"]
+      },
+      topCompetencias: {
+        "Enfermería": ["UCI (148)", "Excel (68)", "Gestión (60)", "Comunicación (60)", "Trabajo en equipo (57)", "Calidad (55)", "Liderazgo (43)", "Urgencias (31)", "Especialización (25)", "Bioseguridad (15)"],
+        "Adm. en Salud": ["Gestión (103)", "Excel (74)", "Calidad (74)", "UCI (67)", "Talento humano (54)", "Selección (54)", "Comunicación (51)", "SAP (50)", "Servicio al cliente (45)", "Trabajo en equipo (28)"],
+        "Psicología": ["Gestión (153)", "UCI (141)", "Comunicación (97)", "Selección (92)", "Calidad (82)", "Excel (82)", "Especialización (80)", "Talento humano (59)", "Liderazgo (48)", "SST (47)"],
+        "Salud Pública": ["UCI (5)", "Gestión (5)", "Comunitario (2)", "Epidemiología (1)", "Comunicación (1)", "SST (1)", "Excel (1)", "Especialización (1)"],
+        "Optometría": ["UCI (2)", "Calidad (1)"],
+        "Otras Áreas": ["Hospitalario (2)", "Regencia (2)", "Gestión (2)", "Calidad (2)", "UCI (1)", "Comunicación (1)", "Dispensación (1)"]
+      }
+    };
+
     function saludEmpleabilidadMarkup() {
+      const topProgramOptions = Object.keys(saludTopData.topCompetencias).map((programa) => `
+        <option value="${programa}">${programa}</option>
+      `).join("");
+
       return `
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-3 mb-5">
           <div class="kpi p-4"><p class="text-xs text-slate-500">Total vacantes analizadas</p><h3 class="text-2xl font-extrabold">3.196</h3></div>
@@ -3157,7 +3036,7 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-6">
+        <div class="grid grid-cols-1 gap-4 mb-6">
           <div class="panel p-4">
             <h3 class="text-lg font-extrabold mb-3">Top 15 Competencias Globales</h3>
             <div class="table-wrap">
@@ -3183,18 +3062,6 @@
               </table>
             </div>
           </div>
-
-          <div class="panel p-4">
-            <h3 class="text-lg font-extrabold mb-3">Competencias Top por Programa</h3>
-            <div class="text-xs leading-relaxed space-y-2 max-h-[340px] overflow-y-auto pr-2">
-              <p><strong>Enfermería:</strong> UCI (148), Excel (68), Gestión (60), Comunicación (60), Trabajo en equipo (57), Calidad (55), Liderazgo (43), Urgencias (31), Especialización (25), Bioseguridad (15).</p>
-              <p><strong>Adm. en Salud:</strong> Gestión (103), Excel (74), Calidad (74), UCI (67), Talento humano (54), Selección (54), SAP (50), Comunicación (51), Servicio al cliente (45), Trabajo en equipo (28).</p>
-              <p><strong>Psicología:</strong> Gestión (153), UCI (141), Comunicación (97), Selección (92), Calidad (82), Excel (82), Especialización (80), Talento humano (59), Liderazgo (48), SST (47), Reclutamiento (36), Posgrado (30).</p>
-              <p><strong>Salud Pública:</strong> UCI (5), Gestión (5), Comunitario (2), Epidemiología (1), Comunicación (1), SST (1), Excel (1), Especialización (1).</p>
-              <p><strong>Optometría:</strong> UCI (2), Calidad (1).</p>
-              <p><strong>Otras Áreas:</strong> Hospitalario (2), Regencia (2), Gestión (2), Calidad (2), UCI (1), Comunicación (1), Dispensación (1).</p>
-            </div>
-          </div>
         </div>
 
         <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-6">
@@ -3208,88 +3075,33 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
-          <div class="panel p-4">
-            <h3 class="text-lg font-extrabold mb-3">Top Empleadores por Programa</h3>
-            <div class="text-xs leading-relaxed space-y-2 max-h-[300px] overflow-y-auto pr-2">
-              <p><strong>Enfermería:</strong> Empresa confidencial (96), Cafam (45), Sumimedical SAS (36), Clínica Medilaser (20), Medicall Talento Humano (20), Comfama (16).</p>
-              <p><strong>Adm. en Salud:</strong> Empresa confidencial (91), Nueva EPS (75), Activos S.A.S (21), Ocupar Temporales (15), Colsubsidio (12), Comfama (10).</p>
-              <p><strong>Psicología:</strong> Empresa confidencial (165), FullStack (33), BairesDev (17), Nueva EPS (15), Colsubsidio (13), Colmédica (11).</p>
-              <p><strong>Salud Pública:</strong> Nueva EPS (97), Cruz Verde (38), Iron Mountain (18), Previsalud (9), Grupo OIKOS (9), Multiempleos (5).</p>
-              <p><strong>Optometría:</strong> Servioptica (5), Aika Soluciones (4), Optisalud (4), Contrate S.A.S (3), Empresa confidencial (2).</p>
-              <p><strong>Otras Áreas:</strong> Gente Útil S.A. (31), Discolmets SAS (7), Cruz Verde (4), IT Management ZOMAC (2), Punto Empleo (2).</p>
+        <div class="panel p-4 mb-6">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
+            <h3 class="text-lg font-extrabold">Top empleadores, cargos y competencias por programa</h3>
+            <div class="flex items-center gap-2">
+              <label for="saludTopProgramFilter" class="text-xs font-bold text-slate-600">Programa:</label>
+              <select id="saludTopProgramFilter" class="rounded-lg border border-slate-300 px-3 py-2 text-sm bg-white">${topProgramOptions}</select>
             </div>
           </div>
-          <div class="panel p-4">
-            <h3 class="text-lg font-extrabold mb-3">Top Cargos por Programa</h3>
-            <div class="text-xs leading-relaxed space-y-2 max-h-[300px] overflow-y-auto pr-2">
-              <p><strong>Enfermería:</strong> Auxiliar de enfermería (27), Jefe de enfermería (13), Enfermera/o jefe (22), Auxiliar de Enfermería (10).</p>
-              <p><strong>Adm. en Salud:</strong> Auxiliar administrativo/a (18), Auxiliar de odontología (5), Auxiliar de Facturación (9), Auxiliar administrativo en salud (7).</p>
-              <p><strong>Psicología:</strong> IT Recruiter Specialist Remote (17), Talent Inclusion IT Recruiter (16), Recruiter (5), Psicólogo (4), Recruiting Analyst Remote (4).</p>
-              <p><strong>Salud Pública:</strong> Asesor belleza/Dermoconsejero (9), Médico General (3), Analista de Impuestos (3), Analista información salud (2).</p>
-              <p><strong>Optometría:</strong> Optómetra / Optometra (15), Optómetra SST (3), Optómetra Turnos (2), Director científico (1).</p>
-              <p><strong>Otras Áreas:</strong> Regente de farmacia (115), Regente hospitalario (2), Coordinador servicios farmacéuticos (2), Auxiliar de farmacia (2).</p>
+          <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+            <div>
+              <h4 class="text-sm font-extrabold mb-2">Top empleadores</h4>
+              <div class="h-[280px]"><canvas id="saludTopEmpresasChart"></canvas></div>
+            </div>
+            <div>
+              <h4 class="text-sm font-extrabold mb-2">Top cargos</h4>
+              <div class="h-[280px]"><canvas id="saludTopCargosChart"></canvas></div>
+            </div>
+            <div>
+              <h4 class="text-sm font-extrabold mb-2">Top competencias</h4>
+              <div class="h-[280px]"><canvas id="saludTopCompetenciasChart"></canvas></div>
             </div>
           </div>
         </div>
 
         <div class="panel p-4 md:p-6 mt-6">
           <h3 class="text-lg font-extrabold mb-4 text-center">Mapa de Habilidades por Programa</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-            <article class="rounded-2xl border border-slate-200 bg-white p-4" style="border-top: 5px solid #2D6A4F;">
-              <h4 class="text-sm font-extrabold" style="color:#2D6A4F">ENFERMERÍA</h4>
-              <p class="text-xs text-slate-500 mb-2">1.292 vacantes</p>
-              <p class="text-xs"><strong>Clínico-asistenciales:</strong> UCI/cuidado crítico (148), urgencias (31), hospitalario, hemodinamia, farmacología.</p>
-              <p class="text-xs mt-1"><strong>Técnico-instrumentales:</strong> Excel (68), calidad asistencial (55), sistemas clínicos, bioseguridad (15), auditoría (14).</p>
-              <p class="text-xs mt-1"><strong>Blandas:</strong> comunicación (60), trabajo en equipo (57), liderazgo (43), decisión bajo presión.</p>
-              <p class="text-xs mt-2 text-slate-700"><strong>Hallazgo:</strong> UCI y urgencias concentran la mayor exigencia.</p>
-            </article>
-
-            <article class="rounded-2xl border border-slate-200 bg-white p-4" style="border-top: 5px solid #1D3557;">
-              <h4 class="text-sm font-extrabold" style="color:#1D3557">ADM. EN SALUD</h4>
-              <p class="text-xs text-slate-500 mb-2">781 vacantes</p>
-              <p class="text-xs"><strong>Gestión administrativa:</strong> procesos (103), facturación/cartera, auditoría/calidad (74), gestión documental.</p>
-              <p class="text-xs mt-1"><strong>Talento y tecnología:</strong> selección (54), Excel avanzado (74), SAP (50), nómina, Power BI.</p>
-              <p class="text-xs mt-1"><strong>Blandas:</strong> servicio al cliente (45), comunicación (51), liderazgo (24), trabajo en equipo (28).</p>
-              <p class="text-xs mt-2 text-slate-700"><strong>Hallazgo:</strong> SAP es la competencia tecnológica más diferenciadora.</p>
-            </article>
-
-            <article class="rounded-2xl border border-slate-200 bg-white p-4" style="border-top: 5px solid #6D28D9;">
-              <h4 class="text-sm font-extrabold" style="color:#6D28D9">PSICOLOGÍA</h4>
-              <p class="text-xs text-slate-500 mb-2">546 vacantes</p>
-              <p class="text-xs"><strong>Organizacional/RRHH:</strong> selección (92), talento humano (59), reclutamiento IT (36).</p>
-              <p class="text-xs mt-1"><strong>Salud ocupacional:</strong> SST/riesgo psicosocial (47), salud mental, intervención en crisis.</p>
-              <p class="text-xs mt-1"><strong>Técnico-instrumentales:</strong> posgrado (80), Excel (82), comunicación estratégica (97).</p>
-              <p class="text-xs mt-2 text-slate-700"><strong>Hallazgo:</strong> salario mediano más alto del portafolio ($7M).</p>
-            </article>
-
-            <article class="rounded-2xl border border-slate-200 bg-white p-4" style="border-top: 5px solid #DC2626;">
-              <h4 class="text-sm font-extrabold" style="color:#DC2626">SALUD PÚBLICA</h4>
-              <p class="text-xs text-slate-500 mb-2">353 vacantes</p>
-              <p class="text-xs"><strong>Gestión/epidemiología:</strong> programas de salud (5), auditoría, IPS/EPS, vigilancia y SIVIGILA.</p>
-              <p class="text-xs mt-1"><strong>Administración sectorial:</strong> habilitación, RIPS, planeación, riesgo en salud.</p>
-              <p class="text-xs mt-1"><strong>Blandas:</strong> liderazgo comunitario, análisis de datos, gestión de proyectos.</p>
-              <p class="text-xs mt-2 text-slate-700"><strong>Hallazgo:</strong> mayor exigencia de experiencia (5 años promedio).</p>
-            </article>
-
-            <article class="rounded-2xl border border-slate-200 bg-white p-4" style="border-top: 5px solid #B45309;">
-              <h4 class="text-sm font-extrabold" style="color:#B45309">OPTOMETRÍA</h4>
-              <p class="text-xs text-slate-500 mb-2">50 vacantes</p>
-              <p class="text-xs"><strong>Clínico-optométricas:</strong> refracción, lentes de contacto, patología ocular.</p>
-              <p class="text-xs mt-1"><strong>Salud visual ocupacional:</strong> SST visual, diagnósticos de riesgo, normatividad.</p>
-              <p class="text-xs mt-1"><strong>Gestión/comercial:</strong> servicio al cliente, punto de venta, dispensación óptica.</p>
-              <p class="text-xs mt-2 text-slate-700"><strong>Hallazgo:</strong> mercado nicho con salario mediano de $4M.</p>
-            </article>
-
-            <article class="rounded-2xl border border-slate-200 bg-white p-4" style="border-top: 5px solid #0891B2;">
-              <h4 class="text-sm font-extrabold" style="color:#0891B2">OTRAS ÁREAS (REGENCIA)</h4>
-              <p class="text-xs text-slate-500 mb-2">174 vacantes</p>
-              <p class="text-xs"><strong>Farmacéutico-asistenciales:</strong> dispensación (2), regencia hospitalaria (2), inventarios.</p>
-              <p class="text-xs mt-1"><strong>Técnico-instrumentales:</strong> INVIMA/Minsalud, software farmacéutico, BPM (2).</p>
-              <p class="text-xs mt-1"><strong>Blandas:</strong> servicio, ética, trabajo en equipo, atención al detalle.</p>
-              <p class="text-xs mt-2 text-slate-700"><strong>Hallazgo:</strong> categoría reclasificada con fuerte foco en Regencia de Farmacia.</p>
-            </article>
-          </div>
+          <div id="saludSkillsTreemapGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
         </div>
       `;
     }
@@ -3318,6 +3130,235 @@
           };
         })
         .filter((x) => x.label.length > 0);
+    }
+
+    function hexToRgba(hex, alpha = 1) {
+      const normalized = String(hex || "").replace("#", "").trim();
+      if (!/^[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/.test(normalized)) {
+        return `rgba(11,39,66,${alpha})`;
+      }
+
+      const full = normalized.length === 3
+        ? normalized.split("").map((c) => c + c).join("")
+        : normalized;
+
+      const num = parseInt(full, 16);
+      const r = (num >> 16) & 255;
+      const g = (num >> 8) & 255;
+      const b = num & 255;
+      return `rgba(${r},${g},${b},${alpha})`;
+    }
+
+    function parseSkillsFromBlockText(texto) {
+      const metricText = String(texto || "").includes(":")
+        ? String(texto).split(":").slice(1).join(":")
+        : String(texto || "");
+
+      const nodes = [];
+      const re = /([^,;]+?)\s*\((\d+)\)/g;
+      let match;
+      while ((match = re.exec(metricText)) !== null) {
+        const label = match[1].trim();
+        const value = Number(match[2]);
+        if (!label || Number.isNaN(value) || value <= 0) continue;
+        nodes.push({ label, value });
+      }
+      return nodes;
+    }
+
+    function extractProgramSkillsFromMapa(mapaHabilidades) {
+      return (mapaHabilidades || []).map((programaItem, idx) => {
+        const color = programaItem.color || ["#0b2742", "#0ea5a5", "#f59e0b", "#1178b5"][idx % 4];
+        const programa = programaItem.programa || `Programa ${idx + 1}`;
+        const grouped = new Map();
+
+        (programaItem.bloques || []).forEach((bloque) => {
+          parseSkillsFromBlockText(bloque).forEach((skillNode) => {
+            const key = skillNode.label.toLowerCase();
+            grouped.set(key, (grouped.get(key) || 0) + skillNode.value);
+          });
+        });
+
+        const nodes = Array.from(grouped.entries())
+          .map(([key, value]) => ({
+            programa,
+            label: key,
+            value,
+            color
+          }))
+          .sort((a, b) => b.value - a.value)
+          .slice(0, 16)
+          .map((n) => ({ ...n, label: n.label.replace(/\b\w/g, (c) => c.toUpperCase()) }));
+
+        return { programa, color, nodes };
+      }).filter((p) => p.nodes.length > 0);
+    }
+
+    function extractProgramSkillsFromTopMap(topMap, palette = []) {
+      const colors = palette.length ? palette : ["#0b2742", "#0ea5a5", "#f59e0b", "#1178b5", "#2f7d32", "#b45309"];
+      return Object.entries(topMap || {}).map(([programa, items], idx) => {
+        const color = colors[idx % colors.length];
+        const nodes = parseTopMetricItems(items, 16).map((row) => ({
+          programa,
+          label: row.label,
+          value: row.value,
+          color
+        }));
+        return { programa, color, nodes };
+      }).filter((p) => p.nodes.length > 0);
+    }
+
+    function clearSkillTreemapGroup(groupKey) {
+      (skillTreemapGroups[groupKey] || []).forEach((chartName) => safeDestroyChart(chartName));
+      skillTreemapGroups[groupKey] = [];
+    }
+
+    function buildSkillsTreemapChart(chartName, canvasId, nodes) {
+      safeDestroyChart(chartName);
+      const ctx = document.getElementById(canvasId);
+      if (!ctx) return;
+
+      const safeNodes = (nodes && nodes.length)
+        ? nodes
+        : [{ programa: "Sin datos", label: "Sin datos", value: 1, color: "#94a3b8" }];
+
+      const hasTreemapController = !!(Chart && Chart.registry && Chart.registry.getController && Chart.registry.getController("treemap"));
+
+      if (!hasTreemapController) {
+        const top = safeNodes.slice(0, 12);
+        charts[chartName] = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: top.map((x) => `${x.label}`),
+            datasets: [{
+              data: top.map((x) => x.value),
+              backgroundColor: top.map((x) => hexToRgba(x.color, 0.82)),
+              borderRadius: 6,
+              barThickness: 14
+            }]
+          },
+          options: {
+            indexAxis: "y",
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { beginAtZero: true, ticks: { precision: 0 } },
+              y: { ticks: { autoSkip: false } }
+            }
+          }
+        });
+        return;
+      }
+
+      charts[chartName] = new Chart(ctx, {
+        type: "treemap",
+        data: {
+          datasets: [{
+            tree: safeNodes,
+            key: "value",
+            spacing: 1,
+            borderColor: "#ffffff",
+            borderWidth: 1,
+            backgroundColor: (ctx) => {
+              const row = ctx.raw && (ctx.raw._data || ctx.raw.data || ctx.raw);
+              return hexToRgba(row ? row.color : "#0b2742", 0.82);
+            },
+            labels: {
+              display: true,
+              color: "#0f172a",
+              overflow: "fit",
+              font: { size: 11, weight: "600" },
+              formatter: (ctx) => {
+                const row = ctx.raw && (ctx.raw._data || ctx.raw.data || ctx.raw);
+                if (!row) return "";
+                const label = row.label || row.skill || "";
+                const value = Number(row.value ?? (ctx.raw ? ctx.raw.v : 0));
+                if (!label) return "";
+                return value ? `${label}\n${value}` : `${label}`;
+              }
+            }
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                title: (items) => {
+                  const row = items && items[0] && items[0].raw ? (items[0].raw._data || items[0].raw.data || items[0].raw) : null;
+                  return row ? `${row.programa || "Programa"} · ${row.label || row.skill || ""}` : "";
+                },
+                label: (item) => {
+                  const row = item && item.raw ? (item.raw._data || item.raw.data || item.raw) : null;
+                  const value = Number(row ? (row.value ?? item.raw.v) : 0);
+                  return `Menciones: ${value}`;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function renderProgramSkillTreemapCards(groupKey, containerId, programRows) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      clearSkillTreemapGroup(groupKey);
+
+      if (!programRows.length) {
+        container.innerHTML = `<p class="text-sm text-slate-500">Sin datos de competencias para mostrar.</p>`;
+        return;
+      }
+
+      container.innerHTML = programRows.map((row, idx) => `
+        <article class="rounded-2xl border border-slate-200 bg-white p-4">
+          <h4 class="text-sm font-extrabold mb-1" style="color:${row.color}">${row.programa}</h4>
+          <p class="text-xs text-slate-500 mb-2">${row.nodes.length} competencias mapeadas</p>
+          <div class="h-[250px]"><canvas id="${groupKey}SkillsCanvas${idx}"></canvas></div>
+        </article>
+      `).join("");
+
+      programRows.forEach((row, idx) => {
+        const chartName = `${groupKey}Skills${idx}`;
+        const canvasId = `${groupKey}SkillsCanvas${idx}`;
+        buildSkillsTreemapChart(chartName, canvasId, row.nodes);
+        skillTreemapGroups[groupKey].push(chartName);
+      });
+    }
+
+    function buildProgramSkillsTreemapsFromMapa(groupKey, containerId, mapaHabilidades) {
+      const programs = extractProgramSkillsFromMapa(mapaHabilidades);
+      renderProgramSkillTreemapCards(groupKey, containerId, programs);
+    }
+
+    function buildProgramSkillsTreemapsFromTopMap(groupKey, containerId, topMap, palette = []) {
+      const programs = extractProgramSkillsFromTopMap(topMap, palette);
+      renderProgramSkillTreemapCards(groupKey, containerId, programs);
+    }
+
+    function normalizeProgramKey(txt) {
+      return String(txt || "")
+        .toLowerCase()
+        .replace(/\s*\([^)]*\)\s*$/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function getProgramItems(mapObj, selectedProgram) {
+      if (!mapObj || !selectedProgram) return [];
+      if (mapObj[selectedProgram]) return mapObj[selectedProgram];
+
+      const selectedNorm = normalizeProgramKey(selectedProgram);
+      const matchedKey = Object.keys(mapObj).find((k) => {
+        const keyNorm = normalizeProgramKey(k);
+        return keyNorm === selectedNorm;
+      });
+
+      return matchedKey ? mapObj[matchedKey] : [];
     }
 
     function buildTopHorizontalChart(chartName, canvasId, items, color) {
@@ -3360,12 +3401,20 @@
       }
 
       const selectedProgram = select.value;
-      const empresasItems = parseTopMetricItems((data[keys.empresasKey] || {})[selectedProgram]);
-      const cargosItems = parseTopMetricItems((data[keys.cargosKey] || {})[selectedProgram]);
-      const competenciasItems = parseTopMetricItems((data[keys.competenciasKey] || {})[selectedProgram]);
+      const empresasItems = parseTopMetricItems(getProgramItems((data[keys.empresasKey] || {}), selectedProgram));
+      const cargosItems = parseTopMetricItems(getProgramItems((data[keys.cargosKey] || {}), selectedProgram));
+      const competenciasItems = parseTopMetricItems(getProgramItems((data[keys.competenciasKey] || {}), selectedProgram));
 
       buildTopHorizontalChart(`${facultyPrefix}TopEmpresas`, `${facultyPrefix}TopEmpresasChart`, empresasItems, "#0b2742");
-      buildTopHorizontalChart(`${facultyPrefix}TopCargos`, `${facultyPrefix}TopCargosChart`, cargosItems, "#0ea5a5");
+      const cargosBlock = document.getElementById(`${facultyPrefix}TopCargosBlock`);
+      if (cargosBlock) {
+        cargosBlock.classList.toggle("hidden", cargosItems.length === 0);
+      }
+      if (cargosItems.length === 0) {
+        safeDestroyChart(`${facultyPrefix}TopCargos`);
+      } else {
+        buildTopHorizontalChart(`${facultyPrefix}TopCargos`, `${facultyPrefix}TopCargosChart`, cargosItems, "#0ea5a5");
+      }
       buildTopHorizontalChart(`${facultyPrefix}TopCompetencias`, `${facultyPrefix}TopCompetenciasChart`, competenciasItems, "#f59e0b");
     }
 
