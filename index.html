@@ -6,6 +6,8 @@
   <title>Dashboard Consolidado de Oportunidad y Empleabilidad - Universidad de La Salle</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@3.1.0/dist/chartjs-chart-treemap.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -441,7 +443,7 @@
           <h1 class="text-white text-2xl md:text-3xl font-extrabold text-center">Dashboard Consolidado</h1>
           <p class="text-cyan-100 text-sm mt-1 text-center">Índice de Oportunidad + Empleabilidad por facultad</p>
         </div>
-        <div class="text-xs text-cyan-50 bg-white/10 rounded-full px-4 py-2 border border-white/20">Actualizado: agosto 2026</div>
+        <div class="text-xs text-cyan-50 bg-white/10 rounded-full px-4 py-2 border border-white/20">Actualizado: octubre 2026</div>
       </div>
     </div>
   </header>
@@ -671,6 +673,2678 @@
           color: "#ea580c",
           titulo: "Biología - reforzar presencia digital de forma gradual",
           texto: "Incorporar en la comunicación términos de áreas afines (ambiental, bioinformática, biotecnología) que puedan ampliar el alcance de búsqueda sin cambiar el posicionamiento actual del programa."
+        }
+      ]
+    };
+
+    const ingenieriaEmpleabilidadData = {
+      "kpis": {
+        "totalVacantes": 7430,
+        "programasCubiertos": 9,
+        "ciudadesConPresencia": 316
+      },
+      "vacantesPorPrograma": [
+        {
+          "programa": "Ingeniería de Software",
+          "vacantes": 1962,
+          "color": "#0b2742"
+        },
+        {
+          "programa": "Bioingeniería",
+          "vacantes": 113,
+          "color": "#0ea5a5"
+        },
+        {
+          "programa": "Ingeniería Eléctrica",
+          "vacantes": 530,
+          "color": "#f59e0b"
+        },
+        {
+          "programa": "Ingeniería Mecatrónica",
+          "vacantes": 356,
+          "color": "#1178b5"
+        },
+        {
+          "programa": "Ingeniería Civil",
+          "vacantes": 1417,
+          "color": "#2f7d32"
+        },
+        {
+          "programa": "Ingeniería de Alimentos",
+          "vacantes": 185,
+          "color": "#b45309"
+        },
+        {
+          "programa": "Ingeniería Industrial",
+          "vacantes": 2431,
+          "color": "#6d28d9"
+        },
+        {
+          "programa": "Ingeniería Química",
+          "vacantes": 93,
+          "color": "#dc2626"
+        },
+        {
+          "programa": "Ingeniería Ambiental y Sanitaria",
+          "vacantes": 343,
+          "color": "#0891b2"
+        }
+      ],
+      "salarios": {
+        "coberturaTexto": "4.251/7.430 = 57%",
+        "programas": [
+          {
+            "programa": "Ingeniería de Software",
+            "conSalario": 1003,
+            "mediana": 5000000,
+            "promedio": 5519596,
+            "min": 1127000,
+            "max": 19500000,
+            "p25": 3630000,
+            "p75": 7000000
+          },
+          {
+            "programa": "Bioingeniería",
+            "conSalario": 81,
+            "mediana": 3500000,
+            "promedio": 3743570,
+            "min": 1750000,
+            "max": 7000000,
+            "p25": 2600000,
+            "p75": 5000000
+          },
+          {
+            "programa": "Ingeniería Eléctrica",
+            "conSalario": 289,
+            "mediana": 3750000,
+            "promedio": 4113338,
+            "min": 1750000,
+            "max": 16500000,
+            "p25": 2808000,
+            "p75": 5000000
+          },
+          {
+            "programa": "Ingeniería Mecatrónica",
+            "conSalario": 185,
+            "mediana": 3520000,
+            "promedio": 3973828,
+            "min": 1021000,
+            "max": 13750000,
+            "p25": 2750000,
+            "p75": 5000000
+          },
+          {
+            "programa": "Ingeniería Civil",
+            "conSalario": 764,
+            "mediana": 4000000,
+            "promedio": 4389761,
+            "min": 1000000,
+            "max": 16500000,
+            "p25": 2975000,
+            "p75": 5000000
+          },
+          {
+            "programa": "Ingeniería de Alimentos",
+            "conSalario": 106,
+            "mediana": 3000000,
+            "promedio": 3270549,
+            "min": 1750000,
+            "max": 13750000,
+            "p25": 2250000,
+            "p75": 3787500
+          },
+          {
+            "programa": "Ingeniería Industrial",
+            "conSalario": 1571,
+            "mediana": 3250000,
+            "promedio": 3878563,
+            "min": 1000000,
+            "max": 19500000,
+            "p25": 2500000,
+            "p75": 4500000
+          },
+          {
+            "programa": "Ingeniería Química",
+            "conSalario": 62,
+            "mediana": 4000000,
+            "promedio": 4155223,
+            "min": 1750000,
+            "max": 9000000,
+            "p25": 2712500,
+            "p75": 5000000
+          },
+          {
+            "programa": "Ingeniería Ambiental y Sanitaria",
+            "conSalario": 190,
+            "mediana": 3250000,
+            "promedio": 3710202,
+            "min": 1250000,
+            "max": 13750000,
+            "p25": 2262500,
+            "p75": 4027957
+          }
+        ]
+      },
+      "rangosSalariales": {
+        "programas": [
+          "Ingeniería de Software",
+          "Bioingeniería",
+          "Ingeniería Eléctrica",
+          "Ingeniería Mecatrónica",
+          "Ingeniería Civil",
+          "Ingeniería de Alimentos",
+          "Ingeniería Industrial",
+          "Ingeniería Química",
+          "Ingeniería Ambiental y Sanitaria"
+        ],
+        "filas": [
+          {
+            "rango": "< 1.5M",
+            "valores": [
+              2,
+              0,
+              0,
+              3,
+              5,
+              0,
+              9,
+              0,
+              3
+            ]
+          },
+          {
+            "rango": "1.5M - 2M",
+            "valores": [
+              43,
+              1,
+              11,
+              17,
+              37,
+              17,
+              142,
+              4,
+              24
+            ]
+          },
+          {
+            "rango": "2M - 2.5M",
+            "valores": [
+              73,
+              16,
+              21,
+              16,
+              61,
+              20,
+              194,
+              6,
+              25
+            ]
+          },
+          {
+            "rango": "2.5M - 3M",
+            "valores": [
+              57,
+              14,
+              44,
+              23,
+              88,
+              14,
+              232,
+              13,
+              33
+            ]
+          },
+          {
+            "rango": "3M - 4M",
+            "valores": [
+              147,
+              16,
+              98,
+              45,
+              189,
+              29,
+              416,
+              7,
+              48
+            ]
+          },
+          {
+            "rango": "4M - 6M",
+            "valores": [
+              349,
+              30,
+              82,
+              49,
+              256,
+              24,
+              419,
+              23,
+              35
+            ]
+          },
+          {
+            "rango": "> 6M",
+            "valores": [
+              332,
+              4,
+              33,
+              32,
+              128,
+              2,
+              159,
+              9,
+              22
+            ]
+          },
+          {
+            "rango": "Total",
+            "valores": [
+              1003,
+              81,
+              289,
+              185,
+              764,
+              106,
+              1571,
+              62,
+              190
+            ],
+            "total": true
+          }
+        ]
+      },
+      "topCiudades": [
+        {
+          "ciudad": "Bogotá",
+          "vacantes": 3866
+        },
+        {
+          "ciudad": "Medellín",
+          "vacantes": 744
+        },
+        {
+          "ciudad": "Cali",
+          "vacantes": 320
+        },
+        {
+          "ciudad": "Remoto",
+          "vacantes": 264
+        },
+        {
+          "ciudad": "Barranquilla",
+          "vacantes": 216
+        },
+        {
+          "ciudad": "Cartagena",
+          "vacantes": 120
+        },
+        {
+          "ciudad": "Bucaramanga",
+          "vacantes": 114
+        },
+        {
+          "ciudad": "Funza",
+          "vacantes": 70
+        },
+        {
+          "ciudad": "Pereira",
+          "vacantes": 69
+        },
+        {
+          "ciudad": "Mosquera",
+          "vacantes": 56
+        },
+        {
+          "ciudad": "Yumbo",
+          "vacantes": 50
+        }
+      ],
+      "ciudadesPorPrograma": {
+        "Ingeniería de Software": [
+          "Bogotá (1343)",
+          "Remoto (221)",
+          "Medellín (144)"
+        ],
+        "Bioingeniería": [
+          "Bogotá (68)",
+          "Medellín (11)",
+          "Cali (7)"
+        ],
+        "Ingeniería Eléctrica": [
+          "Bogotá (225)",
+          "Medellín (70)",
+          "Cali (21)"
+        ],
+        "Ingeniería Mecatrónica": [
+          "Bogotá (163)",
+          "Medellín (34)",
+          "Barranquilla (16)"
+        ],
+        "Ingeniería Civil": [
+          "Bogotá (593)",
+          "Medellín (189)",
+          "Cali (81)"
+        ],
+        "Ingeniería de Alimentos": [
+          "Bogotá (77)",
+          "Medellín (20)",
+          "Cali (10)"
+        ],
+        "Ingeniería Industrial": [
+          "Bogotá (1204)",
+          "Medellín (222)",
+          "Cali (121)"
+        ],
+        "Ingeniería Química": [
+          "Bogotá (52)",
+          "Medellín (10)",
+          "Mosquera (4)"
+        ],
+        "Ingeniería Ambiental y Sanitaria": [
+          "Bogotá (141)",
+          "Medellín (44)",
+          "Cali (20)"
+        ]
+      },
+      "empleadoresPorPrograma": {
+        "Ingeniería de Software": [
+          "Cinte Colombia SAS (108)",
+          "TALYCAP GLOBAL SAS (78)",
+          "MANPOWER (56)",
+          "Softtek Colombia (39)",
+          "Sinergy & Lowells (33)"
+        ],
+        "Bioingeniería": [
+          "UNIVERSIDAD ECCI (11)",
+          "MEMCO S.A.S. (5)",
+          "GLOBAL TRADING & ELECTRONIC EQUIPMENT SAS (3)",
+          "SERDAN - MISION TEMPORAL (3)",
+          "ACTIVOS S A S (3)"
+        ],
+        "Ingeniería Eléctrica": [
+          "BUREAU VERITAS (24)",
+          "APPLUS NORCONTROL COLOMBIA LTDA (10)",
+          "Servicio de Empleo Comfama (10)",
+          "Enel Colombia S.A ESP (9)",
+          "AGENCIA DE EMPLEO COMFAMA (7)"
+        ],
+        "Ingeniería Mecatrónica": [
+          "ACTIVOS S.A.S (10)",
+          "Servicio de Empleo Comfama (6)",
+          "Ocupar Temporales S.A. (6)",
+          "ACTIVOS S A S (5)",
+          "Multiempleos S.A. (4)"
+        ],
+        "Ingeniería Civil": [
+          "WSP COLOMBIA SAS (34)",
+          "CONCONCRETO S.A. (31)",
+          "Servicio de Empleo Comfama (22)",
+          "MAB INGENIERIA DE VALOR SA (20)",
+          "AGENCIA DE EMPLEO COMFAMA (19)"
+        ],
+        "Ingeniería de Alimentos": [
+          "STAFFING DE COLOMBIA (4)",
+          "ALIMENTOS SEVILLA S.A.S (4)",
+          "AGENCIA DE EMPLEO Y FOMENTO EMPRESARIAL COMPENSAR (4)",
+          "Servicio de Empleo Comfama (4)",
+          "Sinergia Trabajo Temporal S.A (4)"
+        ],
+        "Ingeniería Industrial": [
+          "Servicio de Empleo Comfama (51)",
+          "ADECCO COLOMBIA S A (41)",
+          "ACTIVOS S.A.S (30)",
+          "Job&Talent Colombia (28)",
+          "SUMMAR PRODUCTIVIDAD S.A.S (27)"
+        ],
+        "Ingeniería Química": [
+          "JOBANDTALENT CO SAS (5)",
+          "HMV Ingenieros (2)",
+          "CIMPA LTDA (2)",
+          "ICONTEC (2)",
+          "ECOLAB COLOMBIA S.A. (2)"
+        ],
+        "Ingeniería Ambiental y Sanitaria": [
+          "Servicio de Empleo Comfama (6)",
+          "AGENCIA DE EMPLEO COMFAMA (5)",
+          "SUMMAR PRODUCTIVIDAD S.A.S (4)",
+          "Double C by Conconcreto (4)",
+          "Enel Colombia S.A ESP (4)"
+        ]
+      },
+      "empresasConfidenciales": {
+        "Ingeniería de Software": 533,
+        "Bioingeniería": 30,
+        "Ingeniería Eléctrica": 117,
+        "Ingeniería Mecatrónica": 97,
+        "Ingeniería Civil": 382,
+        "Ingeniería de Alimentos": 43,
+        "Ingeniería Industrial": 680,
+        "Ingeniería Química": 34,
+        "Ingeniería Ambiental y Sanitaria": 106
+      },
+      "topCargos": {
+        "Ingeniería de Software": [
+          "Ingeniero de sistemas (52)",
+          "Desarrollador (49)",
+          "Ingeniero de datos (37)",
+          "Desarrollador fullstack (35)",
+          "Software engineer (25)",
+          "Agentic software engineer (17)",
+          "Practicante de ingeniería de sistemas (16)",
+          "Analista de ciberseguridad (14)",
+          "Desarrollador backend (12)",
+          "Desarrollador java (11)"
+        ],
+        "Bioingeniería": [
+          "Ingeniero biomédico (32)",
+          "Ingeniero de soporte biomedico (5)",
+          "Practicante ingenieria biomedica (3)",
+          "Docente universitario de ingeniería biomédica (2)",
+          "Analista de bioingeniería (2)",
+          "Especialista de calidad (2)",
+          "Instructor (2)",
+          "Ingeniero y técnico biomédico (2)",
+          "Ingeniero biomédico comercial (2)",
+          "Ingeniero biomédico comercial procesos secop (2)"
+        ],
+        "Ingeniería Eléctrica": [
+          "Ingeniero electricista (102)",
+          "Ingeniero electrónico (13)",
+          "Ingeniero de diseño eléctrico (6)",
+          "Ingeniero de telecomunicaciones (6)",
+          "Diseñador eléctrico (6)",
+          "Coordinador eléctrico (6)",
+          "Supervisor de mantenimiento electrico (4)",
+          "Ingeniero eléctrico residente (4)",
+          "Ingeniero de diseño redes eléctricas (4)",
+          "Ingeniero de soporte en seguridad electronica (4)"
+        ],
+        "Ingeniería Mecatrónica": [
+          "Ingeniero mecánico (47)",
+          "Practicante de ingeniería mecánica (13)",
+          "Ingeniero de automatización (12)",
+          "Ingeniero electromecánico (11)",
+          "Ingeniero mecatrónico (10)",
+          "Ingeniero mecánico residente (4)",
+          "Ingeniero mecanico o electromecanico con especialización sst (4)",
+          "Ingeniero mecánico aire acondicionado (3)",
+          "Analista de automatización (3)",
+          "Especialista de automatización (3)"
+        ],
+        "Ingeniería Civil": [
+          "Residente de obra (107)",
+          "Ingeniero civil (93)",
+          "Director de obra (44)",
+          "Ingeniero residente (20)",
+          "Supervisor de obra (16)",
+          "Practicante ingenieria civil (15)",
+          "Residente de interventoría (12)",
+          "Coordinador de obra (11)",
+          "Residente de estructura (10)",
+          "Analista de infraestructura (10)"
+        ],
+        "Ingeniería de Alimentos": [
+          "Ingeniero de alimentos (35)",
+          "Supervisor de producción (15)",
+          "Practicante ing. alimentos (5)",
+          "Ingeniero de calidad de alimentos (3)",
+          "Líder de producción (3)",
+          "Analista de calidad (3)",
+          "Supervisor de calidad de alimentos (3)",
+          "Coordinador de control de calidad (2)",
+          "Analista ambiental (2)",
+          "Jefe de calidad e inocuidad (2)"
+        ],
+        "Ingeniería Industrial": [
+          "Practicante de ingeniería industrial (77)",
+          "Analista de calidad (49)",
+          "Ingeniero de proyectos (45)",
+          "Ingeniero industrial (42)",
+          "Coordinador de calidad (30)",
+          "Inspector de calidad (23)",
+          "Analista de procesos (21)",
+          "Ingeniero de procesos (19)",
+          "Jefe de calidad (18)",
+          "Supervisor de producción (18)"
+        ],
+        "Ingeniería Química": [
+          "Ingeniero químico (26)",
+          "Ingeniero químico especialista en sst (5)",
+          "Practicante de ingeniería química (3)",
+          "Analista sr fisicoquímica (2)",
+          "Analista de validaciones (2)",
+          "Ingeniero químico o de alimentos (2)",
+          "Analista de desarrollo galenico (1)",
+          "Analista de validación de técnicas analiticas (1)",
+          "Profesional hidrocarburos (1)",
+          "Analista de laboratorio químico (1)"
+        ],
+        "Ingeniería Ambiental y Sanitaria": [
+          "Ingeniero ambiental (36)",
+          "Practicante de ingeniería ambiental (22)",
+          "Profesional ambiental (19)",
+          "Ingeniero agrónomo (10)",
+          "Coordinador ambiental (9)",
+          "Analista ambiental (8)",
+          "Residente ambiental (8)",
+          "Gestor ambiental (5)",
+          "Supervisor ambiental (5)",
+          "Lider ambiental (5)"
+        ]
+      },
+      "topCompetencias": {
+        "Ingeniería de Software": [
+          "APIs REST / integraciones (553)",
+          "Soporte / infraestructura TI (536)",
+          "Cloud (AWS/Azure/GCP) (500)",
+          "SQL (386)",
+          "Bases de datos (344)",
+          "Pruebas / QA (324)",
+          "Organización y planificación (306)",
+          "Liderazgo (292)",
+          "DevOps / CI-CD (285)",
+          "Pensamiento analítico (265)"
+        ],
+        "Bioingeniería": [
+          "Equipos / dispositivos biomédicos (41)",
+          "Gestión de calidad (23)",
+          "Mantenimiento preventivo / correctivo (20)",
+          "Excel (20)",
+          "Organización y planificación (18)",
+          "Investigación clínica (14)",
+          "Liderazgo (13)",
+          "Trabajo en equipo (9)",
+          "Comunicación efectiva (9)",
+          "Tecnovigilancia / INVIMA (8)"
+        ],
+        "Ingeniería Eléctrica": [
+          "Automatización / control (87)",
+          "Supervisión de obra eléctrica (84)",
+          "Mantenimiento eléctrico (73)",
+          "Sistemas de potencia / energía (70)",
+          "Instalaciones / montajes (49)",
+          "Normativa RETIE / RETILAP (48)",
+          "Media / baja tensión (48)",
+          "Liderazgo (45)",
+          "AutoCAD (44)",
+          "Excel (41)"
+        ],
+        "Ingeniería Mecatrónica": [
+          "Automatización industrial (43)",
+          "Diseño mecánico (36)",
+          "PLC / control (35)",
+          "Electrónica (30)",
+          "Mantenimiento electromecánico (27)",
+          "Organización y planificación (25)",
+          "Instrumentación / sensores (16)",
+          "Liderazgo (16)",
+          "Excel (14)",
+          "Comunicación efectiva (13)"
+        ],
+        "Ingeniería Civil": [
+          "Dirección / residencia de obra (393)",
+          "Interventoría / supervisión (157)",
+          "Presupuestos y APU (141)",
+          "Organización y planificación (137)",
+          "Liderazgo (114)",
+          "Excel (110)",
+          "Programación de obra (100)",
+          "AutoCAD (93)",
+          "Vías / infraestructura vial (85)",
+          "Diseño estructural (83)"
+        ],
+        "Ingeniería de Alimentos": [
+          "Aseguramiento de calidad (35)",
+          "Producción / procesos (31)",
+          "BPM / inocuidad (24)",
+          "Normativa INVIMA (18)",
+          "Liderazgo (17)",
+          "Microbiología / laboratorio (11)",
+          "HACCP (9)",
+          "Excel (8)",
+          "Organización y planificación (8)",
+          "SAP / ERP (7)"
+        ],
+        "Ingeniería Industrial": [
+          "Gestión de procesos (660)",
+          "Organización y planificación (477)",
+          "Excel avanzado (464)",
+          "Indicadores / KPI (412)",
+          "Gestión de calidad (ISO 9001) (379)",
+          "Liderazgo (343)",
+          "Gestión de proyectos (292)",
+          "Pensamiento analítico (263)",
+          "Mejora continua / Lean (242)",
+          "Logística / cadena de suministro (211)"
+        ],
+        "Ingeniería Química": [
+          "Control de calidad / laboratorio (33)",
+          "Procesos químicos / producción (28)",
+          "Industria farmacéutica / cosmética (18)",
+          "Validaciones / BPM (17)",
+          "Pensamiento analítico (16)",
+          "Mejora continua / optimización (13)",
+          "Excel (11)",
+          "Desarrollo de productos (I+D) (9)",
+          "Organización y planificación (9)",
+          "Office (7)"
+        ],
+        "Ingeniería Ambiental y Sanitaria": [
+          "Gestión ambiental / PMA (58)",
+          "Normativa ambiental (45)",
+          "SST / HSEQ (31)",
+          "Licencias y permisos (30)",
+          "Sostenibilidad / ESG (27)",
+          "Organización y planificación (25)",
+          "Residuos sólidos / peligrosos (21)",
+          "Tratamiento de aguas (18)",
+          "Liderazgo (18)",
+          "Office (16)"
+        ]
+      },
+      "mapaHabilidades": [
+        {
+          "programa": "INGENIERÍA DE SOFTWARE",
+          "vacantes": 1962,
+          "color": "#0b2742",
+          "bloques": [
+            "Técnicas: apis rest / integraciones (553), soporte / infraestructura ti (536), bases de datos (344), pruebas / qa (324), devops / ci-cd (285)",
+            "Herramientas: cloud (aws/azure/gcp) (500), sql (386), python (189), git (184), java (178)",
+            "Blandas: organización y planificación (306), liderazgo (292), pensamiento analítico (265), trabajo en equipo (182), inglés (152)"
+          ]
+        },
+        {
+          "programa": "BIOINGENIERÍA",
+          "vacantes": 113,
+          "color": "#0ea5a5",
+          "bloques": [
+            "Técnicas: equipos / dispositivos biomédicos (41), gestión de calidad (23), mantenimiento preventivo / correctivo (20), investigación clínica (14), tecnovigilancia / invima (8)",
+            "Herramientas: excel (20), sap (3), office (3), cmms (2), crm / salesforce (2)",
+            "Blandas: organización y planificación (18), liderazgo (13), trabajo en equipo (9), comunicación efectiva (9), proactividad (7)"
+          ]
+        },
+        {
+          "programa": "INGENIERÍA ELÉCTRICA",
+          "vacantes": 530,
+          "color": "#f59e0b",
+          "bloques": [
+            "Técnicas: automatización / control (87), supervisión de obra eléctrica (84), mantenimiento eléctrico (73), sistemas de potencia / energía (70), instalaciones / montajes (49)",
+            "Herramientas: autocad (44), excel (41), office (26), revit / bim (16), digsilent / etap (14)",
+            "Blandas: liderazgo (45), organización y planificación (28), inglés (13), trabajo en equipo (10), orientación al servicio (8)"
+          ]
+        },
+        {
+          "programa": "INGENIERÍA MECATRÓNICA",
+          "vacantes": 356,
+          "color": "#1178b5",
+          "bloques": [
+            "Técnicas: automatización industrial (43), diseño mecánico (36), plc / control (35), electrónica (30), mantenimiento electromecánico (27)",
+            "Herramientas: excel (14), solidworks / cad (6), autocad (6), scada / hmi (6), python (5)",
+            "Blandas: organización y planificación (25), liderazgo (16), comunicación efectiva (13), pensamiento analítico (11), trabajo en equipo (9)"
+          ]
+        },
+        {
+          "programa": "INGENIERÍA CIVIL",
+          "vacantes": 1417,
+          "color": "#2f7d32",
+          "bloques": [
+            "Técnicas: dirección / residencia de obra (393), interventoría / supervisión (157), presupuestos y apu (141), programación de obra (100), vías / infraestructura vial (85)",
+            "Herramientas: excel (110), autocad (93), bim / revit (79), ms project (75), office (56)",
+            "Blandas: organización y planificación (137), liderazgo (114), trabajo en equipo (48), pensamiento analítico (32), comunicación efectiva (31)"
+          ]
+        },
+        {
+          "programa": "INGENIERÍA DE ALIMENTOS",
+          "vacantes": 185,
+          "color": "#b45309",
+          "bloques": [
+            "Técnicas: aseguramiento de calidad (35), producción / procesos (31), bpm / inocuidad (24), normativa invima (18), microbiología / laboratorio (11)",
+            "Herramientas: excel (8), sap / erp (7), office (2), power bi (1)",
+            "Blandas: liderazgo (17), organización y planificación (8), comunicación efectiva (4), proactividad (3), trabajo en equipo (2)"
+          ]
+        },
+        {
+          "programa": "INGENIERÍA INDUSTRIAL",
+          "vacantes": 2431,
+          "color": "#6d28d9",
+          "bloques": [
+            "Técnicas: gestión de procesos (660), indicadores / kpi (412), gestión de calidad (iso 9001) (379), gestión de proyectos (292), mejora continua / lean (242)",
+            "Herramientas: excel avanzado (464), power bi (157), sap / erp (126), office (123), sql (47)",
+            "Blandas: organización y planificación (477), liderazgo (343), pensamiento analítico (263), trabajo en equipo (116), comunicación efectiva (101)"
+          ]
+        },
+        {
+          "programa": "INGENIERÍA QUÍMICA",
+          "vacantes": 93,
+          "color": "#dc2626",
+          "bloques": [
+            "Técnicas: control de calidad / laboratorio (33), procesos químicos / producción (28), industria farmacéutica / cosmética (18), validaciones / bpm (17), mejora continua / optimización (13)",
+            "Herramientas: excel (11), office (7)",
+            "Blandas: pensamiento analítico (16), organización y planificación (9), resolución de problemas (7), trabajo en equipo (5), comunicación efectiva (5)"
+          ]
+        },
+        {
+          "programa": "INGENIERÍA AMBIENTAL Y SANITARIA",
+          "vacantes": 343,
+          "color": "#0891b2",
+          "bloques": [
+            "Técnicas: gestión ambiental / pma (58), normativa ambiental (45), sst / hseq (31), licencias y permisos (30), sostenibilidad / esg (27)",
+            "Herramientas: office (16), excel (15), sig (arcgis / qgis) (6), autocad (1), power bi (1)",
+            "Blandas: organización y planificación (25), liderazgo (18), trabajo en equipo (7), comunicación efectiva (7), pensamiento analítico (6)"
+          ]
+        }
+      ],
+      "modalidad": {
+        "cobertura": "Modalidad identificada por mención en el título o la descripción (1448 de 7430 vacantes).",
+        "items": [
+          {
+            "tipo": "Presencial",
+            "valor": 606
+          },
+          {
+            "tipo": "Híbrido",
+            "valor": 538
+          },
+          {
+            "tipo": "Remoto",
+            "valor": 304
+          }
+        ]
+      },
+      "mapa": {
+        "ciudades": [
+          {
+            "ciudad": "Bogotá",
+            "lat": 4.711,
+            "lng": -74.072,
+            "vacantes": 3866,
+            "porPrograma": {
+              "Ingeniería de Software": 1343,
+              "Bioingeniería": 68,
+              "Ingeniería Eléctrica": 225,
+              "Ingeniería Mecatrónica": 163,
+              "Ingeniería Civil": 593,
+              "Ingeniería de Alimentos": 77,
+              "Ingeniería Industrial": 1204,
+              "Ingeniería Química": 52,
+              "Ingeniería Ambiental y Sanitaria": 141
+            }
+          },
+          {
+            "ciudad": "Medellín",
+            "lat": 6.244,
+            "lng": -75.581,
+            "vacantes": 744,
+            "porPrograma": {
+              "Ingeniería de Software": 144,
+              "Bioingeniería": 11,
+              "Ingeniería Eléctrica": 70,
+              "Ingeniería Mecatrónica": 34,
+              "Ingeniería Civil": 189,
+              "Ingeniería de Alimentos": 20,
+              "Ingeniería Industrial": 222,
+              "Ingeniería Química": 10,
+              "Ingeniería Ambiental y Sanitaria": 44
+            }
+          },
+          {
+            "ciudad": "Cali",
+            "lat": 3.452,
+            "lng": -76.532,
+            "vacantes": 320,
+            "porPrograma": {
+              "Ingeniería de Software": 48,
+              "Bioingeniería": 7,
+              "Ingeniería Eléctrica": 21,
+              "Ingeniería Mecatrónica": 12,
+              "Ingeniería Civil": 81,
+              "Ingeniería de Alimentos": 10,
+              "Ingeniería Industrial": 121,
+              "Ingeniería Ambiental y Sanitaria": 20
+            }
+          },
+          {
+            "ciudad": "Barranquilla",
+            "lat": 10.964,
+            "lng": -74.796,
+            "vacantes": 216,
+            "porPrograma": {
+              "Ingeniería de Software": 22,
+              "Bioingeniería": 7,
+              "Ingeniería Eléctrica": 18,
+              "Ingeniería Mecatrónica": 16,
+              "Ingeniería Civil": 43,
+              "Ingeniería de Alimentos": 4,
+              "Ingeniería Industrial": 94,
+              "Ingeniería Química": 3,
+              "Ingeniería Ambiental y Sanitaria": 9
+            }
+          },
+          {
+            "ciudad": "Cartagena",
+            "lat": 10.391,
+            "lng": -75.479,
+            "vacantes": 120,
+            "porPrograma": {
+              "Ingeniería de Software": 5,
+              "Bioingeniería": 1,
+              "Ingeniería Eléctrica": 13,
+              "Ingeniería Mecatrónica": 13,
+              "Ingeniería Civil": 50,
+              "Ingeniería Industrial": 34,
+              "Ingeniería Química": 1,
+              "Ingeniería Ambiental y Sanitaria": 3
+            }
+          },
+          {
+            "ciudad": "Bucaramanga",
+            "lat": 7.119,
+            "lng": -73.122,
+            "vacantes": 114,
+            "porPrograma": {
+              "Ingeniería de Software": 22,
+              "Bioingeniería": 4,
+              "Ingeniería Eléctrica": 7,
+              "Ingeniería Mecatrónica": 10,
+              "Ingeniería Civil": 25,
+              "Ingeniería de Alimentos": 8,
+              "Ingeniería Industrial": 35,
+              "Ingeniería Ambiental y Sanitaria": 3
+            }
+          },
+          {
+            "ciudad": "Funza",
+            "lat": 4.716,
+            "lng": -74.211,
+            "vacantes": 70,
+            "porPrograma": {
+              "Ingeniería de Software": 4,
+              "Bioingeniería": 2,
+              "Ingeniería Eléctrica": 6,
+              "Ingeniería Mecatrónica": 1,
+              "Ingeniería Civil": 4,
+              "Ingeniería de Alimentos": 4,
+              "Ingeniería Industrial": 45,
+              "Ingeniería Química": 2,
+              "Ingeniería Ambiental y Sanitaria": 2
+            }
+          },
+          {
+            "ciudad": "Pereira",
+            "lat": 4.813,
+            "lng": -75.696,
+            "vacantes": 69,
+            "porPrograma": {
+              "Ingeniería de Software": 14,
+              "Bioingeniería": 1,
+              "Ingeniería Eléctrica": 4,
+              "Ingeniería Mecatrónica": 3,
+              "Ingeniería Civil": 23,
+              "Ingeniería de Alimentos": 2,
+              "Ingeniería Industrial": 18,
+              "Ingeniería Química": 1,
+              "Ingeniería Ambiental y Sanitaria": 3
+            }
+          },
+          {
+            "ciudad": "Mosquera",
+            "lat": 4.706,
+            "lng": -74.23,
+            "vacantes": 56,
+            "porPrograma": {
+              "Ingeniería de Software": 4,
+              "Ingeniería Eléctrica": 5,
+              "Ingeniería Mecatrónica": 2,
+              "Ingeniería Civil": 10,
+              "Ingeniería de Alimentos": 3,
+              "Ingeniería Industrial": 24,
+              "Ingeniería Química": 4,
+              "Ingeniería Ambiental y Sanitaria": 4
+            }
+          },
+          {
+            "ciudad": "Rionegro",
+            "lat": 6.155,
+            "lng": -75.374,
+            "vacantes": 50,
+            "porPrograma": {
+              "Ingeniería de Software": 1,
+              "Bioingeniería": 1,
+              "Ingeniería Eléctrica": 5,
+              "Ingeniería Mecatrónica": 11,
+              "Ingeniería Civil": 7,
+              "Ingeniería de Alimentos": 4,
+              "Ingeniería Industrial": 20,
+              "Ingeniería Ambiental y Sanitaria": 1
+            }
+          },
+          {
+            "ciudad": "Yumbo",
+            "lat": 3.585,
+            "lng": -76.495,
+            "vacantes": 50,
+            "porPrograma": {
+              "Ingeniería de Software": 3,
+              "Ingeniería Eléctrica": 5,
+              "Ingeniería Mecatrónica": 6,
+              "Ingeniería Civil": 5,
+              "Ingeniería de Alimentos": 2,
+              "Ingeniería Industrial": 28,
+              "Ingeniería Ambiental y Sanitaria": 1
+            }
+          },
+          {
+            "ciudad": "Santa Marta",
+            "lat": 11.241,
+            "lng": -74.205,
+            "vacantes": 49,
+            "porPrograma": {
+              "Ingeniería de Software": 5,
+              "Ingeniería Eléctrica": 2,
+              "Ingeniería Mecatrónica": 1,
+              "Ingeniería Civil": 21,
+              "Ingeniería de Alimentos": 1,
+              "Ingeniería Industrial": 14,
+              "Ingeniería Química": 1,
+              "Ingeniería Ambiental y Sanitaria": 4
+            }
+          },
+          {
+            "ciudad": "Cúcuta",
+            "lat": 7.894,
+            "lng": -72.508,
+            "vacantes": 46,
+            "porPrograma": {
+              "Ingeniería de Software": 8,
+              "Bioingeniería": 1,
+              "Ingeniería Eléctrica": 10,
+              "Ingeniería Mecatrónica": 2,
+              "Ingeniería Civil": 5,
+              "Ingeniería Industrial": 16,
+              "Ingeniería Ambiental y Sanitaria": 4
+            }
+          },
+          {
+            "ciudad": "Villavicencio",
+            "lat": 4.142,
+            "lng": -73.627,
+            "vacantes": 46,
+            "porPrograma": {
+              "Ingeniería de Software": 12,
+              "Ingeniería Eléctrica": 3,
+              "Ingeniería Mecatrónica": 3,
+              "Ingeniería Civil": 7,
+              "Ingeniería Industrial": 15,
+              "Ingeniería Química": 1,
+              "Ingeniería Ambiental y Sanitaria": 5
+            }
+          },
+          {
+            "ciudad": "Chía",
+            "lat": 4.861,
+            "lng": -74.058,
+            "vacantes": 45,
+            "porPrograma": {
+              "Ingeniería de Software": 9,
+              "Bioingeniería": 2,
+              "Ingeniería Eléctrica": 3,
+              "Ingeniería Mecatrónica": 1,
+              "Ingeniería Civil": 6,
+              "Ingeniería de Alimentos": 3,
+              "Ingeniería Industrial": 17,
+              "Ingeniería Ambiental y Sanitaria": 4
+            }
+          },
+          {
+            "ciudad": "Itagüí",
+            "lat": 6.184,
+            "lng": -75.599,
+            "vacantes": 38,
+            "porPrograma": {
+              "Ingeniería de Software": 3,
+              "Ingeniería Eléctrica": 2,
+              "Ingeniería Mecatrónica": 1,
+              "Ingeniería Civil": 8,
+              "Ingeniería de Alimentos": 2,
+              "Ingeniería Industrial": 19,
+              "Ingeniería Ambiental y Sanitaria": 3
+            }
+          },
+          {
+            "ciudad": "Tocancipá",
+            "lat": 4.965,
+            "lng": -73.913,
+            "vacantes": 35,
+            "porPrograma": {
+              "Ingeniería de Software": 4,
+              "Ingeniería Eléctrica": 3,
+              "Ingeniería Mecatrónica": 3,
+              "Ingeniería Civil": 5,
+              "Ingeniería de Alimentos": 2,
+              "Ingeniería Industrial": 17,
+              "Ingeniería Química": 1
+            }
+          },
+          {
+            "ciudad": "La Estrella",
+            "lat": 6.157,
+            "lng": -75.643,
+            "vacantes": 32,
+            "porPrograma": {
+              "Bioingeniería": 1,
+              "Ingeniería Eléctrica": 3,
+              "Ingeniería Mecatrónica": 1,
+              "Ingeniería Civil": 1,
+              "Ingeniería de Alimentos": 1,
+              "Ingeniería Industrial": 25
+            }
+          },
+          {
+            "ciudad": "Neiva",
+            "lat": 2.927,
+            "lng": -75.282,
+            "vacantes": 32,
+            "porPrograma": {
+              "Ingeniería de Software": 1,
+              "Bioingeniería": 1,
+              "Ingeniería Eléctrica": 1,
+              "Ingeniería Civil": 10,
+              "Ingeniería Industrial": 16,
+              "Ingeniería Ambiental y Sanitaria": 3
+            }
+          },
+          {
+            "ciudad": "Cota",
+            "lat": 4.809,
+            "lng": -74.103,
+            "vacantes": 30,
+            "porPrograma": {
+              "Ingeniería de Software": 4,
+              "Bioingeniería": 2,
+              "Ingeniería Mecatrónica": 3,
+              "Ingeniería Civil": 1,
+              "Ingeniería de Alimentos": 1,
+              "Ingeniería Industrial": 17,
+              "Ingeniería Química": 1,
+              "Ingeniería Ambiental y Sanitaria": 1
+            }
+          },
+          {
+            "ciudad": "Ibagué",
+            "lat": 4.438,
+            "lng": -75.232,
+            "vacantes": 29,
+            "porPrograma": {
+              "Ingeniería de Software": 5,
+              "Ingeniería Eléctrica": 1,
+              "Ingeniería Mecatrónica": 2,
+              "Ingeniería Civil": 7,
+              "Ingeniería de Alimentos": 3,
+              "Ingeniería Industrial": 10,
+              "Ingeniería Ambiental y Sanitaria": 1
+            }
+          },
+          {
+            "ciudad": "Sabaneta",
+            "lat": 6.151,
+            "lng": -75.616,
+            "vacantes": 29,
+            "porPrograma": {
+              "Ingeniería de Software": 3,
+              "Ingeniería Eléctrica": 3,
+              "Ingeniería Civil": 8,
+              "Ingeniería Industrial": 12,
+              "Ingeniería Ambiental y Sanitaria": 3
+            }
+          },
+          {
+            "ciudad": "Madrid",
+            "lat": 4.732,
+            "lng": -74.264,
+            "vacantes": 28,
+            "porPrograma": {
+              "Ingeniería de Software": 2,
+              "Ingeniería Civil": 3,
+              "Ingeniería de Alimentos": 1,
+              "Ingeniería Industrial": 18,
+              "Ingeniería Química": 2,
+              "Ingeniería Ambiental y Sanitaria": 2
+            }
+          },
+          {
+            "ciudad": "Manizales",
+            "lat": 5.07,
+            "lng": -75.517,
+            "vacantes": 26,
+            "porPrograma": {
+              "Ingeniería de Software": 4,
+              "Ingeniería Eléctrica": 1,
+              "Ingeniería Mecatrónica": 4,
+              "Ingeniería Civil": 11,
+              "Ingeniería Industrial": 6
+            }
+          },
+          {
+            "ciudad": "Palmira",
+            "lat": 3.539,
+            "lng": -76.303,
+            "vacantes": 26,
+            "porPrograma": {
+              "Bioingeniería": 1,
+              "Ingeniería Eléctrica": 4,
+              "Ingeniería Civil": 10,
+              "Ingeniería Industrial": 8,
+              "Ingeniería Química": 1,
+              "Ingeniería Ambiental y Sanitaria": 2
+            }
+          },
+          {
+            "ciudad": "Armenia",
+            "lat": 4.534,
+            "lng": -75.681,
+            "vacantes": 24,
+            "porPrograma": {
+              "Ingeniería de Software": 4,
+              "Ingeniería Eléctrica": 1,
+              "Ingeniería Civil": 3,
+              "Ingeniería de Alimentos": 1,
+              "Ingeniería Industrial": 12,
+              "Ingeniería Química": 1,
+              "Ingeniería Ambiental y Sanitaria": 2
+            }
+          },
+          {
+            "ciudad": "Barrancabermeja",
+            "lat": 7.065,
+            "lng": -73.854,
+            "vacantes": 24,
+            "porPrograma": {
+              "Ingeniería de Software": 1,
+              "Ingeniería Eléctrica": 2,
+              "Ingeniería Mecatrónica": 1,
+              "Ingeniería Civil": 9,
+              "Ingeniería Industrial": 5,
+              "Ingeniería Química": 3,
+              "Ingeniería Ambiental y Sanitaria": 3
+            }
+          },
+          {
+            "ciudad": "Zipaquirá",
+            "lat": 5.022,
+            "lng": -74.004,
+            "vacantes": 24,
+            "porPrograma": {
+              "Ingeniería Mecatrónica": 3,
+              "Ingeniería Civil": 5,
+              "Ingeniería de Alimentos": 2,
+              "Ingeniería Industrial": 14
+            }
+          },
+          {
+            "ciudad": "Cajicá",
+            "lat": 4.918,
+            "lng": -74.028,
+            "vacantes": 22,
+            "porPrograma": {
+              "Ingeniería de Software": 1,
+              "Ingeniería Mecatrónica": 1,
+              "Ingeniería Civil": 5,
+              "Ingeniería de Alimentos": 1,
+              "Ingeniería Industrial": 10,
+              "Ingeniería Química": 2,
+              "Ingeniería Ambiental y Sanitaria": 2
+            }
+          },
+          {
+            "ciudad": "Envigado",
+            "lat": 6.171,
+            "lng": -75.587,
+            "vacantes": 22,
+            "porPrograma": {
+              "Ingeniería de Software": 5,
+              "Ingeniería Civil": 8,
+              "Ingeniería Industrial": 7,
+              "Ingeniería Ambiental y Sanitaria": 2
+            }
+          },
+          {
+            "ciudad": "Soacha",
+            "lat": 4.579,
+            "lng": -74.217,
+            "vacantes": 22,
+            "porPrograma": {
+              "Ingeniería de Software": 2,
+              "Ingeniería Eléctrica": 3,
+              "Ingeniería Mecatrónica": 2,
+              "Ingeniería Civil": 1,
+              "Ingeniería de Alimentos": 1,
+              "Ingeniería Industrial": 12,
+              "Ingeniería Ambiental y Sanitaria": 1
+            }
+          },
+          {
+            "ciudad": "Girón",
+            "lat": 7.073,
+            "lng": -73.169,
+            "vacantes": 21,
+            "porPrograma": {
+              "Ingeniería de Software": 2,
+              "Ingeniería Eléctrica": 2,
+              "Ingeniería Mecatrónica": 1,
+              "Ingeniería Civil": 2,
+              "Ingeniería de Alimentos": 1,
+              "Ingeniería Industrial": 13
+            }
+          },
+          {
+            "ciudad": "Puerto Gaitán",
+            "lat": 4.314,
+            "lng": -72.082,
+            "vacantes": 21,
+            "porPrograma": {
+              "Ingeniería Eléctrica": 2,
+              "Ingeniería Mecatrónica": 5,
+              "Ingeniería Civil": 3,
+              "Ingeniería de Alimentos": 3,
+              "Ingeniería Industrial": 5,
+              "Ingeniería Ambiental y Sanitaria": 3
+            }
+          },
+          {
+            "ciudad": "Buga",
+            "lat": 3.9,
+            "lng": -76.298,
+            "vacantes": 18,
+            "porPrograma": {
+              "Ingeniería de Software": 1,
+              "Ingeniería Mecatrónica": 2,
+              "Ingeniería Civil": 7,
+              "Ingeniería Industrial": 2,
+              "Ingeniería Química": 1,
+              "Ingeniería Ambiental y Sanitaria": 5
+            }
+          },
+          {
+            "ciudad": "Bello",
+            "lat": 6.337,
+            "lng": -75.558,
+            "vacantes": 16,
+            "porPrograma": {
+              "Ingeniería de Software": 2,
+              "Ingeniería Mecatrónica": 4,
+              "Ingeniería Civil": 2,
+              "Ingeniería Industrial": 7,
+              "Ingeniería Química": 1
+            }
+          },
+          {
+            "ciudad": "Popayán",
+            "lat": 2.444,
+            "lng": -76.614,
+            "vacantes": 16,
+            "porPrograma": {
+              "Ingeniería Eléctrica": 4,
+              "Ingeniería Mecatrónica": 1,
+              "Ingeniería Civil": 6,
+              "Ingeniería Industrial": 5
+            }
+          },
+          {
+            "ciudad": "Tenjo",
+            "lat": 4.872,
+            "lng": -74.144,
+            "vacantes": 16,
+            "porPrograma": {
+              "Ingeniería de Software": 1,
+              "Ingeniería Eléctrica": 1,
+              "Ingeniería Mecatrónica": 2,
+              "Ingeniería Civil": 2,
+              "Ingeniería de Alimentos": 2,
+              "Ingeniería Industrial": 7,
+              "Ingeniería Química": 1
+            }
+          },
+          {
+            "ciudad": "Tunja",
+            "lat": 5.535,
+            "lng": -73.367,
+            "vacantes": 16,
+            "porPrograma": {
+              "Ingeniería de Software": 3,
+              "Bioingeniería": 1,
+              "Ingeniería Eléctrica": 2,
+              "Ingeniería Mecatrónica": 1,
+              "Ingeniería Civil": 5,
+              "Ingeniería Industrial": 4
+            }
+          },
+          {
+            "ciudad": "Girardota",
+            "lat": 6.377,
+            "lng": -75.444,
+            "vacantes": 15,
+            "porPrograma": {
+              "Ingeniería de Software": 2,
+              "Ingeniería Mecatrónica": 1,
+              "Ingeniería Civil": 2,
+              "Ingeniería Industrial": 9,
+              "Ingeniería Ambiental y Sanitaria": 1
+            }
+          },
+          {
+            "ciudad": "Pasto",
+            "lat": 1.213,
+            "lng": -77.281,
+            "vacantes": 15,
+            "porPrograma": {
+              "Ingeniería de Software": 1,
+              "Ingeniería Eléctrica": 2,
+              "Ingeniería Civil": 6,
+              "Ingeniería Industrial": 4,
+              "Ingeniería Ambiental y Sanitaria": 2
+            }
+          },
+          {
+            "ciudad": "Guarne",
+            "lat": 6.279,
+            "lng": -75.443,
+            "vacantes": 14,
+            "porPrograma": {
+              "Ingeniería Civil": 4,
+              "Ingeniería Industrial": 9,
+              "Ingeniería Ambiental y Sanitaria": 1
+            }
+          },
+          {
+            "ciudad": "Montería",
+            "lat": 8.748,
+            "lng": -75.881,
+            "vacantes": 14,
+            "porPrograma": {
+              "Ingeniería de Software": 3,
+              "Ingeniería Civil": 5,
+              "Ingeniería Industrial": 6
+            }
+          },
+          {
+            "ciudad": "Malambo",
+            "lat": 10.859,
+            "lng": -74.774,
+            "vacantes": 13,
+            "porPrograma": {
+              "Ingeniería Eléctrica": 2,
+              "Ingeniería Mecatrónica": 1,
+              "Ingeniería Civil": 2,
+              "Ingeniería de Alimentos": 1,
+              "Ingeniería Industrial": 7
+            }
+          },
+          {
+            "ciudad": "Facatativá",
+            "lat": 4.813,
+            "lng": -74.354,
+            "vacantes": 12,
+            "porPrograma": {
+              "Ingeniería Mecatrónica": 1,
+              "Ingeniería Industrial": 8,
+              "Ingeniería Ambiental y Sanitaria": 3
+            }
+          },
+          {
+            "ciudad": "Valledupar",
+            "lat": 10.463,
+            "lng": -73.253,
+            "vacantes": 11,
+            "porPrograma": {
+              "Ingeniería de Software": 5,
+              "Ingeniería Eléctrica": 3,
+              "Ingeniería Civil": 2,
+              "Ingeniería Industrial": 1
+            }
+          },
+          {
+            "ciudad": "Duitama",
+            "lat": 5.827,
+            "lng": -73.033,
+            "vacantes": 7,
+            "porPrograma": {
+              "Ingeniería de Software": 1,
+              "Ingeniería Eléctrica": 1,
+              "Ingeniería Industrial": 2,
+              "Ingeniería Ambiental y Sanitaria": 3
+            }
+          },
+          {
+            "ciudad": "Cartago",
+            "lat": 4.747,
+            "lng": -75.912,
+            "vacantes": 6,
+            "porPrograma": {
+              "Ingeniería Civil": 1,
+              "Ingeniería Industrial": 5
+            }
+          },
+          {
+            "ciudad": "Girardot",
+            "lat": 4.303,
+            "lng": -74.803,
+            "vacantes": 4,
+            "porPrograma": {
+              "Ingeniería Industrial": 2,
+              "Ingeniería Ambiental y Sanitaria": 2
+            }
+          },
+          {
+            "ciudad": "Tuluá",
+            "lat": 4.085,
+            "lng": -76.195,
+            "vacantes": 4,
+            "porPrograma": {
+              "Ingeniería Civil": 1,
+              "Ingeniería de Alimentos": 2,
+              "Ingeniería Industrial": 1
+            }
+          },
+          {
+            "ciudad": "Fusagasugá",
+            "lat": 4.337,
+            "lng": -74.364,
+            "vacantes": 3,
+            "porPrograma": {
+              "Ingeniería Civil": 2,
+              "Ingeniería de Alimentos": 1
+            }
+          },
+          {
+            "ciudad": "Ginebra",
+            "lat": 3.724,
+            "lng": -76.268,
+            "vacantes": 2,
+            "porPrograma": {
+              "Ingeniería Industrial": 2
+            }
+          },
+          {
+            "ciudad": "Guaduas",
+            "lat": 5.069,
+            "lng": -74.598,
+            "vacantes": 2,
+            "porPrograma": {
+              "Ingeniería Eléctrica": 1,
+              "Ingeniería Industrial": 1
+            }
+          },
+          {
+            "ciudad": "Tumaco",
+            "lat": 1.807,
+            "lng": -78.765,
+            "vacantes": 2,
+            "porPrograma": {
+              "Ingeniería Civil": 1,
+              "Ingeniería Industrial": 1
+            }
+          },
+          {
+            "ciudad": "Barbosa",
+            "lat": 6.438,
+            "lng": -75.333,
+            "vacantes": 1,
+            "porPrograma": {
+              "Ingeniería Eléctrica": 1
+            }
+          },
+          {
+            "ciudad": "Donmatías",
+            "lat": 6.485,
+            "lng": -75.395,
+            "vacantes": 1,
+            "porPrograma": {
+              "Ingeniería Industrial": 1
+            }
+          },
+          {
+            "ciudad": "El Carmen de Viboral",
+            "lat": 6.083,
+            "lng": -75.336,
+            "vacantes": 1,
+            "porPrograma": {
+              "Ingeniería Ambiental y Sanitaria": 1
+            }
+          },
+          {
+            "ciudad": "Lebrija",
+            "lat": 7.113,
+            "lng": -73.218,
+            "vacantes": 1,
+            "porPrograma": {
+              "Ingeniería Industrial": 1
+            }
+          },
+          {
+            "ciudad": "Santa Rosa de Osos",
+            "lat": 6.645,
+            "lng": -75.46,
+            "vacantes": 1,
+            "porPrograma": {
+              "Ingeniería Civil": 1
+            }
+          }
+        ],
+        "remoto": {
+          "total": 264,
+          "porPrograma": {
+            "Ingeniería de Software": 221,
+            "Bioingeniería": 0,
+            "Ingeniería Eléctrica": 1,
+            "Ingeniería Mecatrónica": 3,
+            "Ingeniería Civil": 6,
+            "Ingeniería de Alimentos": 0,
+            "Ingeniería Industrial": 29,
+            "Ingeniería Química": 1,
+            "Ingeniería Ambiental y Sanitaria": 3
+          }
+        },
+        "cobertura": "6.557 de 7.430 vacantes (88%) en 58 municipios georreferenciados. Ubicación aproximada del casco urbano. 264 remotas y 40 sin ciudad no se ubican en el mapa."
+      },
+      "insights": {
+        "vacantes": [
+          "Ingeniería Industrial y Ingeniería de Software suman el 59% de las vacantes analizadas (2.431 y 1.962 de 7.430).",
+          "Ingeniería Química registra 93 vacantes, el 1% del total de la facultad.",
+          "El 57% de las vacantes publica salario (4.251 de 7.430); el resto lo declara confidencial o a convenir."
+        ],
+        "salarios": [
+          "La mediana más alta es la de Ingeniería de Software ($5,0M) y la más baja la de Ingeniería de Alimentos ($3,0M): una diferencia de $2,0M al mes.",
+          "721 vacantes (17% de las que publican salario) ofrecen más de $6M al mes.",
+          "En Ingeniería Industrial el promedio ($3,9M) supera la mediana ($3,25M): un grupo de vacantes con salarios superiores eleva el promedio."
+        ],
+        "ciudades": [
+          "Bogotá concentra el 54% de las vacantes con ciudad identificada; Medellín el 10% y Cali el 4%.",
+          "Fuera de las cinco ciudades principales hay 1.860 vacantes (26%) repartidas en 310 municipios.",
+          "264 vacantes son remotas (4%); Ingeniería de Software reúne 221 de ellas."
+        ],
+        "modalidad": [
+          "Presencial 42%, híbrido 37%, remoto 21% entre las 1.448 vacantes que indican modalidad."
+        ],
+        "competencias": [
+          "\"Organización y planificación\" es la competencia blanda más mencionada en 6 de 9 programas.",
+          "Excel u ofimática aparece entre las 10 competencias más mencionadas en 7 de 9 programas."
+        ]
+      }
+    };
+
+    const ingenieriaIndiceData = {
+      "resumen": [
+        {
+          "programa": "Ingeniería de Software",
+          "digital": 0.75,
+          "laboral": 70.0,
+          "indice": 70.75,
+          "clasificacion": "Alta Oportunidad",
+          "clase": "pill-high"
+        },
+        {
+          "programa": "Bioingeniería",
+          "digital": 0.0,
+          "laboral": 43.94,
+          "indice": 43.94,
+          "clasificacion": "Oportunidad de Crecimiento",
+          "clase": "pill-growth"
+        },
+        {
+          "programa": "Ingeniería Eléctrica",
+          "digital": 0.54,
+          "laboral": 32.29,
+          "indice": 32.83,
+          "clasificacion": "Oportunidad de Crecimiento",
+          "clase": "pill-growth"
+        },
+        {
+          "programa": "Ingeniería Mecatrónica",
+          "digital": 0.6,
+          "laboral": 16.29,
+          "indice": 16.89,
+          "clasificacion": "Nicho",
+          "clase": "pill-niche"
+        },
+        {
+          "programa": "Ingeniería Civil",
+          "digital": 1.47,
+          "laboral": 15.22,
+          "indice": 16.69,
+          "clasificacion": "Nicho",
+          "clase": "pill-niche"
+        },
+        {
+          "programa": "Ingeniería de Alimentos",
+          "digital": 0.0,
+          "laboral": 15.93,
+          "indice": 15.93,
+          "clasificacion": "Nicho",
+          "clase": "pill-niche"
+        },
+        {
+          "programa": "Ingeniería Industrial",
+          "digital": 1.35,
+          "laboral": 13.73,
+          "indice": 15.08,
+          "clasificacion": "Nicho",
+          "clase": "pill-niche"
+        },
+        {
+          "programa": "Ingeniería Química",
+          "digital": 3.73,
+          "laboral": 7.53,
+          "indice": 11.26,
+          "clasificacion": "Nicho",
+          "clase": "pill-niche"
+        },
+        {
+          "programa": "Ingeniería Ambiental y Sanitaria",
+          "digital": 0.6,
+          "laboral": 6.73,
+          "indice": 7.33,
+          "clasificacion": "Saturación",
+          "clase": "pill-saturation"
+        }
+      ],
+      "hallazgos": [
+        "Ingeniería de Software es el único programa en \"Alta Oportunidad\" (70.8): registra 1.962 vacantes para 1.271 egresados anuales (absorción de 154%). Bioingeniería (43.9) e Ingeniería Eléctrica (32.8) se ubican en \"Oportunidad de Crecimiento\", con absorción de 63% y 46%.",
+        "Cinco programas quedan en \"Nicho\" (índice menor a 31 con absorción superior a 10%): Mecatrónica, Civil, Alimentos, Industrial y Química (11.3 a 16.9). Su absorción proporcional va de 11% (Química) a 23% (Mecatrónica).",
+        "Ingeniería Ambiental y Sanitaria se ubica en \"Saturación\" (7.3): 343 vacantes para 3.568 egresados (9.6%); la categoría corresponde a una absorción igual o menor a 10%. El interés digital de la facultad va de 0 a 4.9 puntos, excepto Química (12.45)."
+      ],
+      "insightsDigital": [
+        "Ingeniería Química registra el mayor interés digital de la facultad (12.45 puntos), seguida de Civil (4.9) e Industrial (4.5). Las tres cifras son inferiores a las de programas como Psicología (48) o Medicina Veterinaria (41.5).",
+        "Bioingeniería e Ingeniería de Alimentos marcan 0 con el término formal de búsqueda. Con \"estudiar ingeniería biomédica\" el promedio sube a 3.4: el aspirante busca con una denominación distinta a la del programa.",
+        "El aspirante de grado 11 rara vez busca la nomenclatura formal del programa; explora en TikTok, YouTube o Instagram y pregunta por carreras según sus habilidades o el salario. Con valores entre 0 y 12.45 puntos, el Puntaje Digital aporta como máximo 3.7 puntos al índice: la clasificación la define el Puntaje Laboral (70%)."
+      ],
+      "insightsLaboral": [
+        "Ingeniería de Software registra 1.962 vacantes frente a 1.271 egresados (154%): el número de vacantes identificadas supera el de egresados anuales. Su salario mediano es de $5,0M, el más alto de la facultad.",
+        "Bioingeniería (113 vacantes para 180 egresados) y Eléctrica (530 para 1.149) registran una absorción proporcional de 63% y 46%. Sus vacantes se asocian a equipos biomédicos, automatización, normativa RETIE y supervisión de obra.",
+        "Industrial (2.431 vacantes) y Civil (1.417) tienen los mayores volúmenes, pero también las mayores bases de egresados (12.397 y 6.517): su absorción es de 20% y 22%. En 7 de los 9 programas, entre el 67% y el 91% de las vacantes se publican con un título distinto al de la profesión, por lo que la absorción se mide por las funciones del cargo."
+      ],
+      "recomendaciones": [
+        {
+          "tipo": "CONVERTIR",
+          "color": "#2e7d32",
+          "titulo": "Software - conversión acelerada",
+          "texto": "Alta Oportunidad con absorción de 154% y salario mediano de $5,0M. Llevar a la pauta datos de empleabilidad y salario, y comunicar sus campos: desarrollo, datos e IA, cloud y ciberseguridad."
+        },
+        {
+          "tipo": "VISIBILIZAR",
+          "color": "#1178b5",
+          "titulo": "Bioingeniería y Eléctrica - posicionamiento",
+          "texto": "Oportunidad de Crecimiento (63% y 46% de absorción). Bioingeniería: posicionar también \"ingeniería biomédica\". Eléctrica: transición energética, automatización y RETIE."
+        },
+        {
+          "tipo": "ESPECIALIZAR",
+          "color": "#272f6f",
+          "titulo": "Industrial, Civil, Mecatrónica, Alimentos y Química",
+          "texto": "Marketing de especialidad hacia perfiles con fortaleza cuantitativa (Saber 11) y colegios con énfasis STEM. Química: aprovechar su interés digital (12.45 puntos) con contenido de industria farmacéutica y calidad."
+        },
+        {
+          "tipo": "DIFERENCIAR",
+          "color": "#ea580c",
+          "titulo": "Ambiental y Sanitaria - diferenciación exclusiva",
+          "texto": "Saturación: 343 vacantes identificadas para 3.568 egresados anuales (9.6%). Destacar campos específicos del perfil: sostenibilidad y ESG (24%), licencias ambientales y HSEQ."
+        },
+        {
+          "tipo": "HABLAR SU IDIOMA",
+          "color": "#0b2742",
+          "titulo": "Transversal a la facultad",
+          "texto": "Contenido en TikTok, YouTube e Instagram que responda \"¿qué estudiar si soy bueno en matemáticas?\" o \"¿vale la pena estudiar ingeniería en 2026?\". Diferenciar frente a bootcamps con título profesional, rigor y versatilidad de campos de desempeño."
+        }
+      ]
+    };
+
+    const agroEmpleabilidadData = {
+      "kpis": {
+        "totalVacantes": 464,
+        "programasCubiertos": 3,
+        "ciudadesConPresencia": 107
+      },
+      "vacantesPorPrograma": [
+        {
+          "programa": "Medicina Veterinaria",
+          "vacantes": 210,
+          "color": "#3f6212"
+        },
+        {
+          "programa": "Administración de Agronegocios",
+          "vacantes": 77,
+          "color": "#0ea5a5"
+        },
+        {
+          "programa": "Zootecnia",
+          "vacantes": 177,
+          "color": "#f59e0b"
+        }
+      ],
+      "salarios": {
+        "coberturaTexto": "272/464 = 59%",
+        "programas": [
+          {
+            "programa": "Medicina Veterinaria",
+            "conSalario": 124,
+            "mediana": 2500000,
+            "promedio": 2970373,
+            "min": 1450000,
+            "max": 9000000,
+            "p25": 2000000,
+            "p75": 3500000
+          },
+          {
+            "programa": "Administración de Agronegocios",
+            "conSalario": 40,
+            "mediana": 3025000,
+            "promedio": 3707169,
+            "min": 1750000,
+            "max": 15000000,
+            "p25": 2237500,
+            "p75": 4500000
+          },
+          {
+            "programa": "Zootecnia",
+            "conSalario": 108,
+            "mediana": 2311500,
+            "promedio": 3078463,
+            "min": 1250000,
+            "max": 11000000,
+            "p25": 1750905,
+            "p75": 3762500
+          }
+        ]
+      },
+      "rangosSalariales": {
+        "programas": [
+          "Medicina Veterinaria",
+          "Administración de Agronegocios",
+          "Zootecnia"
+        ],
+        "filas": [
+          {
+            "rango": "< 1.5M",
+            "valores": [
+              1,
+              0,
+              1
+            ]
+          },
+          {
+            "rango": "1.5M - 2M",
+            "valores": [
+              28,
+              6,
+              39
+            ]
+          },
+          {
+            "rango": "2M - 2.5M",
+            "valores": [
+              23,
+              7,
+              18
+            ]
+          },
+          {
+            "rango": "2.5M - 3M",
+            "valores": [
+              27,
+              7,
+              9
+            ]
+          },
+          {
+            "rango": "3M - 4M",
+            "valores": [
+              23,
+              6,
+              16
+            ]
+          },
+          {
+            "rango": "4M - 6M",
+            "valores": [
+              17,
+              10,
+              18
+            ]
+          },
+          {
+            "rango": "> 6M",
+            "valores": [
+              5,
+              4,
+              7
+            ]
+          },
+          {
+            "rango": "Total",
+            "valores": [
+              124,
+              40,
+              108
+            ],
+            "total": true
+          }
+        ]
+      },
+      "topCiudades": [
+        {
+          "ciudad": "Bogotá",
+          "vacantes": 130
+        },
+        {
+          "ciudad": "Medellín",
+          "vacantes": 34
+        },
+        {
+          "ciudad": "Cali",
+          "vacantes": 14
+        },
+        {
+          "ciudad": "Buga",
+          "vacantes": 12
+        },
+        {
+          "ciudad": "Bucaramanga",
+          "vacantes": 11
+        },
+        {
+          "ciudad": "Girón",
+          "vacantes": 6
+        },
+        {
+          "ciudad": "Barranquilla",
+          "vacantes": 6
+        },
+        {
+          "ciudad": "Mosquera",
+          "vacantes": 5
+        },
+        {
+          "ciudad": "Madrid (España)",
+          "vacantes": 5
+        },
+        {
+          "ciudad": "Ibagué",
+          "vacantes": 5
+        },
+        {
+          "ciudad": "Funza",
+          "vacantes": 5
+        }
+      ],
+      "ciudadesPorPrograma": {
+        "Medicina Veterinaria": [
+          "Bogotá (73)",
+          "Medellín (24)",
+          "Cali (8)"
+        ],
+        "Administración de Agronegocios": [
+          "Bogotá (29)",
+          "Medellín (6)",
+          "Remoto (3)"
+        ],
+        "Zootecnia": [
+          "Bogotá (28)",
+          "Buga (8)",
+          "Bucaramanga (5)"
+        ]
+      },
+      "empleadoresPorPrograma": {
+        "Medicina Veterinaria": [
+          "AGENCIA DE EMPLEO COMFAMA (5)",
+          "Organización Colegial Veterinaria (5)",
+          "Multiempleos S.A. (3)",
+          "Servicio de Empleo Comfama (3)",
+          "PUPPIS COLOMBIA (3)"
+        ],
+        "Administración de Agronegocios": [
+          "FUPAD (8)",
+          "GRUPO TOCAM S.A.S (4)",
+          "BOEHRINGER INGELHEIM S.A. (2)",
+          "AVSA S.A (2)",
+          "Grupo Soluciones Horizonte (2)"
+        ],
+        "Zootecnia": [
+          "GRUPO BIOS S.A.S (13)",
+          "Agroavicola San Marino S.A. (8)",
+          "Multiempleos S.A. (6)",
+          "Adecco Colombia S.A. (5)",
+          "Cargill (4)"
+        ]
+      },
+      "empresasConfidenciales": {
+        "Medicina Veterinaria": 51,
+        "Administración de Agronegocios": 19,
+        "Zootecnia": 58
+      },
+      "topCargos": {
+        "Medicina Veterinaria": [
+          "Médico veterinario (65)",
+          "Auxiliar veterinario (14)",
+          "Médico veterinario zootecnista (5)",
+          "Veterinario granjas avicolas con vehiculo (3)",
+          "Veterinario generalista (3)",
+          "Veterinario en formación granjas engorde (2)",
+          "Visita médica veterinaria (2)",
+          "Veterinario generalista de urgencias (2)",
+          "Medico veterinario de hospital (2)",
+          "Promotor especialista en instrumental veterinario (2)"
+        ],
+        "Administración de Agronegocios": [
+          "Profesional de fortalecimiento empresarial y desarrollo productivo (7)",
+          "Representante de ventas (5)",
+          "Coordinador/ administrativo y logistico (2)",
+          "Representante comercial insumos veterinarios (2)",
+          "Analista de compras (1)",
+          "Asesor comercial tienda a tiena (1)",
+          "Asesor comercial/venta mostrador (1)",
+          "Vendedor productos agropecuarios (1)",
+          "Auxiliar almacen agropecuario (1)",
+          "Negociador de compras agroindustriales (1)"
+        ],
+        "Zootecnia": [
+          "Veterinario zootecnista (12)",
+          "Medico veterinario (7)",
+          "Operario de granja avícola (6)",
+          "Galponero (6)",
+          "Administrador punto de venta agrícola (4)",
+          "Supervisor de granja (4)",
+          "Asesor nutricional (3)",
+          "Operario de granja (3)",
+          "Zootecnista (2)",
+          "Aprendiz universitario zootecnia (2)"
+        ]
+      },
+      "topCompetencias": {
+        "Medicina Veterinaria": [
+          "Asesoría técnico-comercial (25)",
+          "Clínica de pequeños animales (24)",
+          "Diagnóstico / laboratorio (23)",
+          "Producción animal / grandes especies (18)",
+          "Sanidad / bioseguridad (18)",
+          "Excel / ofimática (16)",
+          "Urgencias / hospitalización (11)",
+          "Cirugía (10)",
+          "Negociación (8)",
+          "Trabajo en equipo (7)"
+        ],
+        "Administración de Agronegocios": [
+          "Gestión comercial / ventas (28)",
+          "Administración de unidades productivas (26)",
+          "Mercadeo agropecuario (21)",
+          "Logística / cadena de suministro (21)",
+          "Excel / ofimática (19)",
+          "Organización y planificación (16)",
+          "Finanzas / crédito agropecuario (11)",
+          "Proyectos productivos (10)",
+          "Negociación (10)",
+          "Liderazgo (6)"
+        ],
+        "Zootecnia": [
+          "Asesoría técnico-comercial (45)",
+          "Manejo de granja (29)",
+          "Liderazgo (25)",
+          "Nutrición animal (21)",
+          "Parámetros productivos (21)",
+          "Producción avícola (20)",
+          "Bioseguridad / sanidad (18)",
+          "Excel / ofimática (15)",
+          "Producción bovina / lechería (14)",
+          "Genética / reproducción (14)"
+        ]
+      },
+      "mapaHabilidades": [
+        {
+          "programa": "MEDICINA VETERINARIA",
+          "vacantes": 210,
+          "color": "#3f6212",
+          "bloques": [
+            "Técnicas: asesoría técnico-comercial (25), clínica de pequeños animales (24), diagnóstico / laboratorio (23), producción animal / grandes especies (18), sanidad / bioseguridad (18)",
+            "Herramientas: excel / ofimática (16), ecografía / imagenología (6), historia clínica / software (1)",
+            "Blandas: negociación (8), trabajo en equipo (7), organización y planificación (7), orientación al servicio (7), comunicación efectiva (6)"
+          ]
+        },
+        {
+          "programa": "ADMINISTRACIÓN DE AGRONEGOCIOS",
+          "vacantes": 77,
+          "color": "#0ea5a5",
+          "bloques": [
+            "Técnicas: gestión comercial / ventas (28), administración de unidades productivas (26), mercadeo agropecuario (21), logística / cadena de suministro (21), finanzas / crédito agropecuario (11)",
+            "Herramientas: excel / ofimática (19), crm (4), sap / erp (2), power bi (1)",
+            "Blandas: organización y planificación (16), negociación (10), liderazgo (6), comunicación efectiva (5), pensamiento analítico (3)"
+          ]
+        },
+        {
+          "programa": "ZOOTECNIA",
+          "vacantes": 177,
+          "color": "#f59e0b",
+          "bloques": [
+            "Técnicas: asesoría técnico-comercial (45), manejo de granja (29), nutrición animal (21), parámetros productivos (21), producción avícola (20)",
+            "Herramientas: excel / ofimática (15), registros productivos (7), software de formulación (4)",
+            "Blandas: liderazgo (25), orientación al servicio (14), negociación (9), organización y planificación (8), trabajo en equipo (7)"
+          ]
+        }
+      ],
+      "modalidad": {
+        "cobertura": "75 de 464 vacantes reportan modalidad explícita.",
+        "items": [
+          {
+            "tipo": "Presencial",
+            "valor": 69
+          },
+          {
+            "tipo": "Híbrido",
+            "valor": 4
+          },
+          {
+            "tipo": "Remoto",
+            "valor": 2
+          }
+        ]
+      },
+      "mapa": {
+        "ciudades": [
+          {
+            "ciudad": "Bogotá",
+            "lat": 4.711,
+            "lng": -74.072,
+            "vacantes": 130,
+            "porPrograma": {
+              "Medicina Veterinaria": 73,
+              "Administración de Agronegocios": 29,
+              "Zootecnia": 28
+            }
+          },
+          {
+            "ciudad": "Medellín",
+            "lat": 6.244,
+            "lng": -75.581,
+            "vacantes": 34,
+            "porPrograma": {
+              "Medicina Veterinaria": 24,
+              "Administración de Agronegocios": 6,
+              "Zootecnia": 4
+            }
+          },
+          {
+            "ciudad": "Cali",
+            "lat": 3.452,
+            "lng": -76.532,
+            "vacantes": 14,
+            "porPrograma": {
+              "Medicina Veterinaria": 8,
+              "Administración de Agronegocios": 2,
+              "Zootecnia": 4
+            }
+          },
+          {
+            "ciudad": "Buga",
+            "lat": 3.9,
+            "lng": -76.298,
+            "vacantes": 12,
+            "porPrograma": {
+              "Medicina Veterinaria": 4,
+              "Zootecnia": 8
+            }
+          },
+          {
+            "ciudad": "Bucaramanga",
+            "lat": 7.119,
+            "lng": -73.122,
+            "vacantes": 11,
+            "porPrograma": {
+              "Medicina Veterinaria": 3,
+              "Administración de Agronegocios": 3,
+              "Zootecnia": 5
+            }
+          },
+          {
+            "ciudad": "Barranquilla",
+            "lat": 10.964,
+            "lng": -74.796,
+            "vacantes": 6,
+            "porPrograma": {
+              "Medicina Veterinaria": 2,
+              "Administración de Agronegocios": 2,
+              "Zootecnia": 2
+            }
+          },
+          {
+            "ciudad": "Girón",
+            "lat": 7.073,
+            "lng": -73.169,
+            "vacantes": 6,
+            "porPrograma": {
+              "Medicina Veterinaria": 2,
+              "Zootecnia": 4
+            }
+          },
+          {
+            "ciudad": "Chía",
+            "lat": 4.861,
+            "lng": -74.058,
+            "vacantes": 5,
+            "porPrograma": {
+              "Medicina Veterinaria": 2,
+              "Zootecnia": 3
+            }
+          },
+          {
+            "ciudad": "Funza",
+            "lat": 4.716,
+            "lng": -74.211,
+            "vacantes": 5,
+            "porPrograma": {
+              "Medicina Veterinaria": 2,
+              "Administración de Agronegocios": 1,
+              "Zootecnia": 2
+            }
+          },
+          {
+            "ciudad": "Ibagué",
+            "lat": 4.438,
+            "lng": -75.232,
+            "vacantes": 5,
+            "porPrograma": {
+              "Medicina Veterinaria": 3,
+              "Administración de Agronegocios": 1,
+              "Zootecnia": 1
+            }
+          },
+          {
+            "ciudad": "La Estrella",
+            "lat": 6.157,
+            "lng": -75.643,
+            "vacantes": 5,
+            "porPrograma": {
+              "Medicina Veterinaria": 3,
+              "Administración de Agronegocios": 2
+            }
+          },
+          {
+            "ciudad": "Mosquera",
+            "lat": 4.706,
+            "lng": -74.23,
+            "vacantes": 5,
+            "porPrograma": {
+              "Medicina Veterinaria": 1,
+              "Zootecnia": 4
+            }
+          },
+          {
+            "ciudad": "Pereira",
+            "lat": 4.813,
+            "lng": -75.696,
+            "vacantes": 5,
+            "porPrograma": {
+              "Medicina Veterinaria": 3,
+              "Zootecnia": 2
+            }
+          },
+          {
+            "ciudad": "Villavicencio",
+            "lat": 4.142,
+            "lng": -73.627,
+            "vacantes": 5,
+            "porPrograma": {
+              "Medicina Veterinaria": 2,
+              "Administración de Agronegocios": 2,
+              "Zootecnia": 1
+            }
+          },
+          {
+            "ciudad": "El Cerrito",
+            "lat": 3.685,
+            "lng": -76.313,
+            "vacantes": 4,
+            "porPrograma": {
+              "Zootecnia": 4
+            }
+          },
+          {
+            "ciudad": "Itagüí",
+            "lat": 6.184,
+            "lng": -75.599,
+            "vacantes": 4,
+            "porPrograma": {
+              "Medicina Veterinaria": 2,
+              "Administración de Agronegocios": 2
+            }
+          },
+          {
+            "ciudad": "Manizales",
+            "lat": 5.07,
+            "lng": -75.517,
+            "vacantes": 4,
+            "porPrograma": {
+              "Medicina Veterinaria": 2,
+              "Zootecnia": 2
+            }
+          },
+          {
+            "ciudad": "Puerto Gaitán",
+            "lat": 4.314,
+            "lng": -72.082,
+            "vacantes": 4,
+            "porPrograma": {
+              "Medicina Veterinaria": 2,
+              "Zootecnia": 2
+            }
+          },
+          {
+            "ciudad": "Cúcuta",
+            "lat": 7.894,
+            "lng": -72.508,
+            "vacantes": 3,
+            "porPrograma": {
+              "Medicina Veterinaria": 1,
+              "Administración de Agronegocios": 1,
+              "Zootecnia": 1
+            }
+          },
+          {
+            "ciudad": "Donmatías",
+            "lat": 6.485,
+            "lng": -75.395,
+            "vacantes": 3,
+            "porPrograma": {
+              "Zootecnia": 3
+            }
+          },
+          {
+            "ciudad": "Duitama",
+            "lat": 5.827,
+            "lng": -73.033,
+            "vacantes": 3,
+            "porPrograma": {
+              "Medicina Veterinaria": 1,
+              "Administración de Agronegocios": 1,
+              "Zootecnia": 1
+            }
+          },
+          {
+            "ciudad": "Fusagasugá",
+            "lat": 4.337,
+            "lng": -74.364,
+            "vacantes": 3,
+            "porPrograma": {
+              "Zootecnia": 3
+            }
+          },
+          {
+            "ciudad": "Ginebra",
+            "lat": 3.724,
+            "lng": -76.268,
+            "vacantes": 3,
+            "porPrograma": {
+              "Zootecnia": 3
+            }
+          },
+          {
+            "ciudad": "Santa Rosa de Osos",
+            "lat": 6.645,
+            "lng": -75.46,
+            "vacantes": 3,
+            "porPrograma": {
+              "Medicina Veterinaria": 1,
+              "Zootecnia": 2
+            }
+          },
+          {
+            "ciudad": "Tocancipá",
+            "lat": 4.965,
+            "lng": -73.913,
+            "vacantes": 3,
+            "porPrograma": {
+              "Medicina Veterinaria": 3
+            }
+          },
+          {
+            "ciudad": "Tuluá",
+            "lat": 4.085,
+            "lng": -76.195,
+            "vacantes": 3,
+            "porPrograma": {
+              "Zootecnia": 3
+            }
+          },
+          {
+            "ciudad": "Tumaco",
+            "lat": 1.807,
+            "lng": -78.765,
+            "vacantes": 3,
+            "porPrograma": {
+              "Medicina Veterinaria": 2,
+              "Zootecnia": 1
+            }
+          },
+          {
+            "ciudad": "Valledupar",
+            "lat": 10.463,
+            "lng": -73.253,
+            "vacantes": 3,
+            "porPrograma": {
+              "Administración de Agronegocios": 1,
+              "Zootecnia": 2
+            }
+          },
+          {
+            "ciudad": "Barbosa",
+            "lat": 6.438,
+            "lng": -75.333,
+            "vacantes": 2,
+            "porPrograma": {
+              "Zootecnia": 2
+            }
+          },
+          {
+            "ciudad": "Bugalagrande",
+            "lat": 4.209,
+            "lng": -76.156,
+            "vacantes": 2,
+            "porPrograma": {
+              "Medicina Veterinaria": 2
+            }
+          },
+          {
+            "ciudad": "Cartago",
+            "lat": 4.747,
+            "lng": -75.912,
+            "vacantes": 2,
+            "porPrograma": {
+              "Administración de Agronegocios": 1,
+              "Zootecnia": 1
+            }
+          },
+          {
+            "ciudad": "Cota",
+            "lat": 4.809,
+            "lng": -74.103,
+            "vacantes": 2,
+            "porPrograma": {
+              "Medicina Veterinaria": 2
+            }
+          },
+          {
+            "ciudad": "El Carmen de Viboral",
+            "lat": 6.083,
+            "lng": -75.336,
+            "vacantes": 2,
+            "porPrograma": {
+              "Zootecnia": 2
+            }
+          },
+          {
+            "ciudad": "Facatativá",
+            "lat": 4.813,
+            "lng": -74.354,
+            "vacantes": 2,
+            "porPrograma": {
+              "Administración de Agronegocios": 2
+            }
+          },
+          {
+            "ciudad": "Girardot",
+            "lat": 4.303,
+            "lng": -74.803,
+            "vacantes": 2,
+            "porPrograma": {
+              "Medicina Veterinaria": 2
+            }
+          },
+          {
+            "ciudad": "Guaduas",
+            "lat": 5.069,
+            "lng": -74.598,
+            "vacantes": 2,
+            "porPrograma": {
+              "Medicina Veterinaria": 2
+            }
+          },
+          {
+            "ciudad": "Lebrija",
+            "lat": 7.113,
+            "lng": -73.218,
+            "vacantes": 2,
+            "porPrograma": {
+              "Medicina Veterinaria": 1,
+              "Zootecnia": 1
+            }
+          },
+          {
+            "ciudad": "Neiva",
+            "lat": 2.927,
+            "lng": -75.282,
+            "vacantes": 2,
+            "porPrograma": {
+              "Zootecnia": 2
+            }
+          },
+          {
+            "ciudad": "Pasto",
+            "lat": 1.213,
+            "lng": -77.281,
+            "vacantes": 2,
+            "porPrograma": {
+              "Medicina Veterinaria": 2
+            }
+          },
+          {
+            "ciudad": "Rionegro",
+            "lat": 6.155,
+            "lng": -75.374,
+            "vacantes": 2,
+            "porPrograma": {
+              "Administración de Agronegocios": 1,
+              "Zootecnia": 1
+            }
+          },
+          {
+            "ciudad": "Sabaneta",
+            "lat": 6.151,
+            "lng": -75.616,
+            "vacantes": 2,
+            "porPrograma": {
+              "Medicina Veterinaria": 2
+            }
+          },
+          {
+            "ciudad": "Santa Marta",
+            "lat": 11.241,
+            "lng": -74.205,
+            "vacantes": 2,
+            "porPrograma": {
+              "Medicina Veterinaria": 2
+            }
+          },
+          {
+            "ciudad": "Yumbo",
+            "lat": 3.585,
+            "lng": -76.495,
+            "vacantes": 2,
+            "porPrograma": {
+              "Medicina Veterinaria": 1,
+              "Administración de Agronegocios": 1
+            }
+          },
+          {
+            "ciudad": "Bello",
+            "lat": 6.337,
+            "lng": -75.558,
+            "vacantes": 1,
+            "porPrograma": {
+              "Medicina Veterinaria": 1
+            }
+          },
+          {
+            "ciudad": "Cajicá",
+            "lat": 4.918,
+            "lng": -74.028,
+            "vacantes": 1,
+            "porPrograma": {
+              "Medicina Veterinaria": 1
+            }
+          },
+          {
+            "ciudad": "Envigado",
+            "lat": 6.171,
+            "lng": -75.587,
+            "vacantes": 1,
+            "porPrograma": {
+              "Medicina Veterinaria": 1
+            }
+          },
+          {
+            "ciudad": "Girardota",
+            "lat": 6.377,
+            "lng": -75.444,
+            "vacantes": 1,
+            "porPrograma": {
+              "Medicina Veterinaria": 1
+            }
+          },
+          {
+            "ciudad": "Madrid",
+            "lat": 4.732,
+            "lng": -74.264,
+            "vacantes": 1,
+            "porPrograma": {
+              "Administración de Agronegocios": 1
+            }
+          },
+          {
+            "ciudad": "Malambo",
+            "lat": 10.859,
+            "lng": -74.774,
+            "vacantes": 1,
+            "porPrograma": {
+              "Zootecnia": 1
+            }
+          },
+          {
+            "ciudad": "Montería",
+            "lat": 8.748,
+            "lng": -75.881,
+            "vacantes": 1,
+            "porPrograma": {
+              "Medicina Veterinaria": 1
+            }
+          },
+          {
+            "ciudad": "Palmira",
+            "lat": 3.539,
+            "lng": -76.303,
+            "vacantes": 1,
+            "porPrograma": {
+              "Administración de Agronegocios": 1
+            }
+          },
+          {
+            "ciudad": "Soacha",
+            "lat": 4.579,
+            "lng": -74.217,
+            "vacantes": 1,
+            "porPrograma": {
+              "Medicina Veterinaria": 1
+            }
+          }
+        ],
+        "remoto": {
+          "total": 4,
+          "porPrograma": {
+            "Medicina Veterinaria": 1,
+            "Administración de Agronegocios": 3,
+            "Zootecnia": 0
+          }
+        },
+        "cobertura": "333 de 464 vacantes (72%) en 52 municipios georreferenciados. Ubicación aproximada del casco urbano. 4 remotas y 67 sin ciudad no se ubican en el mapa."
+      },
+      "insights": {
+        "vacantes": [
+          "Medicina Veterinaria y Zootecnia suman el 83% de las vacantes analizadas (210 y 177 de 464).",
+          "El 59% de las vacantes publica salario (272 de 464); el resto lo declara confidencial o a convenir."
+        ],
+        "salarios": [
+          "La mediana más alta es la de Administración de Agronegocios ($3,0M) y la más baja la de Zootecnia ($2,3M): una diferencia de $0,7M al mes.",
+          "16 vacantes (6% de las que publican salario) ofrecen más de $6M al mes.",
+          "En Zootecnia el promedio ($3,1M) supera la mediana ($2,3M): un grupo de vacantes con salarios superiores eleva el promedio."
+        ],
+        "ciudades": [
+          "Bogotá concentra el 33% de las vacantes con ciudad identificada; Medellín el 9% y Cali el 4%.",
+          "Fuera de las cinco ciudades principales hay 192 vacantes (49%) repartidas en 101 municipios."
+        ],
+        "modalidad": [
+          "Presencial 92%, híbrido 5%, remoto 3% entre las 75 vacantes que indican modalidad."
+        ],
+        "competencias": [
+          "Competencia blanda más mencionada por programa. Medicina Veterinaria: negociación; Administración de Agronegocios: organización y planificación; Zootecnia: liderazgo.",
+          "Excel u ofimática aparece entre las 10 competencias más mencionadas en 3 de 3 programas."
+        ]
+      }
+    };
+
+    const agroIndiceData = {
+      "resumen": [
+        {
+          "programa": "Medicina Veterinaria",
+          "digital": 12.45,
+          "laboral": 12.19,
+          "indice": 24.64,
+          "clasificacion": "Nicho",
+          "clase": "pill-niche"
+        },
+        {
+          "programa": "Administración de Agronegocios",
+          "digital": 0.0,
+          "laboral": 22.0,
+          "indice": 22.0,
+          "clasificacion": "Nicho",
+          "clase": "pill-niche"
+        },
+        {
+          "programa": "Zootecnia",
+          "digital": 4.71,
+          "laboral": 15.86,
+          "indice": 20.57,
+          "clasificacion": "Nicho",
+          "clase": "pill-niche"
+        }
+      ],
+      "hallazgos": [
+        "Los tres programas se ubican en \"Nicho\" (20.6 a 24.6) y ninguno alcanza \"Oportunidad de Crecimiento\". Su absorción proporcional va de 17% (Medicina Veterinaria) a 31% (Administración de Agronegocios), con salarios medianos de $2,3M a $3,0M, frente a $3,0M a $5,0M en Ingeniería.",
+        "Medicina Veterinaria tiene el mayor interés digital de las dos facultades (41.5 puntos, similar a Enfermería) y la menor absorción de la facultad (17.4%). Se clasifica en \"Nicho\" porque su absorción supera el 10% que define la categoría \"Saturación\".",
+        "Veterinaria y Zootecnia comparten perfil: 61 vacantes de la base piden \"médico veterinario zootecnista\" y comparten funciones de producción animal y sanidad. Esa superposición reduce la diferenciación de ambos programas frente al aspirante."
+      ],
+      "insightsDigital": [
+        "Medicina Veterinaria concentra el interés de la facultad (41.5 puntos), similar a la de Enfermería (43). El volumen puede estar asociado a la vocación temprana por los animales y a la visibilidad de las mascotas en redes.",
+        "Zootecnia registra 15.7 puntos, una cifra superior a la de cualquier programa de Ingeniería, aunque buena parte de esas búsquedas se cruza con Veterinaria.",
+        "Administración de Agronegocios marca 0 con el término formal: el aspirante no reconoce la denominación y probablemente llega por \"administración agropecuaria\" o \"agroindustria\"."
+      ],
+      "insightsLaboral": [
+        "Medicina Veterinaria registra 210 vacantes para 1.206 egresados (17%). De esas 210 vacantes, 30 (14%) son de nivel operativo o auxiliar.",
+        "Zootecnia presenta 177 vacantes para 781 egresados (23%). Las vacantes se concentran en asesoría técnico-comercial (61%) y manejo de granja (39%); 61 se comparten con Veterinaria.",
+        "Administración de Agronegocios registra la tasa más alta de la facultad (31%), con 77 vacantes para 245 egresados anuales y un salario mediano de $3,0M, el más alto de la facultad."
+      ],
+      "recomendaciones": [
+        {
+          "tipo": "REPOSICIONAR",
+          "color": "#ea580c",
+          "titulo": "Medicina Veterinaria - orientar el interés hacia otros campos de desempeño",
+          "texto": "Aprovechar su interés digital (41.5 puntos), pero ampliar el mensaje más allá de la clínica de mascotas: producción animal, sanidad e inocuidad, industria farmacéutica veterinaria y asesoría técnico-comercial (34% de las vacantes). Hacer seguimiento a su Tasa de Absorción (17.4%) en cada medición."
+        },
+        {
+          "tipo": "ESPECIALIZAR",
+          "color": "#1178b5",
+          "titulo": "Zootecnia - marketing de especialidad",
+          "texto": "Comunicar nutrición animal, avicultura y bioseguridad con empleadores de referencia (Grupo BIOS, San Marino, Cargill). Mostrar la ruta de crecimiento desde la granja hacia la asesoría técnico-comercial, que aparece en el 61% de las vacantes."
+        },
+        {
+          "tipo": "VISIBILIZAR",
+          "color": "#272f6f",
+          "titulo": "Agronegocios - trabajar el nombre del programa",
+          "texto": "Pauta y SEO con términos que el aspirante sí usa: \"administración agropecuaria\", \"agroindustria\", \"negocios del agro\". Destacar el perfil comercial (ventas 65%, administración de unidades productivas 61%) y su salario mediano ($3,0M)."
         }
       ]
     };
@@ -1356,7 +4030,9 @@
         empleabilidad.classList.remove("hidden");
       }
 
-      if (currentFaculty === "salud") {
+      if (facultyDashConfig[currentFaculty]) {
+        renderFacultyDashboard(currentFaculty, indice, empleabilidad);
+      } else if (currentFaculty === "salud") {
         indice.innerHTML = saludIndiceMarkup();
         empleabilidad.innerHTML = saludEmpleabilidadMarkup();
         if (currentSubtab === "indice") {
@@ -3909,7 +6585,1038 @@
       });
     }
 
+    const saludIndiceData = {
+      "resumen": [
+        {
+          "programa": "Tec. en Adm. en Salud",
+          "digital": 0.6,
+          "laboral": 45.73,
+          "indice": 46.33,
+          "clasificacion": "Oportunidad de Crecimiento",
+          "clase": "pill-growth"
+        },
+        {
+          "programa": "Salud Pública",
+          "digital": 0.9,
+          "laboral": 35.14,
+          "indice": 36.04,
+          "clasificacion": "Oportunidad de Crecimiento",
+          "clase": "pill-growth"
+        },
+        {
+          "programa": "Enfermería",
+          "digital": 12.9,
+          "laboral": 19.42,
+          "indice": 32.32,
+          "clasificacion": "Oportunidad de Crecimiento",
+          "clase": "pill-growth"
+        },
+        {
+          "programa": "Psicología",
+          "digital": 14.4,
+          "laboral": 2.29,
+          "indice": 16.69,
+          "clasificacion": "Saturación",
+          "clase": "pill-saturation"
+        },
+        {
+          "programa": "Optometría",
+          "digital": 1.2,
+          "laboral": 10.25,
+          "indice": 11.45,
+          "clasificacion": "Nicho",
+          "clase": "pill-niche"
+        }
+      ],
+      "hallazgos": [
+        "La facultad presenta el rango más amplio de resultados del análisis: desde Tecnología en Administración en Salud (índice 46,3, el más alto) hasta Optometría (índice 11,4, el más bajo), una diferencia de más de 34 puntos entre programas de la misma unidad.",
+        "Tres (3) de los cinco (5) programas (Enfermería, Tec. en Adm. en Salud y Salud Pública) se ubican en \"Oportunidad de Crecimiento\"; ninguno alcanza \"Alta Oportunidad\", lo que indica que el mejor desempeño de la facultad se explica por una Tasa de Absorción alta y no por un componente digital fuerte.",
+        "Psicología y Optometría son los dos (2) programas de menor índice, pero por razones opuestas: Psicología por exceso relativo de egresados frente a las vacantes rastreadas, y Optometría por bajo interés digital junto con un volumen de vacantes limitado en los portales consultados."
+      ],
+      "insightsDigital": [
+        "Psicología y Enfermería concentran casi todo el interés digital de la facultad (43 y 48 puntos de tendencia), un patrón consistente con la alta visibilidad social de ambas profesiones: la psicología está ligada a la creciente conversación pública sobre salud mental y bienestar, y la enfermería tiene reconocimiento histórico reforzado por su rol en la coyuntura sanitaria reciente. Ese volumen de búsqueda responde más a notoriedad social.",
+        "Tecnología en Administración en Salud y Salud Pública registran el interés digital más bajo de la facultad (0.6 y 0.9 puntos) pese a tener la mejor demanda laboral. Es probable que el público no busque estos programas por su nombre formal, sino por el cargo o la función asociada (p. ej. \"auxiliar administrativo en salud\", \"salud ocupacional\"), términos distintos al evaluado que no fueron capturados por la búsqueda.",
+        "Ningún programa combina de forma simultánea un interés digital alto y una Tasa de Absorción alta: los picos de cada variable ocurren en programas distintos, lo que sugiere que, en esta facultad, la búsqueda en Google responde a un público de curiosidad general (aspirantes, contenido de salud mental) y no anticipa dónde está realmente la demanda de contratación."
+      ],
+      "insightsLaboral": [
+        "Tecnología en Administración en Salud y Salud Pública registran la Tasa de Absorción más alta de la facultad (65.3% y 50.2%), explicable por partir de bases de egresados más pequeñas frente a Enfermería o Psicología, y por corresponder a perfiles de vinculación ágil dentro del sistema de salud (cargos administrativos y de salud ocupacional que el sector demanda de forma constante).",
+        "Psicología presenta la Tasa de Absorción más baja de la facultad (3.3%) pese a tener, con diferencia, la mayor base de egresados anuales (16.781). Esto es consistente con la alta oferta histórica del programa a nivel nacional, y con que las vacantes rastreadas (clínica y talento humano) capturan solo una fracción de los campos reales de ejercicio de la disciplina (práctica independiente, docencia, sector organizacional), no visibles en portales convencionales.",
+        "Enfermería combina una base de egresados considerable (4.658) con una Tasa de Absorción intermedia-alta (27.7%), reflejo de una demanda laboral sostenida y diversificada del sector salud (asistencial, hospitalario, comunitario) capaz de absorber un volumen mayor de egresados sin llegar a saturarse."
+      ],
+      "recomendaciones": [
+        {
+          "tipo": "VISIBILIZAR",
+          "color": "#1178b5",
+          "titulo": "Tec. en Adm. en Salud y Salud Pública - escalar posicionamiento digital",
+          "texto": "La demanda laboral ya está validada, pero la presencia en búsquedas es casi nula. Probar en SEO/SEM términos alternativos alineados al lenguaje real del mercado (\"auxiliar administrativo en salud\", \"salud ocupacional\", \"SST\") y comparar el tráfico orgánico generado por cada término."
+        },
+        {
+          "tipo": "DIFERENCIAR",
+          "color": "#272f6f",
+          "titulo": "Psicología - enfocar la comunicación inicial hacia campos menos saturados",
+          "texto": "Enfocar la comunicación inicial en elementos verificables del diseño del programa, en lugar de un mensaje vocacional genérico."
+        },
+        {
+          "tipo": "CAPITALIZAR",
+          "color": "#ea580c",
+          "titulo": "Enfermería - convertir el interés digital ya existente",
+          "texto": "Resaltar rutas de especialización de alta demanda (jefatura, cuidado crítico, atención domiciliaria) en la comunicación, apoyándose en elementos verificables del diseño curricular -como convenios con instituciones de salud para prácticas, docentes con experiencia en dichas áreas o énfasis formativo temprano en estas rutas."
+        },
+        {
+          "tipo": "VALIDAR",
+          "color": "#2f7d32",
+          "titulo": "Optometría - confirmar los términos de búsqueda reales para generar mayor alcance",
+          "texto": "Contrastar con aspirantes y egresados si el programa se busca bajo otros términos (\"optómetra\", diferenciación frente a \"oftalmología\"), y explorar alianzas con ópticas y EPS como canal de visibilización adicional a la pauta digital."
+        }
+      ]
+    };
+
+    // ---- Adaptadores: datos existentes de las demás facultades -> estructura común del tablero ----
+    const COL_CITY_COORDS = {
+      "bogota": [4.711, -74.072], "medellin": [6.244, -75.581], "cali": [3.452, -76.532], "barranquilla": [10.964, -74.796],
+      "cartagena": [10.391, -75.479], "cartagena de indias": [10.391, -75.479], "bucaramanga": [7.119, -73.122], "pereira": [4.813, -75.696],
+      "ibague": [4.438, -75.232], "palmira": [3.539, -76.303], "pasto": [1.213, -77.281], "funza": [4.716, -74.211], "tocancipa": [4.965, -73.913],
+      "cota": [4.809, -74.103], "quibdo": [5.694, -76.661], "cajica": [4.918, -74.028], "rionegro": [6.155, -75.374], "cucuta": [7.894, -72.508],
+      "yumbo": [3.585, -76.495], "tunja": [5.535, -73.367], "tulua": [4.085, -76.195], "buga": [3.900, -76.298], "chia": [4.861, -74.058],
+      "villavicencio": [4.142, -73.627], "leticia": [-4.215, -69.940], "tenjo": [4.872, -74.144], "manizales": [5.070, -75.517],
+      "armenia": [4.534, -75.681], "santa marta": [11.241, -74.205], "neiva": [2.927, -75.282], "monteria": [8.748, -75.881],
+      "valledupar": [10.463, -73.253], "popayan": [2.444, -76.614], "soacha": [4.579, -74.217], "mosquera": [4.706, -74.230],
+      "madrid": [4.732, -74.264], "zipaquira": [5.022, -74.004], "envigado": [6.171, -75.587], "itagui": [6.184, -75.599],
+      "bello": [6.337, -75.558], "sabaneta": [6.151, -75.616], "girardot": [4.303, -74.803], "facatativa": [4.813, -74.354],
+      "fusagasuga": [4.337, -74.364], "duitama": [5.827, -73.033], "sogamoso": [5.715, -72.933], "barrancabermeja": [7.065, -73.854],
+      "sincelejo": [9.304, -75.397], "riohacha": [11.544, -72.907], "florencia": [1.614, -75.606], "yopal": [5.337, -72.395],
+      "giron": [7.073, -73.169], "floridablanca": [7.065, -73.090]
+    };
+    const PROGRAM_STOP = new Set(["lic", "licenciatura", "del", "con", "las", "los", "enfasis", "educ", "tec", "tecnologia", "virtual"]);
+
+    function normText(s) {
+      return String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+    }
+    function programTokens(s) {
+      return new Set(normText(s).replace(/\(\d+\)/g, " ").split(/[^a-z0-9]+/).filter((t) => t.length >= 3 && !PROGRAM_STOP.has(t)));
+    }
+    function pickProgramKey(keys, programa) {
+      const target = programTokens(programa);
+      let best = null, bestScore = 0;
+      keys.forEach((k) => {
+        const tk = programTokens(k);
+        let score = 0;
+        tk.forEach((t) => { if (target.has(t)) score += 1; });
+        if (score > bestScore) { bestScore = score; best = k; }
+      });
+      return best;
+    }
+    function pickProgram(obj, programa) {
+      if (!obj) return undefined;
+      if (Array.isArray(obj)) {
+        const k = pickProgramKey(obj.map((x) => x.programa), programa);
+        return k ? obj.find((x) => x.programa === k) : undefined;
+      }
+      if (obj[programa] !== undefined) return obj[programa];
+      const k = pickProgramKey(Object.keys(obj), programa);
+      return k ? obj[k] : undefined;
+    }
+    function parseCityItem(item) {
+      const raw = String(item).trim();
+      const m = raw.match(/^(.*?)\s*\(?(\d+)\)?\s*$/);
+      return m ? { ciudad: m[1].trim(), vacantes: Number(m[2]) } : null;
+    }
+    function cityKind(name) {
+      const n = normText(name);
+      if (/remot/.test(n)) return "remoto";
+      if (/nacional|^colombia$|^otras/.test(n)) return "otro";
+      return COL_CITY_COORDS[n] ? "mapa" : "otro";
+    }
+
+    function buildLegacyMapa(emp, programas) {
+      const cities = {};
+      (emp.topCiudades || []).forEach((c) => {
+        if (cityKind(c.ciudad) !== "mapa") return;
+        const key = normText(c.ciudad).replace(" de indias", "");
+        cities[key] = cities[key] || { ciudad: c.ciudad.replace(" de Indias", ""), vacantes: 0, porPrograma: {} };
+        cities[key].vacantes = Math.max(cities[key].vacantes, c.vacantes);
+      });
+      const remoto = { total: 0, porPrograma: {} };
+      (emp.topCiudades || []).forEach((c) => { if (cityKind(c.ciudad) === "remoto") remoto.total += c.vacantes; });
+      const porProg = emp.ciudadesPorPrograma || {};
+      const filtrable = Object.keys(porProg).length > 0;
+      programas.forEach((p) => {
+        (pickProgram(porProg, p) || []).map(parseCityItem).filter(Boolean).forEach((c) => {
+          const kind = cityKind(c.ciudad);
+          if (kind === "remoto") { remoto.porPrograma[p] = (remoto.porPrograma[p] || 0) + c.vacantes; return; }
+          if (kind !== "mapa") return;
+          const key = normText(c.ciudad).replace(" de indias", "");
+          cities[key] = cities[key] || { ciudad: c.ciudad.replace(" de Indias", ""), vacantes: 0, porPrograma: {} };
+          cities[key].porPrograma[p] = c.vacantes;
+        });
+      });
+      const rows = Object.entries(cities).map(([k, c]) => {
+        const sumProg = Object.values(c.porPrograma).reduce((a, b) => a + b, 0);
+        return { ...c, vacantes: Math.max(c.vacantes, sumProg), lat: COL_CITY_COORDS[k][0], lng: COL_CITY_COORDS[k][1] };
+      }).sort((a, b) => b.vacantes - a.vacantes);
+      const ubicadas = rows.reduce((a, r) => a + r.vacantes, 0);
+      return {
+        ciudades: rows,
+        remoto,
+        filtrable,
+        cobertura: `Se ubican las ${rows.length} ciudades reportadas en el resumen de la facultad (${ubicadas.toLocaleString("es-CO")} de ${emp.kpis.totalVacantes.toLocaleString("es-CO")} vacantes). ` +
+          `Ubicación aproximada del casco urbano.${filtrable ? " Al filtrar por programa se muestran sus ciudades principales." : ""}`
+      };
+    }
+
+    function moneyShort(v) {
+      const m = Number(v) / 1e6;
+      const two = Math.round(m * 100) / 100;
+      const txt = (Math.abs(m - two) < 1e-9 && Math.round(two * 100) % 10 === 5) ? two.toFixed(2) : (Math.round(m * 10) / 10).toFixed(1);
+      return "$" + txt.replace(".", ",") + "M";
+    }
+    function pctOf(a, b) { return b ? Math.round(100 * a / b) : 0; }
+
+    function autoInsights(d) {
+      const total = d.kpis.totalVacantes;
+      const vac = [...d.vacantesPorPrograma].sort((a, b) => b.vacantes - a.vacantes);
+      const nsal = d.salarios.programas.reduce((a, p) => a + (p.conSalario || 0), 0);
+      const out = { vacantes: [], salarios: [], ciudades: [], competencias: [], modalidad: [] };
+      if (vac.length >= 2) out.vacantes.push(`${vac[0].programa} y ${vac[1].programa} suman el ${pctOf(vac[0].vacantes + vac[1].vacantes, total)}% de las vacantes analizadas (${vac[0].vacantes.toLocaleString("es-CO")} y ${vac[1].vacantes.toLocaleString("es-CO")} de ${total.toLocaleString("es-CO")}).`);
+      if (vac.length >= 3) { const lo = vac[vac.length - 1]; out.vacantes.push(`${lo.programa} registra ${lo.vacantes.toLocaleString("es-CO")} vacantes, el ${pctOf(lo.vacantes, total)}% del total de la facultad.`); }
+      if (nsal) out.vacantes.push(`El ${pctOf(nsal, total)}% de las vacantes publica salario (${nsal.toLocaleString("es-CO")} de ${total.toLocaleString("es-CO")}); el resto lo declara confidencial o a convenir.`);
+      const sp = [...d.salarios.programas].filter((p) => p.mediana).sort((a, b) => b.mediana - a.mediana);
+      if (sp.length >= 2) { const hi = sp[0], lo = sp[sp.length - 1]; out.salarios.push(`La mediana más alta es la de ${hi.programa} (${moneyShort(hi.mediana)}) y la más baja la de ${lo.programa} (${moneyShort(lo.mediana)}): una diferencia de ${moneyShort(hi.mediana - lo.mediana)} al mes.`); }
+      const over = (d.rangosSalariales.filas || []).find((r) => r.rango === "> 6M");
+      if (over && nsal) { const n = over.valores.reduce((a, b) => a + b, 0); out.salarios.push(`${n.toLocaleString("es-CO")} vacantes (${pctOf(n, nsal)}% de las que publican salario) ofrecen más de $6M al mes.`); }
+      const gap = sp.filter((p) => p.promedio).sort((a, b) => (b.promedio - b.mediana) - (a.promedio - a.mediana))[0];
+      if (gap && gap.promedio > gap.mediana) out.salarios.push(`En ${gap.programa} el promedio (${moneyShort(gap.promedio)}) supera la mediana (${moneyShort(gap.mediana)}): un grupo de vacantes con salarios superiores eleva el promedio.`);
+      const cities = (d.topCiudades || []).filter((c) => cityKind(c.ciudad) === "mapa");
+      if (cities.length >= 3) out.ciudades.push(`${cities[0].ciudad} concentra el ${pctOf(cities[0].vacantes, total)}% de las vacantes de la facultad; ${cities[1].ciudad} el ${pctOf(cities[1].vacantes, total)}% y ${cities[2].ciudad} el ${pctOf(cities[2].vacantes, total)}%.`);
+      if (cities.length >= 5) { const top5 = cities.slice(0, 5).reduce((a, c) => a + c.vacantes, 0); out.ciudades.push(`Las cinco ciudades principales suman ${top5.toLocaleString("es-CO")} vacantes (${pctOf(top5, total)}% del total).`); }
+      if (d.mapa && d.mapa.remoto.total) out.ciudades.push(`${d.mapa.remoto.total.toLocaleString("es-CO")} vacantes son remotas (${pctOf(d.mapa.remoto.total, total)}% del total).`);
+      const firsts = {};
+      Object.entries(d.topCompetencias || {}).forEach(([p, items]) => {
+        const it = parseTopMetricItems(items, 1)[0];
+        if (it) { const k = it.label; firsts[k] = (firsts[k] || []).concat(p); }
+      });
+      const fe = Object.entries(firsts).sort((a, b) => b[1].length - a[1].length)[0];
+      const nProg = Object.keys(d.topCompetencias || {}).length;
+      if (fe && fe[1].length > 1) out.competencias.push(`"${fe[0]}" es la competencia más mencionada en ${fe[1].length} de ${nProg} programas.`);
+      else if (nProg) out.competencias.push("Competencia más mencionada por programa. " + Object.entries(d.topCompetencias).map(([p, items]) => `${p}: ${(parseTopMetricItems(items, 1)[0] || {}).label || "sin dato"}`).join("; ") + ".");
+      const excel = Object.values(d.topCompetencias || {}).filter((items) => items.some((x) => /excel|ofim/i.test(x))).length;
+      if (nProg) out.competencias.push(`Excel u ofimática aparece entre las competencias más mencionadas en ${excel} de ${nProg} programas.`);
+      if (d.modalidad && d.modalidad.items.length) {
+        const tot = d.modalidad.items.reduce((a, i) => a + i.valor, 0) || 1;
+        out.modalidad.push(d.modalidad.items.map((i) => `${i.tipo.toLowerCase()} ${pctOf(i.valor, tot)}%`).join(", ").replace(/^./, (c) => c.toUpperCase()) + ` entre las ${tot.toLocaleString("es-CO")} vacantes que indican modalidad.`);
+      }
+      if (d.contrato && d.contrato.items.length) {
+        const tot = d.contrato.items.reduce((a, i) => a + i.valor, 0) || 1;
+        const top = [...d.contrato.items].sort((a, b) => b.valor - a.valor)[0];
+        out.modalidad.push(`Entre las ${tot.toLocaleString("es-CO")} vacantes con tipo de contrato, el más frecuente es ${top.tipo.toLowerCase()} (${pctOf(top.valor, tot)}%).`);
+      }
+      return out;
+    }
+
+    function rangosFromLegacy(rows, keys) {
+      const filas = rows.filter((r) => !r.total).map((r) => ({ rango: r.rango, valores: keys.map(([k]) => Number(r[k] || 0)) }));
+      filas.push({ rango: "Total", total: true, valores: keys.map((_, j) => filas.reduce((a, f) => a + f.valores[j], 0)) });
+      return { programas: keys.map(([, label]) => label), filas };
+    }
+
+    function adaptLegacyFaculty(src, opts) {
+      const total = src.kpis.totalVacantes;
+      const programas = src.vacantesPorPrograma.map((p) => p.programa);
+      const emp = {
+        kpis: { totalVacantes: total, programasCubiertos: src.kpis.programasCubiertos || src.kpis.programas || programas.length,
+                ciudadesConPresencia: src.kpis.ciudadesConPresencia || src.kpis.ciudades || "—" },
+        vacantesPorPrograma: src.vacantesPorPrograma,
+        salarios: { coberturaTexto: src.salarios.coberturaTexto || src.salarios.cobertura || "",
+                    programas: src.salarios.programas.map((s) => ({ ...s, programa: pickProgramKey(programas, s.programa) || s.programa })) },
+        rangosSalariales: opts.rangos,
+        topCiudades: src.topCiudades || src.ciudadesGlobal || [],
+        ciudadesPorPrograma: {},
+        empleadoresPorPrograma: {},
+        empresasConfidenciales: {},
+        topCargos: {},
+        topCompetencias: {},
+        mapaHabilidades: src.mapaHabilidades || null,
+        modalidad: src.modalidad || opts.modalidad || null,
+        contrato: opts.contrato || null,
+        extrasPorPrograma: opts.extras || {}
+      };
+      const remap = (obj) => {
+        const out = {};
+        programas.forEach((p) => { const v = pickProgram(obj || {}, p); if (v !== undefined) out[p] = v; });
+        return out;
+      };
+      emp.ciudadesPorPrograma = remap(src.ciudadesPorPrograma);
+      Object.keys(emp.ciudadesPorPrograma).forEach((p) => {
+        emp.ciudadesPorPrograma[p] = emp.ciudadesPorPrograma[p].map(parseCityItem).filter(Boolean).slice(0, 3).map((c) => `${c.ciudad.replace(/\s*\(([^)]*)\)/, " $1")} (${c.vacantes})`);
+      });
+      emp.empleadoresPorPrograma = remap(src.empleadoresPorPrograma || src.topEmpresas);
+      emp.empresasConfidenciales = remap(src.empresasConfidenciales || src.confidencial);
+      emp.topCargos = remap(src.topCargos);
+      emp.topCompetencias = remap(src.topCompetencias);
+      emp.mapa = buildLegacyMapa({ ...src, kpis: { totalVacantes: total } }, programas);
+      emp.insights = autoInsights(emp);
+      return emp;
+    }
+
+    const saludEmpleabilidadData = {
+      kpis: { totalVacantes: 3196, programasCubiertos: 6, ciudadesConPresencia: "30+" },
+      vacantesPorPrograma: [
+        { programa: "Enfermería", vacantes: 1292, color: "#0b2742" },
+        { programa: "Adm. en Salud", vacantes: 781, color: "#0f4b72" },
+        { programa: "Psicología", vacantes: 546, color: "#0ea5a5" },
+        { programa: "Salud Pública", vacantes: 353, color: "#14b8a6" },
+        { programa: "Otras Áreas (Regencia)", vacantes: 174, color: "#f59e0b" },
+        { programa: "Optometría", vacantes: 50, color: "#fbbf24" }
+      ],
+      salarios: {
+        coberturaTexto: "1.348/3.196 = 42%",
+        programas: [
+          { programa: "Psicología", conSalario: 50, mediana: 7000000, promedio: 5383805 },
+          { programa: "Optometría", conSalario: 29, mediana: 4000000, promedio: 3960479 },
+          { programa: "Enfermería", conSalario: 526, mediana: 2980500, promedio: 3439290 },
+          { programa: "Salud Pública", conSalario: 248, mediana: 2200000, promedio: 3229775 },
+          { programa: "Otras Áreas (Regencia)", conSalario: 79, mediana: 2117647, promedio: 2594000 },
+          { programa: "Adm. en Salud", conSalario: 416, mediana: 1850227, promedio: 2144492 }
+        ]
+      },
+      topCiudades: [
+        { ciudad: "Bogotá", vacantes: 1229 }, { ciudad: "Medellín", vacantes: 242 }, { ciudad: "Cali", vacantes: 201 },
+        { ciudad: "Barranquilla", vacantes: 91 }, { ciudad: "Bucaramanga", vacantes: 82 }, { ciudad: "Pereira", vacantes: 35 },
+        { ciudad: "Remoto", vacantes: 57 }
+      ],
+      get topEmpresas() { return saludTopData.topEmpresas; },
+      get topCargos() { return saludTopData.topCargos; },
+      get topCompetencias() { return saludTopData.topCompetencias; }
+    };
+
+    const legacyFacultyCache = {};
+    function legacyEmp(id) {
+      if (legacyFacultyCache[id]) return legacyFacultyCache[id];
+      let emp;
+      if (id === "salud") {
+        emp = adaptLegacyFaculty(saludEmpleabilidadData, {
+          rangos: {
+            programas: ["Enfermería", "Adm. en Salud", "Psicología", "Salud Pública", "Optometría", "Otras Áreas (Regencia)"],
+            filas: [
+              { rango: "< 1.5M", valores: [13, 21, 0, 14, 0, 1] }, { rango: "1.5M - 2M", valores: [122, 283, 8, 97, 5, 30] },
+              { rango: "2M - 2.5M", valores: [70, 64, 1, 27, 1, 31] }, { rango: "2.5M - 3M", valores: [80, 24, 4, 28, 4, 9] },
+              { rango: "3M - 4M", valores: [123, 10, 6, 19, 7, 3] }, { rango: "4M - 6M", valores: [73, 2, 5, 35, 9, 3] },
+              { rango: "> 6M", valores: [45, 12, 26, 28, 3, 2] }, { rango: "Total", total: true, valores: [526, 416, 50, 248, 29, 79] }
+            ]
+          },
+          modalidad: { cobertura: "201 de 3.196 vacantes reportan modalidad explícita.", items: [{ tipo: "Presencial", valor: 154 }, { tipo: "Remoto", valor: 27 }, { tipo: "Híbrido", valor: 20 }] },
+          contrato: { cobertura: "398 vacantes reportan tipo de contrato.", items: [{ tipo: "Indefinido", valor: 219 }, { tipo: "Término fijo", valor: 114 }, { tipo: "Obra o labor", valor: 30 }, { tipo: "Prestación de servicios", valor: 35 }] },
+          extras: { "Experiencia requerida promedio": { "Salud Pública": "5,0 años", "Psicología": "3,5 años", "Optometría": "3,0 años", "Adm. en Salud": "2,2 años", "Enfermería": "1,8 años" } }
+        });
+      } else if (id === "basicas") {
+        const src = basicasEmpleabilidadData;
+        const perfiles = {};
+        Object.entries(src.perfilesEquivalentes || {}).forEach(([p, v]) => { perfiles[p] = v.items.slice(0, 3).join(" · "); });
+        emp = adaptLegacyFaculty(src, {
+          rangos: rangosFromLegacy(src.rangosSalariales, [["biologia", "Biología"], ["cienciaDatos", "Ciencia de Datos"], ["quimicaFarmaceutica", "Química Farmacéutica"]]),
+          extras: { "Perfiles equivalentes": perfiles }
+        });
+      } else if (id === "humanidades") {
+        const src = humanidadesEmpleabilidadData;
+        emp = adaptLegacyFaculty(src, {
+          rangos: rangosFromLegacy(src.rangosSalariales, [["derecho", "Derecho"], ["trabajoSocial", "Trabajo Social"], ["filosofia", "Filosofía y Letras Virtual"]])
+        });
+      } else if (id === "arq1") {
+        const src = arqEmpleabilidadData;
+        const tc = (src.tiposContrato || {}).programas || [];
+        const sum = (k) => tc.reduce((a, p) => a + (p[k] || 0), 0);
+        emp = adaptLegacyFaculty(src, {
+          rangos: rangosFromLegacy(src.rangosSalariales, [["arquitectura", "Arquitectura"], ["dIndustrial", "Diseño Industrial"], ["dVisual", "Diseño Visual"]]),
+          contrato: tc.length ? { cobertura: src.tiposContrato.cobertura + ".", items: [
+            { tipo: "Indefinido", valor: sum("indefinido") }, { tipo: "Término definido", valor: sum("definido") },
+            { tipo: "Obra o labor", valor: sum("obraLabor") }, { tipo: "Prestación de servicios", valor: sum("prestacionServicios") },
+            { tipo: "Aprendizaje", valor: sum("aprendizaje") }].filter((i) => i.valor > 0) } : null
+        });
+      } else if (id === "educacion") {
+        const src = educacionEmpleabilidadData;
+        emp = adaptLegacyFaculty(src, {
+          rangos: rangosFromLegacy(src.rangosSalariales, [
+            ["espanolLenguas", "Lic. en Español y Lenguas Extranjeras"], ["edFisica", "Lic. en Educación Física, Recreación y Deportes"],
+            ["ePrimaria", "Lic. en Educación Básica Primaria"], ["cNaturales", "Lic. en Ciencias Naturales y Educación Ambiental"],
+            ["cSociales", "Lic. en Ciencias Sociales con Énfasis en Historia"], ["literatura", "Lic. en Literatura y Lengua Castellana"],
+            ["edReligiosa", "Lic. en Educación Religiosa"]])
+        });
+      }
+      legacyFacultyCache[id] = emp;
+      return emp;
+    }
+
+    // ---- Diseño común de facultades: índice + empleabilidad (mapa, insights, ficha, gráficos) ----
+    const facultyDashConfig = {
+      salud: { prefix: "salud", sigla: "Salud", get emp() { return legacyEmp("salud"); }, get idx() { return saludIndiceData; } },
+      basicas: { prefix: "basicas", sigla: "ECBA", get emp() { return legacyEmp("basicas"); }, get idx() { return basicasIndiceData; } },
+      humanidades: { prefix: "humanidades", sigla: "Humanidades", get emp() { return legacyEmp("humanidades"); }, get idx() { return humanidadesIndiceData; } },
+      arq1: { prefix: "arq", sigla: "Arquitectura, Diseño y Urbanismo", get emp() { return legacyEmp("arq1"); }, get idx() { return arqIndiceData; } },
+      educacion: { prefix: "educacion", sigla: "Educación", get emp() { return legacyEmp("educacion"); }, get idx() { return educacionIndiceData; } },
+      ingenieria: { prefix: "ingenieria", sigla: "Ingeniería", get emp() { return ingenieriaEmpleabilidadData; }, get idx() { return ingenieriaIndiceData; } },
+      agro: { prefix: "agro", sigla: "Agropecuarias", get emp() { return agroEmpleabilidadData; }, get idx() { return agroIndiceData; } }
+    };
+    const facultyMaps = {};
+    const CLASS_COLORS = { "pill-high": "#2e7d32", "pill-growth": "#0277bd", "pill-saturation": "#e65100", "pill-niche": "#b71c1c" };
+    const INSIGHT_TONES = {
+      vacantes: { label: "Vacantes", color: "#0b2742", icon: "▤" },
+      salarios: { label: "Salarios", color: "#b45309", icon: "$" },
+      ciudades: { label: "Territorio", color: "#0e7490", icon: "◉" },
+      modalidad: { label: "Modalidad y contrato", color: "#6d28d9", icon: "⇄" },
+      competencias: { label: "Competencias", color: "#2f7d32", icon: "✦" },
+      indice: { label: "Índice", color: "#1178b5", icon: "▲" }
+    };
+
+    function shortProgramName(p) {
+      return String(p)
+        .replace(/^Lic\.? (en )?/, "")
+        .replace(/^Licenciatura en /, "")
+        .replace(" con Énfasis en Historia", " (Historia)")
+        .replace(", Recreación y Deportes", "")
+        .replace(", Recr. y Deportes", "")
+        .replace(" y Educación Ambiental", "")
+        .replace(" y Educ. Ambiental", "")
+        .replace(" y Lenguas Extranjeras", " y L. Extranjeras")
+        .replace("Ingeniería de ", "")
+        .replace("Ingeniería ", "")
+        .replace("Administración de ", "Adm. ")
+        .replace(" y Sanitaria", "");
+    }
+
+    function formatMillones(v) {
+      return "$" + (Number(v) / 1e6).toLocaleString("es-CO", { minimumFractionDigits: 1, maximumFractionDigits: 2 }) + "M";
+    }
+
+    function insightCardsMarkup(list, toneKey, cols = 3) {
+      const t = INSIGHT_TONES[toneKey];
+      if (!list || !list.length) return "";
+      return `
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-${cols} gap-3">
+          ${list.map((txt) => `
+            <article class="rounded-xl border border-slate-200 bg-white p-3 flex gap-3 items-start transition hover:-translate-y-0.5 hover:shadow-md">
+              <div class="h-8 w-8 rounded-full flex items-center justify-center text-white text-sm font-extrabold shrink-0" style="background:${t.color};">${t.icon}</div>
+              <div>
+                <p class="text-[10px] uppercase tracking-wider font-extrabold mb-1" style="color:${t.color};">${t.label}</p>
+                <p class="text-sm text-slate-700 leading-snug">${txt}</p>
+              </div>
+            </article>
+          `).join("")}
+        </div>`;
+    }
+
+    function animateCounters(root) {
+      (root || document).querySelectorAll("[data-count]").forEach((el) => {
+        const target = Number(el.dataset.count);
+        const suffix = el.dataset.suffix || "";
+        const start = performance.now();
+        const dur = 900;
+        const step = (now) => {
+          const k = Math.max(0, Math.min(1, (now - start) / dur));
+          const eased = 1 - Math.pow(1 - k, 3);
+          el.textContent = Math.round(target * eased).toLocaleString("es-CO") + suffix;
+          if (k < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      });
+    }
+
+    function statTile(label, value, sub, opts = {}) {
+      const count = opts.count !== undefined ? `data-count="${opts.count}" data-suffix="${opts.suffix || ""}"` : "";
+      return `
+        <div class="kpi p-4 transition hover:shadow-md">
+          <p class="text-xs text-slate-500">${label}</p>
+          <h3 class="text-2xl font-extrabold" ${count}>${value}</h3>
+          ${sub ? `<p class="text-xs text-slate-500 mt-1">${sub}</p>` : ""}
+        </div>`;
+    }
+
+    function ensureFlipCardStyles() {
+      if (document.getElementById("flipCardStyles")) return;
+      const st = document.createElement("style");
+      st.id = "flipCardStyles";
+      st.textContent = `
+        .flip-card { perspective: 1200px; height: 230px; width: 100%; background: transparent; border: 0; padding: 0; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform .6s cubic-bezier(.2,.7,.2,1); transform-style: preserve-3d; }
+        .flip-card.is-flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .flip-back { transform: rotateY(180deg); }
+        .flip-card:hover .flip-front { box-shadow: 0 10px 22px rgba(15, 23, 42, .12); }
+        .flip-card:focus-visible { outline: 3px solid var(--faculty-secondary); outline-offset: 3px; border-radius: 14px; }
+        @media (prefers-reduced-motion: reduce) { .flip-card-inner { transition: none; } }
+      `;
+      document.head.appendChild(st);
+    }
+
+    function hasQuartiles(d) {
+      return d.salarios.programas.every((p) => p.p25 !== undefined && p.p75 !== undefined);
+    }
+
+    // ------------------------------------------------------------------ Empleabilidad
+    function facultyEmpleabilidadMarkup(prefix, d) {
+      const total = d.kpis.totalVacantes;
+      const nSal = d.salarios.programas.reduce((a, p) => a + (p.conSalario || 0), 0);
+      const pctSal = Math.round(100 * nSal / total);
+      const quart = hasQuartiles(d);
+      const hasMinMax = d.salarios.programas.every((p) => p.min !== undefined);
+      const programOptions = d.vacantesPorPrograma.map((p) => `<option value="${p.programa}">${p.programa}</option>`).join("");
+      const topProgramOptions = Object.keys(d.topCompetencias).map((p) => `<option value="${p}">${p}</option>`).join("");
+      const municipios = d.kpis.ciudadesConPresencia;
+      const munCount = typeof municipios === "number" ? { count: municipios } : {};
+
+      const salaryRows = d.salarios.programas.map((s) => `
+        <tr><td>${s.programa}</td><td>${s.conSalario}</td><td>${formatCOP(s.mediana)}</td><td>${formatCOP(s.promedio)}</td>
+        ${quart ? `<td>${formatCOP(s.p25)} – ${formatCOP(s.p75)}</td>` : ""}
+        ${hasMinMax ? `<td>${formatCOP(s.min)}</td><td>${formatCOP(s.max)}</td>` : ""}</tr>`).join("");
+      const rangosHead = d.rangosSalariales.programas.map((p) => `<th>${shortProgramName(p)}</th>`).join("");
+      const rangosRows = d.rangosSalariales.filas.map((r) => `
+        <tr><td>${r.total ? "<strong>Total</strong>" : r.rango}</td>
+        ${r.valores.map((v) => `<td>${r.total ? `<strong>${v}</strong>` : v}</td>`).join("")}</tr>`).join("");
+      const confEntries = Object.entries(d.empresasConfidenciales || {});
+      const confidenciales = confEntries.map(([p, n]) => `${shortProgramName(p)}: ${n}`).join(" · ");
+      const hasSideCharts = d.modalidad || d.contrato;
+
+      return `
+        <div class="grid grid-cols-2 xl:grid-cols-4 gap-3 mb-4">
+          ${statTile("Vacantes analizadas", total.toLocaleString("es-CO"), "Bases depuradas de la facultad", { count: total })}
+          ${statTile("Programas cubiertos", d.kpis.programasCubiertos, "Con vacantes clasificadas", { count: d.kpis.programasCubiertos })}
+          ${statTile("Municipios con vacantes", municipios, `${d.mapa.ciudades.length} ubicados en el mapa`, munCount)}
+          ${statTile("Publican salario", pctSal + "%", `${nSal.toLocaleString("es-CO")} de ${total.toLocaleString("es-CO")} vacantes`, { count: pctSal, suffix: "%" })}
+        </div>
+
+        <div class="mb-6">${insightCardsMarkup(d.insights.vacantes, "vacantes")}</div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-5 gap-4 mb-6">
+          <div class="panel p-4 xl:col-span-3">
+            <h3 class="text-lg font-extrabold mb-1">Vacantes por programa</h3>
+            <p class="text-xs text-slate-500 mb-3">Ordenadas de mayor a menor; el porcentaje es la participación en la facultad.</p>
+            <div style="height:${Math.max(220, d.vacantesPorPrograma.length * 38)}px"><canvas id="${prefix}VacantesChart"></canvas></div>
+          </div>
+          <div class="panel p-4 xl:col-span-2">
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <h3 class="text-lg font-extrabold">Ficha del programa</h3>
+              <select id="${prefix}SpotlightSelect" class="rounded-lg border border-slate-300 px-2 py-1 text-xs bg-white max-w-[60%]">${programOptions}</select>
+            </div>
+            <div id="${prefix}Spotlight" class="fade-in"></div>
+          </div>
+        </div>
+
+        <div class="panel p-4 mb-6">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-2">
+            <h3 class="text-lg font-extrabold">Distribución territorial de las vacantes</h3>
+            ${d.mapa.filtrable === false ? "" : `<div class="flex items-center gap-2">
+              <label for="${prefix}MapFilter" class="text-xs font-bold text-slate-600">Programa:</label>
+              <select id="${prefix}MapFilter" class="rounded-lg border border-slate-300 px-3 py-2 text-sm bg-white"><option value="">Todos los programas</option>${programOptions}</select>
+            </div>`}
+          </div>
+          <p class="text-xs text-slate-500 mb-3">${d.mapa.cobertura}</p>
+          <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+            <div class="xl:col-span-2 rounded-xl overflow-hidden border border-slate-200" style="height:440px"><div id="${prefix}Map" style="height:100%;width:100%"></div></div>
+            <div>
+              <h4 class="text-sm font-extrabold mb-2">Municipios con más vacantes</h4>
+              <div id="${prefix}CityRanking" class="space-y-2 text-xs"></div>
+              <div id="${prefix}RemoteChip" class="mt-3"></div>
+            </div>
+          </div>
+          <div class="mt-4">${insightCardsMarkup(d.insights.ciudades, "ciudades")}</div>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-4">
+          <div class="panel p-4">
+            <div class="flex items-center justify-between gap-2 mb-1">
+              <h3 class="text-lg font-extrabold">Salarios publicados (COP/mes)</h3>
+              ${quart ? `<div class="flex rounded-lg border border-slate-300 overflow-hidden text-xs" id="${prefix}SalaryToggle">
+                <button data-mode="rango" class="px-3 py-1 font-bold bg-slate-800 text-white">Rango central</button>
+                <button data-mode="comparar" class="px-3 py-1 font-bold bg-white text-slate-700">Mediana vs promedio</button>
+              </div>` : ""}
+            </div>
+            <p class="text-xs text-slate-500 mb-3" id="${prefix}SalaryNote">${quart
+              ? "Barra: 50% central de los salarios publicados (percentil 25 a 75). Rombo: mediana."
+              : "Comparación entre la mediana y el promedio de los salarios publicados."}</p>
+            <div class="h-[320px]"><canvas id="${prefix}SalariosChart"></canvas></div>
+          </div>
+          <div class="panel p-4">
+            <h3 class="text-lg font-extrabold mb-1">Rango salarial por programa</h3>
+            <p class="text-xs text-slate-500 mb-3">Proporción de las vacantes con salario publicado en cada rango.</p>
+            <div style="height:${Math.max(320, d.rangosSalariales.programas.length * 34)}px"><canvas id="${prefix}RangosChart"></canvas></div>
+          </div>
+        </div>
+        <div class="mb-4">${insightCardsMarkup(d.insights.salarios, "salarios")}</div>
+        <div class="panel p-4 mb-6">
+          <details>
+            <summary class="accordion-summary"><strong>Tablas de salarios</strong><span class="accordion-meta"><span class="accordion-badge">Cobertura ${d.salarios.coberturaTexto}</span><span class="accordion-chevron">▾</span></span></summary>
+            <div class="table-wrap mt-3"><table>
+              <thead><tr><th>Programa</th><th>N° con salario</th><th>Mediana</th><th>Promedio</th>${quart ? "<th>Rango central (P25–P75)</th>" : ""}${hasMinMax ? "<th>Mín</th><th>Máx</th>" : ""}</tr></thead>
+              <tbody>${salaryRows}</tbody></table></div>
+            <div class="table-wrap mt-4"><table><thead><tr><th>Rango</th>${rangosHead}</tr></thead><tbody>${rangosRows}</tbody></table></div>
+          </details>
+        </div>
+
+        <div class="panel p-4 mb-6">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
+            <h3 class="text-lg font-extrabold">Top empresas, cargos y competencias</h3>
+            <div class="flex items-center gap-2">
+              <label for="${prefix}TopProgramFilter" class="text-xs font-bold text-slate-600">Programa:</label>
+              <select id="${prefix}TopProgramFilter" class="rounded-lg border border-slate-300 px-3 py-2 text-sm bg-white">${topProgramOptions}</select>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+            <div><h4 class="text-sm font-extrabold mb-2">Top empresas</h4><div class="h-[280px]"><canvas id="${prefix}TopEmpresasChart"></canvas></div></div>
+            <div id="${prefix}TopCargosBlock"><h4 class="text-sm font-extrabold mb-2">Top cargos</h4><div class="h-[280px]"><canvas id="${prefix}TopCargosChart"></canvas></div></div>
+            <div><h4 class="text-sm font-extrabold mb-2">Top competencias</h4><div class="h-[280px]"><canvas id="${prefix}TopCompetenciasChart"></canvas></div></div>
+          </div>
+          ${confEntries.length ? `<p class="text-xs text-slate-500 mt-3 mb-4">Empresas confidenciales o sin nombre (excluidas del top): ${confidenciales}.</p>` : `<div class="mb-4"></div>`}
+          ${insightCardsMarkup(d.insights.competencias, "competencias", 2)}
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+          ${hasSideCharts ? `<div class="panel p-4">
+            ${d.modalidad ? `<h3 class="text-lg font-extrabold mb-2">Modalidad de trabajo</h3>
+              <p class="text-xs text-slate-500 mb-3">${d.modalidad.cobertura}</p>
+              <div class="h-[220px] mb-4"><canvas id="${prefix}ModalidadChart"></canvas></div>` : ""}
+            ${d.contrato ? `<h3 class="text-lg font-extrabold mb-2">Tipo de contrato</h3>
+              <p class="text-xs text-slate-500 mb-3">${d.contrato.cobertura}</p>
+              <div class="h-[220px] mb-4"><canvas id="${prefix}ContratoChart"></canvas></div>` : ""}
+            ${insightCardsMarkup(d.insights.modalidad, "modalidad", 1)}
+          </div>` : ""}
+          <div class="panel p-4 ${hasSideCharts ? "xl:col-span-2" : "xl:col-span-3"}">
+            <h3 class="text-lg font-extrabold mb-3">Mapa de habilidades por programa</h3>
+            <div id="${prefix}SkillsTreemapGrid" class="grid grid-cols-1 xl:grid-cols-2 gap-3"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    function getProgramValue(obj, p) {
+      return typeof pickProgram === "function" ? pickProgram(obj, p) : (obj || {})[p];
+    }
+
+    function renderSpotlight(prefix, emp, idx) {
+      const sel = document.getElementById(`${prefix}SpotlightSelect`);
+      const box = document.getElementById(`${prefix}Spotlight`);
+      if (!sel || !box) return;
+      const p = sel.value;
+      const total = emp.kpis.totalVacantes;
+      const vac = (emp.vacantesPorPrograma.find((x) => x.programa === p) || {}).vacantes || 0;
+      const sal = emp.salarios.programas.find((x) => x.programa === p) || getProgramValue(emp.salarios.programas, p) || {};
+      const io = getProgramValue(idx.resumen, p);
+      const first = (arr) => (arr && arr.length ? String(arr[0]).replace(/\s*\((\d+)\)\s*$/, " · $1") : "Sin dato");
+      const remoto = ((emp.mapa.remoto || {}).porPrograma || {})[p] || 0;
+      const extras = Object.entries(emp.extrasPorPrograma || {})
+        .map(([label, map]) => { const v = getProgramValue(map, p); return v ? `<li><strong>${label}:</strong> ${v}</li>` : ""; }).join("");
+      const ciudades = getProgramValue(emp.ciudadesPorPrograma, p) || [];
+      box.innerHTML = `
+        <div class="grid grid-cols-2 gap-2 mb-3">
+          <div class="rounded-xl p-3 text-white" style="background:linear-gradient(120deg,var(--faculty-secondary),var(--faculty-primary));">
+            <p class="text-[11px] opacity-80">Vacantes</p><p class="text-2xl font-extrabold" data-count="${vac}">${vac}</p>
+            <p class="text-[11px] opacity-80">${Math.round(100 * vac / total)}% de la facultad</p>
+          </div>
+          <div class="rounded-xl p-3 bg-amber-50 border border-amber-200">
+            <p class="text-[11px] text-amber-800">Salario mediano</p><p class="text-2xl font-extrabold text-amber-900">${sal.mediana ? formatMillones(sal.mediana) : "—"}</p>
+            <p class="text-[11px] text-amber-800">${(sal.conSalario || 0).toLocaleString("es-CO")} vacantes con salario</p>
+          </div>
+        </div>
+        ${io ? `<div class="flex items-center justify-between rounded-xl border border-slate-200 p-3 mb-3">
+          <div><p class="text-[11px] text-slate-500">Índice de Oportunidad</p><p class="text-xl font-extrabold" style="color:${CLASS_COLORS[io.clase]}">${io.indice.toFixed(2)}</p></div>
+          <span class="pill ${io.clase}">${io.clasificacion}</span></div>` : `<div class="rounded-xl border border-dashed border-slate-300 p-3 mb-3 text-xs text-slate-500">Programa sin Índice de Oportunidad calculado.</div>`}
+        <ul class="text-xs text-slate-700 space-y-2">
+          ${ciudades.length ? `<li><strong>Ciudades principales:</strong> ${ciudades.join(" · ")}</li>` : ""}
+          <li><strong>Competencia más mencionada:</strong> ${first(getProgramValue(emp.topCompetencias, p))}</li>
+          <li><strong>Cargo más frecuente:</strong> ${first(getProgramValue(emp.topCargos, p))}</li>
+          <li><strong>Empleador más frecuente:</strong> ${first(getProgramValue(emp.empleadoresPorPrograma, p))}</li>
+          ${remoto ? `<li><strong>Vacantes remotas:</strong> ${remoto}</li>` : ""}
+          ${extras}
+        </ul>`;
+      animateCounters(box);
+    }
+
+    function buildFacultyVacantesChart(prefix, d) {
+      const name = `${prefix}Vacantes`;
+      safeDestroyChart(name);
+      const ctx = document.getElementById(`${prefix}VacantesChart`);
+      if (!ctx) return;
+      const rows = [...d.vacantesPorPrograma].sort((a, b) => b.vacantes - a.vacantes);
+      const total = rows.reduce((a, r) => a + r.vacantes, 0);
+      charts[name] = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: rows.map((r) => `${shortProgramName(r.programa)} · ${Math.round(100 * r.vacantes / total)}%`),
+          datasets: [{ data: rows.map((r) => r.vacantes), backgroundColor: rows.map((r) => hexToRgba(r.color, 0.85)), borderRadius: 6, barThickness: 20 }]
+        },
+        options: {
+          indexAxis: "y", responsive: true, maintainAspectRatio: false, animation: { duration: 900 },
+          plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `${c.raw.toLocaleString("es-CO")} vacantes` } } },
+          scales: { x: { beginAtZero: true, grid: { color: "#eef2f7" } }, y: { grid: { display: false } } }
+        }
+      });
+    }
+
+    function buildFacultySalariosChart(prefix, d, mode) {
+      const name = `${prefix}Salarios`;
+      safeDestroyChart(name);
+      const ctx = document.getElementById(`${prefix}SalariosChart`);
+      if (!ctx) return;
+      if (!mode) mode = hasQuartiles(d) ? "rango" : "comparar";
+      const programas = [...d.salarios.programas].sort((a, b) => b.mediana - a.mediana);
+      const labels = programas.map((p) => shortProgramName(p.programa));
+      const money = (v) => "$" + Number(v).toLocaleString("es-CO");
+      const datasets = mode === "rango"
+        ? [
+            { type: "bar", label: "Rango central (P25–P75)", data: programas.map((p) => [p.p25, p.p75]), backgroundColor: "rgba(14,165,165,0.35)", borderColor: "#0e7490", borderWidth: 1, borderRadius: 6, barThickness: 18 },
+            { type: "line", label: "Mediana", data: programas.map((p) => p.mediana), showLine: false, pointStyle: "rectRot", pointRadius: 8, pointHoverRadius: 10, backgroundColor: "#b45309", borderColor: "#ffffff", borderWidth: 2 }
+          ]
+        : [
+            { type: "bar", label: "Mediana", data: programas.map((p) => p.mediana), backgroundColor: "#0f4b72", borderRadius: 6 },
+            { type: "bar", label: "Promedio", data: programas.map((p) => p.promedio), backgroundColor: "#f59e0b", borderRadius: 6 }
+          ];
+      charts[name] = new Chart(ctx, {
+        type: "bar",
+        data: { labels, datasets },
+        options: {
+          responsive: true, maintainAspectRatio: false, animation: { duration: 700 },
+          plugins: {
+            legend: { position: "top" },
+            tooltip: { callbacks: { label: (c) => Array.isArray(c.raw) ? `${c.dataset.label}: ${money(c.raw[0])} – ${money(c.raw[1])}` : `${c.dataset.label}: ${money(c.raw)}` } }
+          },
+          scales: { y: { beginAtZero: mode !== "rango", ticks: { callback: (v) => "$" + (v / 1e6).toLocaleString("es-CO") + "M" }, grid: { color: "#eef2f7" } }, x: { grid: { display: false } } }
+        }
+      });
+    }
+
+    function bindSalaryToggle(prefix, d) {
+      const wrap = document.getElementById(`${prefix}SalaryToggle`);
+      const note = document.getElementById(`${prefix}SalaryNote`);
+      if (!wrap) return;
+      wrap.querySelectorAll("button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          wrap.querySelectorAll("button").forEach((b) => { b.classList.remove("bg-slate-800", "text-white"); b.classList.add("bg-white", "text-slate-700"); });
+          btn.classList.add("bg-slate-800", "text-white"); btn.classList.remove("bg-white", "text-slate-700");
+          note.textContent = btn.dataset.mode === "rango"
+            ? "Barra: 50% central de los salarios publicados (percentil 25 a 75). Rombo: mediana."
+            : "Comparación entre la mediana y el promedio de los salarios publicados.";
+          buildFacultySalariosChart(prefix, d, btn.dataset.mode);
+        });
+      });
+    }
+
+    function buildFacultyRangosChart(prefix, d) {
+      const name = `${prefix}Rangos`;
+      safeDestroyChart(name);
+      const ctx = document.getElementById(`${prefix}RangosChart`);
+      if (!ctx) return;
+      const filas = d.rangosSalariales.filas.filter((r) => !r.total);
+      const totales = d.rangosSalariales.filas.find((r) => r.total).valores;
+      const palette = ["#e2e8f0", "#cbd5e1", "#93c5fd", "#60a5fa", "#2563eb", "#1e40af", "#0b2742"];
+      charts[name] = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: d.rangosSalariales.programas.map(shortProgramName),
+          datasets: filas.map((r, i) => ({
+            label: r.rango,
+            data: r.valores.map((v, j) => totales[j] ? +(100 * v / totales[j]).toFixed(1) : 0),
+            counts: r.valores,
+            backgroundColor: palette[i % palette.length]
+          }))
+        },
+        options: {
+          indexAxis: "y", responsive: true, maintainAspectRatio: false, animation: { duration: 900 },
+          plugins: {
+            legend: { position: "bottom", labels: { boxWidth: 12, font: { size: 11 } } },
+            tooltip: { callbacks: { label: (c) => `${c.dataset.label}: ${c.raw}% (${c.dataset.counts[c.dataIndex]} vacantes)` } }
+          },
+          scales: { x: { stacked: true, max: 100, ticks: { callback: (v) => v + "%" }, grid: { color: "#eef2f7" } }, y: { stacked: true, grid: { display: false } } }
+        }
+      });
+    }
+
+    function renderCityRanking(prefix, d, programa) {
+      const box = document.getElementById(`${prefix}CityRanking`);
+      const remote = document.getElementById(`${prefix}RemoteChip`);
+      if (!box) return;
+      const rows = d.mapa.ciudades
+        .map((c) => ({ ciudad: c.ciudad, v: programa ? (c.porPrograma[programa] || 0) : c.vacantes }))
+        .filter((c) => c.v > 0).sort((a, b) => b.v - a.v);
+      const tot = rows.reduce((a, r) => a + r.v, 0) || 1;
+      const max = rows.length ? rows[0].v : 1;
+      box.innerHTML = rows.slice(0, 8).map((r, i) => `
+        <div>
+          <div class="flex justify-between mb-1"><span class="font-bold text-slate-700">${i + 1}. ${r.ciudad}</span><span class="text-slate-500">${r.v.toLocaleString("es-CO")} · ${Math.round(100 * r.v / tot)}%</span></div>
+          <div class="h-2 rounded-full bg-slate-100 overflow-hidden"><div class="h-2 rounded-full" style="width:${Math.max(3, 100 * r.v / max)}%;background:linear-gradient(90deg,var(--faculty-secondary),var(--faculty-primary));transition:width .6s"></div></div>
+        </div>`).join("") || `<p class="text-slate-500">Sin vacantes georreferenciadas para este programa.</p>`;
+      const rem = d.mapa.remoto || { total: 0, porPrograma: {} };
+      const nr = programa ? (rem.porPrograma[programa] || 0) : rem.total;
+      remote.innerHTML = nr ? `<span class="pill pill-growth">Remotas: ${nr.toLocaleString("es-CO")}</span>` : "";
+    }
+
+    function buildFacultyMap(prefix, d, programa) {
+      const el = document.getElementById(`${prefix}Map`);
+      if (!el) return;
+      if (facultyMaps[prefix]) { facultyMaps[prefix].remove(); delete facultyMaps[prefix]; }
+      if (typeof L === "undefined") {
+        el.innerHTML = `<div class="h-full flex items-center justify-center text-sm text-slate-500 p-6 text-center">No fue posible cargar el mapa (se requiere conexión a internet). El ranking de municipios muestra la misma información.</div>`;
+        return;
+      }
+      const theme = getFacultyTheme(currentFaculty);
+      const map = L.map(el, { scrollWheelZoom: false, zoomControl: true }).setView([4.6, -74.3], 5);
+      L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+        attribution: "Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ",
+        maxZoom: 12
+      }).addTo(map);
+      const rows = d.mapa.ciudades.map((c) => ({ ...c, v: programa ? (c.porPrograma[programa] || 0) : c.vacantes })).filter((c) => c.v > 0);
+      const max = Math.max(1, ...rows.map((r) => r.v));
+      const layer = L.featureGroup();
+      rows.sort((a, b) => b.v - a.v).forEach((c) => {
+        const top = Object.entries(c.porPrograma).sort((a, b) => b[1] - a[1]).slice(0, 3)
+          .map(([p, n]) => `${shortProgramName(p)}: ${n}`).join("<br>");
+        L.circleMarker([c.lat, c.lng], {
+          radius: 5 + 28 * Math.sqrt(c.v / max),
+          color: "#ffffff", weight: 1.5, fillColor: theme.primary, fillOpacity: 0.65
+        }).bindTooltip(`<strong>${c.ciudad}</strong><br>${c.v.toLocaleString("es-CO")} vacantes${programa || !top ? "" : `<br><span style="color:#64748b">${top}</span>`}`, { sticky: true })
+          .addTo(layer);
+      });
+      layer.addTo(map);
+      if (rows.length) map.fitBounds(layer.getBounds().pad(0.25), { maxZoom: 7 });
+      facultyMaps[prefix] = map;
+      setTimeout(() => map.invalidateSize(), 250);
+    }
+
+    function bindMapFilter(prefix, d) {
+      const sel = document.getElementById(`${prefix}MapFilter`);
+      if (!sel) return;
+      sel.addEventListener("change", () => {
+        buildFacultyMap(prefix, d, sel.value);
+        renderCityRanking(prefix, d, sel.value);
+      });
+    }
+
+    function buildFacultyDoughnut(prefix, key, block) {
+      const name = `${prefix}${key}`;
+      safeDestroyChart(name);
+      const ctx = document.getElementById(`${prefix}${key}Chart`);
+      if (!ctx || !block) return;
+      charts[name] = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+          labels: block.items.map((i) => i.tipo),
+          datasets: [{ data: block.items.map((i) => i.valor), backgroundColor: ["#0b2742", "#f59e0b", "#0ea5a5", "#6d28d9", "#94a3b8"], borderWidth: 2, borderColor: "#fff" }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, cutout: "62%", plugins: { legend: { position: "bottom" } } }
+      });
+    }
+
+    // ------------------------------------------------------------------ Índice
+    function facultyIndiceMarkup(prefix, d, sigla) {
+      const filasResumen = d.resumen.map((r) => `
+        <tr>
+          <td>${r.programa}</td>
+          <td class="text-center">${r.digital.toFixed(2)}</td>
+          <td class="text-center">${r.laboral.toFixed(2)}</td>
+          <td class="text-center"><strong>${r.indice.toFixed(2)}</strong></td>
+          <td><span class="pill ${r.clase}">${r.clasificacion}</span></td>
+        </tr>
+      `).join("");
+
+      const hallazgos = d.hallazgos.map((h) => `
+        <div class="rounded-xl border border-sky-200 bg-sky-50 p-3">
+          <p class="text-slate-700">${h}</p>
+        </div>
+      `).join("");
+
+      const insight = (list, color) => list.map((txt, i) => `
+        <div class="rounded-xl border border-slate-200 bg-slate-50 p-3 flex gap-3">
+          <div class="h-9 w-9 rounded-full flex items-center justify-center text-white font-extrabold shrink-0" style="background:${color};">${i + 1}</div>
+          <p class="text-slate-700">${txt}</p>
+        </div>
+      `).join("");
+
+      ensureFlipCardStyles();
+      const recomendaciones = d.recomendaciones.map((r) => `
+        <button type="button" class="flip-card text-center" onclick="this.classList.toggle('is-flipped')" aria-label="${r.tipo}: ${r.titulo}. Ver recomendación">
+          <div class="flip-card-inner">
+            <div class="flip-face flip-front rounded-xl border border-slate-200 bg-white overflow-hidden flex flex-col">
+              <div class="px-4 py-2 text-white font-extrabold tracking-wide text-center" style="background:${r.color};">${r.tipo}</div>
+              <div class="p-4 flex-1 min-h-0 flex flex-col items-center">
+                <div class="flex-1 flex items-center justify-center">
+                  <h4 class="text-xl font-extrabold text-slate-800 text-center">${r.titulo}</h4>
+                </div>
+                <p class="pt-2 text-xs font-bold text-center" style="color:${r.color};">Ver recomendación ↻</p>
+              </div>
+            </div>
+            <div class="flip-face flip-back rounded-xl overflow-hidden" style="background:${r.color};">
+              <div class="p-4 h-full flex flex-col items-center text-white text-center">
+                <p class="text-[11px] font-extrabold tracking-wider opacity-80 mb-2">${r.tipo}</p>
+                <div class="flex-1 min-h-0 w-full flex">
+                  <p class="m-auto max-h-full overflow-y-auto px-1 text-sm leading-relaxed text-center">${r.texto}</p>
+                </div>
+                <p class="pt-2 text-xs font-bold opacity-80">Volver ↺</p>
+              </div>
+            </div>
+          </div>
+        </button>
+      `).join("");
+
+      const ordered = [...d.resumen].sort((a, b) => b.indice - a.indice);
+      const best = ordered[0];
+      const nTop = d.resumen.filter((r) => r.clase === "pill-high" || r.clase === "pill-growth").length;
+      const nLow = d.resumen.length - nTop;
+      const maxDigital = d.resumen.reduce((a, r) => (r.digital > a.digital ? r : a), d.resumen[0]);
+
+      const conv = d.convocatoria ? `
+        <div class="panel p-4 md:p-5 mb-6">
+          <h3 class="text-lg font-extrabold mb-3">Convocatoria docente del MEN: cómo se incorporó al modelo</h3>
+          <div class="flex flex-col md:flex-row md:items-end gap-3 mb-4">
+            <p class="text-5xl font-extrabold" style="color:var(--faculty-primary)">${d.convocatoria.vacantes}</p>
+            <p class="text-sm text-slate-600">vacantes definitivas para docentes y directivos docentes en entidades territoriales certificadas de todo el país.<br><span class="text-xs text-slate-500">${d.convocatoria.soporte}</span></p>
+          </div>
+          <div class="grid grid-cols-1 xl:grid-cols-3 gap-3 mb-4">
+            ${d.convocatoria.pasos.map((p) => `
+              <div class="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                <div class="flex items-center gap-2 mb-2"><span class="h-8 w-8 rounded-full flex items-center justify-center text-white font-extrabold" style="background:#22316f;">${p.numero}</span><strong>${p.titulo}</strong></div>
+                <p class="text-sm text-slate-700">${p.texto}</p>
+              </div>`).join("")}
+          </div>
+          <div class="rounded-xl border border-orange-200 bg-orange-50 p-3 text-sm text-orange-900 italic">${d.convocatoria.alerta}</div>
+        </div>` : "";
+
+      return `
+        <div class="grid grid-cols-2 xl:grid-cols-4 gap-3 mb-6">
+          ${statTile("Programas analizados", d.resumen.length, sigla, { count: d.resumen.length })}
+          ${statTile("Índice más alto", best.indice.toFixed(1), `${best.programa} · ${best.clasificacion}`)}
+          ${statTile("Alta Oportunidad o Crecimiento", nTop, `${nLow} en Nicho o Saturación`, { count: nTop })}
+          ${statTile("Mayor puntaje digital", maxDigital.digital.toFixed(2), maxDigital.programa)}
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-5 gap-4 mb-6">
+          <div class="panel p-4 md:p-5 xl:col-span-3">
+            <h3 class="text-lg font-extrabold mb-3">Resumen Consolidado - Índice de Oportunidad (${sigla})</h3>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="background:#0b2742; color:#ffffff;">Programa</th>
+                    <th class="text-center" style="background:#0b2742; color:#ffffff;">Puntaje Digital (30%)</th>
+                    <th class="text-center" style="background:#0b2742; color:#ffffff;">Puntaje Laboral (70%)</th>
+                    <th class="text-center" style="background:#0b2742; color:#ffffff;">Índice Final</th>
+                    <th style="background:#0b2742; color:#ffffff;">Clasificación</th>
+                  </tr>
+                </thead>
+                <tbody>${filasResumen}</tbody>
+              </table>
+            </div>
+            ${d.notaTabla ? `<p class="text-xs text-slate-500 italic mt-3">${d.notaTabla}</p>` : ""}
+          </div>
+          <div class="panel p-4 md:p-5 xl:col-span-2">
+            <h3 class="text-lg font-extrabold mb-1">Composición del índice</h3>
+            <p class="text-xs text-slate-500 mb-3">Aporte del puntaje digital y laboral al índice final de cada programa.</p>
+            <div style="height:${Math.max(240, d.resumen.length * 36)}px"><canvas id="${prefix}IndiceChart"></canvas></div>
+          </div>
+        </div>
+
+        <div class="panel p-4 md:p-5 mb-6">
+          <h3 class="text-lg font-extrabold mb-3">Hallazgos Principales</h3>
+          <div class="grid grid-cols-1 xl:grid-cols-3 gap-3 text-sm">${hallazgos}</div>
+        </div>
+
+        ${conv}
+
+        <div class="panel p-4 md:p-5 mb-6">
+          <h3 class="text-lg font-extrabold mb-4">Insights por Variable</h3>
+          <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 text-sm">
+            <details open>
+              <summary class="accordion-summary">
+                <strong>Interés Digital (Google Trends)</strong>
+                <span class="accordion-meta"><span class="accordion-badge">${d.insightsDigital.length} ítems</span><span class="accordion-chevron">▾</span></span>
+              </summary>
+              <div class="space-y-3 mt-3">${insight(d.insightsDigital, "#1178b5")}</div>
+            </details>
+            <details open>
+              <summary class="accordion-summary">
+                <strong>Tasa de Absorción Laboral</strong>
+                <span class="accordion-meta"><span class="accordion-badge">${d.insightsLaboral.length} ítems</span><span class="accordion-chevron">▾</span></span>
+              </summary>
+              <div class="space-y-3 mt-3">${insight(d.insightsLaboral, "#272f6f")}</div>
+            </details>
+          </div>
+        </div>
+
+        <div class="panel p-4 md:p-5 mb-6">
+          <details open>
+            <summary class="accordion-summary">
+              <strong>Recomendaciones para el Mercadeo</strong>
+              <span class="accordion-meta"><span class="accordion-badge">${d.recomendaciones.length} líneas estratégicas</span><span class="accordion-chevron">▾</span></span>
+            </summary>
+            <p class="text-xs text-slate-500 mt-3">Haz clic en cada tarjeta para ver la recomendación.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 text-sm mt-3">${recomendaciones}</div>
+          </details>
+        </div>
+      `;
+    }
+
+    function buildFacultyIndiceChart(prefix, d) {
+      const name = `${prefix}Indice`;
+      safeDestroyChart(name);
+      const ctx = document.getElementById(`${prefix}IndiceChart`);
+      if (!ctx) return;
+      const r = [...d.resumen].sort((a, b) => b.indice - a.indice);
+      charts[name] = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: r.map((x) => shortProgramName(x.programa)),
+          datasets: [
+            { label: "Puntaje Laboral (70%)", data: r.map((x) => x.laboral), backgroundColor: r.map((x) => hexToRgba(CLASS_COLORS[x.clase], 0.85)), borderRadius: 4 },
+            { label: "Puntaje Digital (30%)", data: r.map((x) => x.digital), backgroundColor: "#f59e0b", borderRadius: 4 }
+          ]
+        },
+        options: {
+          indexAxis: "y", responsive: true, maintainAspectRatio: false, animation: { duration: 900 },
+          plugins: {
+            legend: { position: "bottom", labels: { boxWidth: 12 } },
+            tooltip: { callbacks: { footer: (items) => `Índice final: ${r[items[0].dataIndex].indice.toFixed(2)} · ${r[items[0].dataIndex].clasificacion}` } }
+          },
+          scales: { x: { stacked: true, beginAtZero: true, max: 80, grid: { color: "#eef2f7" } }, y: { stacked: true, grid: { display: false } } }
+        }
+      });
+    }
+
+    // ------------------------------------------------------------------ render
+    function renderFacultyDashboard(id, indice, empleabilidad) {
+      const cfg = facultyDashConfig[id];
+      if (facultyMaps[cfg.prefix]) { facultyMaps[cfg.prefix].remove(); delete facultyMaps[cfg.prefix]; }
+      const emp = cfg.emp;
+      indice.innerHTML = facultyIndiceMarkup(cfg.prefix, cfg.idx, cfg.sigla);
+      empleabilidad.innerHTML = facultyEmpleabilidadMarkup(cfg.prefix, emp);
+      if (currentSubtab === "indice") {
+        animateCounters(indice);
+        buildFacultyIndiceChart(cfg.prefix, cfg.idx);
+      } else {
+        animateCounters(empleabilidad);
+        buildFacultyVacantesChart(cfg.prefix, emp);
+        const spot = document.getElementById(`${cfg.prefix}SpotlightSelect`);
+        spot.addEventListener("change", () => renderSpotlight(cfg.prefix, emp, cfg.idx));
+        renderSpotlight(cfg.prefix, emp, cfg.idx);
+        buildFacultyMap(cfg.prefix, emp, "");
+        renderCityRanking(cfg.prefix, emp, "");
+        bindMapFilter(cfg.prefix, emp);
+        buildFacultySalariosChart(cfg.prefix, emp);
+        bindSalaryToggle(cfg.prefix, emp);
+        buildFacultyRangosChart(cfg.prefix, emp);
+        buildFacultyDoughnut(cfg.prefix, "Modalidad", emp.modalidad);
+        buildFacultyDoughnut(cfg.prefix, "Contrato", emp.contrato);
+        buildEmployabilityTopCharts(cfg.prefix, emp, {
+          empresasKey: "empleadoresPorPrograma",
+          cargosKey: "topCargos",
+          competenciasKey: "topCompetencias"
+        });
+        if (emp.mapaHabilidades && emp.mapaHabilidades.length) {
+          buildProgramSkillsTreemapsFromMapa(cfg.prefix, `${cfg.prefix}SkillsTreemapGrid`, emp.mapaHabilidades);
+        } else {
+          buildProgramSkillsTreemapsFromTopMap(cfg.prefix, `${cfg.prefix}SkillsTreemapGrid`, emp.topCompetencias,
+            emp.vacantesPorPrograma.map((p) => p.color));
+        }
+      }
+    }
+
     init();
   </script>
 </body>
 </html>
+```
